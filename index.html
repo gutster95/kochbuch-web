@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kochbuch — E-Mail bestätigt</title>
+<title>Kochbuch</title>
 <meta name="robots" content="noindex">
 <!--
   Die Seite, auf der ein Aktivierungslink landet (Supabase: Authentication -> URL
@@ -31,7 +31,6 @@
     /* 30 % Text und Struktur */
     --ink-900:  #1F1A16;
     --ink-700:  #4A423B;
-    --ink-500:  #7C726A;
     /* 10 % Akzent */
     --clay-500: #C05A31;
     --sage-500: #5E7355;
@@ -60,11 +59,11 @@
 
   .karte {
     width: 100%;
-    max-width: 27rem;
+    max-width: 26rem;
     background: var(--sand-100);
     border: 1px solid var(--sand-200);
     border-radius: 28px;              /* Radius.xl der App */
-    padding: 40px 32px 32px;
+    padding: 40px 32px 36px;
     text-align: center;
     box-shadow: 0 18px 40px -18px var(--shadow);
     animation: auftauchen 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
@@ -115,29 +114,6 @@
 
   p { margin: 0; }
 
-  .hinweis {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: var(--ink-500);
-  }
-
-  .englisch {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--sand-200);
-    font-size: 0.9rem;
-    color: var(--ink-500);
-  }
-
-  .englisch strong {
-    display: block;
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--ink-700);
-    margin-bottom: 4px;
-  }
-
   @keyframes auftauchen {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: none; }
@@ -167,14 +143,44 @@
       </svg>
     </div>
 
-    <h1>Alles klar!</h1>
-    <p>Dein Konto ist freigeschaltet. Du kannst dieses Fenster schließen und dich jetzt in der App anmelden.</p>
-    <p class="hinweis">Die App bemerkt das von selbst — meist bist du schon drin, wenn du zurückwechselst.</p>
-
-    <div class="englisch">
-      <strong>All set!</strong>
-      Your account is confirmed. Close this window and sign in to the app.
-    </div>
+    <!--
+      Der Auslieferungszustand ist ENGLISCH, nicht Deutsch - dieselbe Regel wie im
+      Ressourcenordner `values/` der App: Englisch ist der Rueckfall fuer jede
+      Sprache, die wir nicht kennen. Wer mit abgeschaltetem JavaScript kommt, sieht
+      genau diesen Text.
+    -->
+    <h1 id="titel">All set!</h1>
+    <p id="text">Your account is confirmed. You can close this window and sign in to the app.</p>
   </main>
+
+<script>
+  // Dieselben sechs Sprachen wie die App (AppLanguage). Der Browser wertet
+  // Accept-Language nicht fuer uns aus - die Seite liegt statisch auf GitHub
+  // Pages, es gibt keinen Server, der das koennte. Also hier, aus
+  // navigator.languages.
+  var TEXTE = {
+    de: ["Alles klar!", "Dein Konto ist freigeschaltet. Du kannst dieses Fenster schließen und dich jetzt in der App anmelden."],
+    en: ["All set!", "Your account is confirmed. You can close this window and sign in to the app."],
+    fr: ["C’est fait !", "Votre compte est activé. Vous pouvez fermer cette fenêtre et vous connecter dans l’application."],
+    es: ["¡Todo listo!", "Tu cuenta está activada. Puedes cerrar esta ventana e iniciar sesión en la aplicación."],
+    it: ["Tutto fatto!", "Il tuo account è attivo. Puoi chiudere questa finestra e accedere all’app."],
+    pl: ["Gotowe!", "Twoje konto jest aktywne. Możesz zamknąć to okno i zalogować się w aplikacji."]
+  };
+
+  // Nur der Sprachteil zaehlt: "de-AT" und "de-CH" sind hier dasselbe wie "de".
+  var wunsch = navigator.languages && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || "en"];
+
+  var treffer = "en";
+  for (var i = 0; i < wunsch.length; i++) {
+    var kurz = String(wunsch[i]).slice(0, 2).toLowerCase();
+    if (TEXTE[kurz]) { treffer = kurz; break; }
+  }
+
+  document.documentElement.lang = treffer;
+  document.getElementById("titel").textContent = TEXTE[treffer][0];
+  document.getElementById("text").textContent = TEXTE[treffer][1];
+</script>
 </body>
 </html>
