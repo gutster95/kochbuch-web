@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kochbuch — E-Mail bestätigt</title>
+<meta name="robots" content="noindex">
+<!--
+  Die Seite, auf der ein Aktivierungslink landet (Supabase: Authentication -> URL
+  Configuration -> Site URL). Eine einzelne Datei ohne Build-Schritt, damit sie
+  irgendwo statisch liegen kann - siehe supabase/README.md.
+
+  Sie darf NICHT auf *.supabase.co liegen: Weder Edge Functions noch Storage
+  liefern dort HTML aus. Beide erzwingen `Content-Type: text/plain` und
+  `Content-Security-Policy: default-src 'none'; sandbox` (am 10.08.2026 an beiden
+  nachgemessen) - der Browser zeigte dem Nutzer den Quelltext.
+
+  Farben und Schrift sind aus dem App-Theme uebernommen:
+  ui/theme/Color.kt (Sand50/Sand100/Ink900/Ink700/Ink500/Clay500/Sage500) und
+  ui/theme/Type.kt (Fraunces fuer Titel, System-Sans fuer Fliesstext).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* 60 % neutrale Basis */
+    --sand-50:  #FCFAF7;
+    --sand-100: #F6F1EA;
+    --sand-200: #EBE3D8;
+    /* 30 % Text und Struktur */
+    --ink-900:  #1F1A16;
+    --ink-700:  #4A423B;
+    --ink-500:  #7C726A;
+    /* 10 % Akzent */
+    --clay-500: #C05A31;
+    --sage-500: #5E7355;
+    --sage-100: #E6EDE1;
+    --shadow:   rgba(107, 74, 52, 0.10);
+
+    color-scheme: light; /* Die App ist bewusst hell - kein Umfaerben durch den Browser. */
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--sand-50);
+    color: var(--ink-700);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .karte {
+    width: 100%;
+    max-width: 27rem;
+    background: var(--sand-100);
+    border: 1px solid var(--sand-200);
+    border-radius: 28px;              /* Radius.xl der App */
+    padding: 40px 32px 32px;
+    text-align: center;
+    box-shadow: 0 18px 40px -18px var(--shadow);
+    animation: auftauchen 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+
+  .marke {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay-500);
+    margin: 0 0 24px;
+  }
+
+  .haken {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: var(--sage-100);
+    display: grid;
+    place-items: center;
+    animation: aufploppen 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) 0.1s both;
+  }
+
+  .haken svg { width: 40px; height: 40px; display: block; }
+
+  .haken path {
+    fill: none;
+    stroke: var(--sage-500);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 32;
+    stroke-dashoffset: 32;
+    animation: zeichnen 0.45s ease-out 0.35s both;
+  }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    color: var(--ink-900);
+    margin: 0 0 12px;
+  }
+
+  p { margin: 0; }
+
+  .hinweis {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--ink-500);
+  }
+
+  .englisch {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--sand-200);
+    font-size: 0.9rem;
+    color: var(--ink-500);
+  }
+
+  .englisch strong {
+    display: block;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink-700);
+    margin-bottom: 4px;
+  }
+
+  @keyframes auftauchen {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes aufploppen {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes zeichnen {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Wer Bewegung abbestellt hat, bekommt dasselbe Bild - nur sofort. */
+  @media (prefers-reduced-motion: reduce) {
+    .karte, .haken, .haken path { animation: none; }
+    .haken path { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+  <main class="karte">
+    <p class="marke">Kochbuch</p>
+
+    <div class="haken">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 12.5 L9.5 18 L20 6.5" />
+      </svg>
+    </div>
+
+    <h1>Alles klar!</h1>
+    <p>Dein Konto ist freigeschaltet. Du kannst dieses Fenster schließen und dich jetzt in der App anmelden.</p>
+    <p class="hinweis">Die App bemerkt das von selbst — meist bist du schon drin, wenn du zurückwechselst.</p>
+
+    <div class="englisch">
+      <strong>All set!</strong>
+      Your account is confirmed. Close this window and sign in to the app.
+    </div>
+  </main>
+</body>
+</html>
