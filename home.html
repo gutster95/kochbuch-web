@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- noindex, solange die Angaben Platzhalter sind (siehe web/README.md).
+     Raus, sobald Anschrift und Kontakt stehen. -->
+<meta name="robots" content="noindex">
+<title>Kochbuch — Rezepte aus Reels</title>
+<meta name="description" content="Kochbuch macht aus einem TikTok- oder Instagram-Link ein Rezept mit Zutaten und Schritten.">
+<link rel="stylesheet" href="stil.css">
+<!--
+  Die Startseite des Auftritts. Sie hat zwei Aufgaben, und die zweite ist die
+  wichtigere: Sie erklaert kurz, was die App tut - und sie ist der Ort, an dem
+  Datenschutzerklaerung, Impressum, Nutzungsbedingungen und der Loeschweg
+  verlinkt sind. Google Play verlangt eine oeffentlich erreichbare URL fuer die
+  Datenschutzerklaerung und eine zweite fuer die Kontoloeschung ohne App.
+
+  Statisch, ohne Build-Schritt, fuer GitHub Pages - siehe supabase/README.md.
+  Alle Pfade sind RELATIV: Die Seite liegt unter /kochbuch-web/, absolute Pfade
+  wie /stil.css zeigten dort ins Leere.
+-->
+</head>
+<body>
+
+<header class="kopf">
+  <div class="kopf-inhalt">
+    <a class="marke" href="index.html">Kochbuch</a>
+    <nav class="sprachen" aria-label="Sprache">
+      <span aria-current="true">DE</span>
+      <a href="en/home.html" hreflang="en">EN</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="inhalt">
+
+    <section class="held">
+      <h1>Aus einem Reel wird ein Rezept</h1>
+      <p class="vorspann">
+        Schick der App einen TikTok- oder Instagram-Link. Sie wertet das Video aus und
+        macht daraus ein Rezept mit Zutaten und Schritten — zum Nachkochen, Planen und
+        Teilen.
+      </p>
+    </section>
+
+    <div class="kacheln">
+      <div class="kachel">
+        <b>Importieren</b>
+        <span>Link teilen, warten, fertig. Zutaten, Schritte und Bild stehen im Kochbuch.</span>
+      </div>
+      <div class="kachel">
+        <b>Wochenplan</b>
+        <span>Rezepte in die Woche legen — allein oder gemeinsam mit verknüpften Kochbüchern.</span>
+      </div>
+      <div class="kachel">
+        <b>Kochmodus</b>
+        <span>Schritt für Schritt, mit Bildschirm, der anbleibt.</span>
+      </div>
+    </div>
+
+    <h2 id="rechtliches">Rechtliches</h2>
+    <p>
+      Die App ist kostenpflichtig, sobald die ersten Importe aufgebraucht sind. Was das
+      heißt, wem welche Daten wohin gehen und wie man sein Konto wieder loswird, steht
+      hier:
+    </p>
+
+    <div class="kacheln">
+      <a class="kachel" href="datenschutz/index.html">
+        <b>Datenschutzerklärung</b>
+        <span>Welche Daten wir verarbeiten, wer sie sonst noch sieht und wie lange sie bleiben.</span>
+      </a>
+      <a class="kachel" href="agb/index.html">
+        <b>Nutzungsbedingungen</b>
+        <span>Abo, Rezeptinhalte, geteilte Kochbücher und die Grenzen des Ganzen.</span>
+      </a>
+      <a class="kachel" href="impressum/index.html">
+        <b>Impressum</b>
+        <span>Wer hinter der App steckt und wie man uns erreicht.</span>
+      </a>
+      <a class="kachel" href="konto-loeschen/index.html">
+        <b>Konto löschen</b>
+        <span>In der App mit zwei Tipps — oder hier, ganz ohne App.</span>
+      </a>
+    </div>
+
+    <h2 id="kontakt">Kontakt</h2>
+    <p>
+      Fragen, Fehler, Wünsche:
+      <a href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
+    </p>
+
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="fuss-inhalt">
+    <a href="datenschutz/index.html">Datenschutz</a>
+    <a href="agb/index.html">Nutzungsbedingungen</a>
+    <a href="impressum/index.html">Impressum</a>
+    <a href="konto-loeschen/index.html">Konto löschen</a>
+  </div>
+</footer>
+
+</body>
+</html>

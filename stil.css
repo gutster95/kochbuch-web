@@ -1,0 +1,415 @@
+/*
+  Die gemeinsame Gestaltung aller Seiten unter kochbuch-web.
+
+  Sie ist bewusst KEINE eigene Handschrift, sondern dieselbe wie in der App: Die
+  Farben stehen wortgleich in ui/theme/Color.kt, die Radien und Abstaende in
+  ui/theme/Dimens.kt, die Schriftrollen in ui/theme/Type.kt. Wer dort etwas
+  aendert, aendert es hier mit - sonst sehen Store-Eintrag, Website und App nach
+  drei verschiedenen Produkten aus.
+
+  Kein Build-Schritt: eine Datei, statisch, fuer GitHub Pages. Der Rest des
+  Auftritts sind reine HTML-Dateien, die sie einbinden.
+*/
+
+/* --- Die Schrift kommt von HIER, nicht von Google ------------------------- */
+/*
+  Die Seiten haben Fraunces frueher ueber fonts.googleapis.com geladen. Damit
+  ging die IP-Adresse jedes Besuchers ohne Einwilligung an Google - genau der
+  Fall, den das LG Muenchen I 2022 entschieden hat (Az. 3 O 17493/20) und der
+  seitdem massenhaft abgemahnt wird. Auf einer DATENSCHUTZERKLAERUNG waere das
+  besonders schlecht.
+
+  Die Datei ist die variable Fassung aus der App
+  (shared/src/commonMain/composeResources/font/fraunces_variable.ttf), damit
+  Website und App buchstaeblich dieselbe Schrift tragen. `font-weight: 100 900`
+  gibt die wght-Achse an den Browser weiter, `font-display: swap` zeigt sofort
+  die Ersatzschrift statt einer leeren Flaeche.
+*/
+@font-face {
+  font-family: "Fraunces";
+  src: url("schrift/fraunces.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* 60 % neutrale Basis */
+  --sand-50:  #FCFAF7;
+  --sand-100: #F6F1EA;
+  --sand-200: #EBE3D8;
+
+  /* 30 % Text und Struktur */
+  --ink-900:  #1F1A16;
+  --ink-700:  #4A423B;
+  --ink-500:  #7C726A;
+
+  /* 10 % Akzent */
+  --clay-500: #C05A31;
+  --clay-600: #9E4526;
+  --clay-100: #FBE7DD;
+  --sage-500: #5E7355;
+  --sage-100: #E6EDE1;
+  --shadow:   rgba(107, 74, 52, 0.10);
+
+  /* Dimens.kt: Spacing.xs ... Spacing.xxxl */
+  --sp-xs:   4px;
+  --sp-sm:   8px;
+  --sp-md:  12px;
+  --sp-lg:  16px;
+  --sp-xl:  24px;
+  --sp-2xl: 32px;
+  --sp-3xl: 48px;
+
+  /* Dimens.kt: Radius.sm ... Radius.xxl */
+  --r-sm:   8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  20px;
+  --r-xxl: 28px;
+
+  /* Die App ist bewusst hell - kein Umfaerben durch den Browser. */
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--sand-50);
+  color: var(--ink-700);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Kopf und Fuss ------------------------------------------------------- */
+
+.kopf {
+  border-bottom: 1px solid var(--sand-200);
+  background: var(--sand-50);
+}
+
+.kopf-inhalt,
+.inhalt,
+.fuss-inhalt {
+  /*
+    42rem statt der vollen Breite: Eine Rechtsseite wird gelesen, nicht
+    ueberflogen, und ab etwa 90 Zeichen je Zeile findet das Auge den Anfang der
+    naechsten nicht mehr zuverlaessig.
+  */
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 var(--sp-xl);
+}
+
+.kopf-inhalt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-lg);
+  min-height: 64px;
+}
+
+.marke {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay-500);
+  text-decoration: none;
+}
+
+.marke:hover { color: var(--clay-600); }
+
+/* Der Sprachumschalter - zwei Kuerzel, das aktuelle ohne Verweis. */
+.sprachen {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.sprachen a { color: var(--ink-500); text-decoration: none; }
+.sprachen a:hover { color: var(--clay-500); }
+.sprachen [aria-current="true"] { color: var(--ink-900); font-weight: 600; }
+
+.fuss {
+  margin-top: var(--sp-3xl);
+  border-top: 1px solid var(--sand-200);
+  padding: var(--sp-xl) 0 var(--sp-2xl);
+  color: var(--ink-500);
+  font-size: 0.9rem;
+}
+
+.fuss-inhalt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-md) var(--sp-xl);
+}
+
+.fuss a { color: var(--ink-500); }
+.fuss a:hover { color: var(--clay-500); }
+
+/* --- Fliesstext ---------------------------------------------------------- */
+
+main { padding: var(--sp-2xl) 0 0; }
+
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  line-height: 1.2;
+  color: var(--ink-900);
+  margin: 0 0 var(--sp-md);
+}
+
+h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--ink-900);
+  margin: var(--sp-2xl) 0 var(--sp-sm);
+  /*
+    Sprungmarken aus dem Inhaltsverzeichnis duerfen nicht unter dem Kopf
+    verschwinden.
+  */
+  scroll-margin-top: var(--sp-xl);
+}
+
+h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink-900);
+  margin: var(--sp-xl) 0 var(--sp-xs);
+}
+
+p, ul, ol, table { margin: 0 0 var(--sp-lg); }
+
+ul, ol { padding-left: var(--sp-xl); }
+li { margin-bottom: var(--sp-xs); }
+
+a { color: var(--clay-500); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--clay-600); }
+
+strong { color: var(--ink-900); font-weight: 600; }
+
+.vorspann {
+  font-size: 1.1rem;
+  color: var(--ink-500);
+  margin-bottom: var(--sp-xl);
+}
+
+.stand {
+  font-size: 0.85rem;
+  color: var(--ink-500);
+  margin-bottom: var(--sp-2xl);
+}
+
+/* --- Karten und Hinweise ------------------------------------------------- */
+
+.karte {
+  background: var(--sand-100);
+  border: 1px solid var(--sand-200);
+  border-radius: var(--r-xxl);
+  padding: var(--sp-xl);
+  margin-bottom: var(--sp-lg);
+  box-shadow: 0 18px 40px -18px var(--shadow);
+}
+
+.karte > :last-child { margin-bottom: 0; }
+
+/*
+  Der Akzentkasten fuer das eine, was auf einer Seite heraussticht - ein
+  Warnhinweis, ein Handlungsweg. Sparsam einsetzen: Zwei davon nebeneinander
+  heben sich gegenseitig auf.
+*/
+.hinweis {
+  background: var(--clay-100);
+  border-radius: var(--r-lg);
+  padding: var(--sp-lg) var(--sp-xl);
+  margin-bottom: var(--sp-lg);
+}
+
+.hinweis > :last-child { margin-bottom: 0; }
+
+/*
+  Rot markierte Platzhalter, die vor der Veroeffentlichung gefuellt werden
+  MUESSEN. Absichtlich haesslich: Ein dezenter Platzhalter im Impressum
+  ueberlebt jede Durchsicht.
+*/
+.todo {
+  background: #FCE9E7;
+  color: #B3261E;
+  border-radius: var(--r-sm);
+  padding: 2px 6px;
+  font-weight: 600;
+}
+
+/* --- Tabellen ------------------------------------------------------------ */
+
+.tabelle { width: 100%; overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--sp-sm) var(--sp-md) var(--sp-sm) 0;
+  border-bottom: 1px solid var(--sand-200);
+}
+
+th { color: var(--ink-900); font-weight: 600; }
+
+/* --- Inhaltsverzeichnis -------------------------------------------------- */
+
+.verzeichnis {
+  background: var(--sand-100);
+  border: 1px solid var(--sand-200);
+  border-radius: var(--r-lg);
+  padding: var(--sp-lg) var(--sp-xl);
+  margin-bottom: var(--sp-2xl);
+}
+
+.verzeichnis ol {
+  margin: 0;
+  padding-left: var(--sp-lg);
+  font-size: 0.95rem;
+}
+
+.verzeichnis li { margin-bottom: var(--sp-xs); }
+
+/* --- Die Startseite ------------------------------------------------------ */
+
+.held {
+  padding: var(--sp-3xl) 0 var(--sp-2xl);
+  text-align: center;
+}
+
+.held .vorspann { max-width: 34rem; margin-left: auto; margin-right: auto; }
+
+.knopf {
+  display: inline-block;
+  background: var(--clay-500);
+  color: var(--sand-50);
+  border-radius: var(--r-xl);
+  padding: var(--sp-md) var(--sp-xl);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.knopf:hover { background: var(--clay-600); color: var(--sand-50); }
+
+.kacheln {
+  display: grid;
+  gap: var(--sp-lg);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin-bottom: var(--sp-lg);
+}
+
+.kachel {
+  display: block;
+  background: var(--sand-100);
+  border: 1px solid var(--sand-200);
+  border-radius: var(--r-xl);
+  padding: var(--sp-lg) var(--sp-xl);
+  text-decoration: none;
+  color: var(--ink-700);
+}
+
+.kachel:hover { border-color: var(--clay-500); color: var(--ink-700); }
+
+.kachel b {
+  display: block;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--ink-900);
+  margin-bottom: var(--sp-xs);
+}
+
+.kachel span { font-size: 0.92rem; color: var(--ink-500); }
+
+/* --- Die Bestaetigungsseite ---------------------------------------------- */
+/*
+  confirmed/index.html ist die einzige Seite ohne Kopf und Fuss: Sie ist das
+  Ende eines Vorgangs, kein Ort zum Weiterlesen. Deshalb zentriert und ohne
+  jeden Ausgang.
+*/
+
+body.mittig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-xl);
+}
+
+.mittig .karte {
+  width: 100%;
+  max-width: 26rem;
+  padding: 40px 32px 36px;
+  text-align: center;
+  animation: auftauchen 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.mittig .marke { display: block; margin-bottom: var(--sp-xl); font-size: 0.95rem; }
+
+.haken {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto var(--sp-xl);
+  border-radius: 50%;
+  background: var(--sage-100);
+  display: grid;
+  place-items: center;
+  animation: aufploppen 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) 0.1s both;
+}
+
+.haken svg { width: 40px; height: 40px; display: block; }
+
+.haken path {
+  fill: none;
+  stroke: var(--sage-500);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+  animation: zeichnen 0.45s ease-out 0.35s both;
+}
+
+.mittig h1 { font-size: 1.75rem; }
+.mittig p  { margin: 0; }
+
+@keyframes auftauchen {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes aufploppen {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes zeichnen {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Wer Bewegung abbestellt hat, bekommt dasselbe Bild - nur sofort. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mittig .karte, .haken, .haken path { animation: none; }
+  .haken path { stroke-dashoffset: 0; }
+}

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- noindex, solange die Angaben Platzhalter sind (siehe web/README.md).
+     Raus, sobald Anschrift und Kontakt stehen. -->
+<meta name="robots" content="noindex">
+<title>Konto löschen — Kochbuch</title>
+<link rel="stylesheet" href="../stil.css">
+<!--
+  Google Play verlangt seit 2023 fuer jede App, in der sich ein Konto anlegen
+  laesst, einen im WEB erreichbaren Loeschweg - erreichbar OHNE die App und ohne
+  vorherige Anmeldung. Diese URL wird in der Play Console unter
+  "Datenlöschung" eingetragen.
+
+  Bewusst zwei Wege statt eines Formulars: Der Weg in der App loescht sofort und
+  vollstaendig (RPC delete_own_account, Migration 011). Ein Webformular koennte
+  das nicht - die Seite liegt statisch auf GitHub Pages, es gibt keinen Server,
+  der eine Identitaet pruefen koennte. Ein Formular, das ungeprueft Loeschungen
+  entgegennimmt, waere schlimmer als keines: Damit koennte jeder das Konto eines
+  anderen loeschen lassen.
+-->
+</head>
+<body>
+
+<header class="kopf">
+  <div class="kopf-inhalt">
+    <a class="marke" href="../home.html">Kochbuch</a>
+    <nav class="sprachen" aria-label="Sprache">
+      <span aria-current="true">DE</span>
+      <a href="../en/delete-account/index.html" hreflang="en">EN</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="inhalt">
+
+    <h1>Konto löschen</h1>
+    <p class="vorspann">
+      Dein Konto lässt sich vollständig löschen — mit allem, was darin steht. Es gibt zwei
+      Wege: einen in der App und einen ohne.
+    </p>
+
+    <h2 id="app">In der App — sofort</h2>
+    <p>Der schnellste Weg, und der einzige, der sofort wirkt:</p>
+    <ol>
+      <li>Tippe oben rechts auf dein Profilbild</li>
+      <li>Wähle <strong>Profil</strong></li>
+      <li>Ganz unten: <strong>Mein Konto löschen</strong></li>
+      <li>Bestätige die Rückfrage</li>
+    </ol>
+    <p>
+      Die Löschung erfolgt unmittelbar. Danach wirst du abgemeldet und kannst dich mit dieser
+      Adresse nicht mehr anmelden.
+    </p>
+
+    <h2 id="ohne-app">Ohne App — per E-Mail</h2>
+    <p>
+      Kein Gerät zur Hand oder die App bereits deinstalliert? Dann schreib uns eine kurze
+      Nachricht:
+    </p>
+    <div class="karte">
+      <p>
+        <strong>An:</strong>
+        <a href="mailto:info@juicyslaedle.de?subject=Konto%20l%C3%B6schen">info@juicyslaedle.de</a><br>
+        <strong>Betreff:</strong> Konto löschen
+      </p>
+      <p>
+        Schick die Nachricht bitte <strong>von der E-Mail-Adresse, mit der das Konto
+        angelegt wurde</strong>. Das ist unsere einzige Möglichkeit zu prüfen, dass die
+        Anfrage tatsächlich von dir kommt — sonst könnte jeder die Löschung fremder Konten
+        veranlassen.
+      </p>
+    </div>
+    <p>
+      Wir löschen innerhalb von <strong>30 Tagen</strong> und bestätigen per Antwortmail. In
+      aller Regel geht es deutlich schneller.
+    </p>
+
+    <h2 id="was">Was gelöscht wird</h2>
+    <div class="tabelle">
+      <table>
+        <thead>
+          <tr><th>Wird gelöscht</th><th>Bleibt bestehen</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>dein Konto und die Anmeldedaten</td>
+            <td>Kochbücher, mit denen du verknüpft warst — sie gehören ihren Besitzern</td>
+          </tr>
+          <tr>
+            <td>alle deine Rezepte samt Zutaten und Schritten</td>
+            <td>deren Rezepte; nur die Verknüpfung fällt weg</td>
+          </tr>
+          <tr>
+            <td>deine Kategorien, dein Wochenplan, deine Favoriten</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>alle deine Bilder, einschließlich Profilbild</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>dein Anzeigename und dein Importkontingent</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="hinweis">
+      <p>
+        <strong>Es gibt keine Wiederherstellung.</strong> Die Daten werden unmittelbar
+        entfernt, nicht nur ausgeblendet — auch wir können sie danach nicht zurückholen. Wenn
+        du deine Rezepte behalten möchtest, sichere sie vorher.
+      </p>
+    </div>
+
+    <h2 id="abo">Ein laufendes Abo endet nicht automatisch</h2>
+    <p>
+      Das Abo läuft über Google Play bzw. den App Store und muss <strong>dort gesondert
+      gekündigt werden</strong>. Wir können es weder beenden noch erstatten — siehe
+      <a href="../agb/index.html#preise">Nutzungsbedingungen § 5</a>. Kündige also am besten
+      zuerst im Store und lösche danach das Konto.
+    </p>
+
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="fuss-inhalt">
+    <a href="../home.html">Startseite</a>
+    <a href="../datenschutz/index.html">Datenschutz</a>
+    <a href="../agb/index.html">Nutzungsbedingungen</a>
+    <a href="../impressum/index.html">Impressum</a>
+  </div>
+</footer>
+
+</body>
+</html>
