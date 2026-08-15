@@ -89,6 +89,61 @@ sieht niemand wieder.
 Dazu kommt genau eine zweite Regung: Der Kopf bekommt seinen Rand erst, wenn wirklich
 etwas darunter durchläuft.
 
+## Der Ton der Texte
+
+**Kein Satz endet mit einer Pointe, nur weil er sonst zu Ende wäre.** Die erste Fassung
+trug in 685 Wörtern **13 Gedankenstrich-Einschübe** — fast jeder Absatz war nach demselben
+Muster gebaut: Aussage, Gedankenstrich, Zuspitzung. Einzeln liest sich das gut, dreizehnmal
+hintereinander klingt es nach einer Maschine, die gelernt hat, wie Cleverness aussieht.
+Jetzt sind es zwei, und beide sitzen dort, wo ein Gedankenstrich hingehört (Seitentitel und
+Preisangabe).
+
+Drei Regeln, die daraus folgen und beim Weiterschreiben gelten:
+
+- **Kein Dreiklang als Schluss.** „Kein Abtippen, kein Zurückspulen, kein
+  Screenshot-Friedhof" nennt zwei echte Vorteile und ein Wortspiel. Geblieben sind die
+  zwei echten.
+- **Keine Überschrift, die erst entschlüsselt werden will.** „Das Kleingedruckte, groß
+  genug" heißt jetzt „Datenschutz und Rechtliches". Wer diese Zeile sucht, sucht das Wort,
+  nicht den Einfall.
+- **Konkret schlägt allgemein.** „übersetzt, was fremdsprachig ist" → „übersetzt, was auf
+  Englisch oder Italienisch dasteht". „wenn niemand entscheiden will" → „wenn ihr euch
+  nicht einigen könnt".
+
+Was **nicht** geändert wurde: die Überschriften, die schon eine Sache beim Namen nennen
+(„Aus einem Reel wird ein Rezept", „Beim Kochen bleibt der Bildschirm an", „Die ersten 15
+Rezepte gehen aufs Haus"). Sie sind konkret, nicht klug.
+
+## Barrierefreiheit
+
+Durchgerechnet, nicht geschätzt — alle Text-auf-Fläche-Paare der Seite gegen WCAG AA:
+
+| Stelle | Vorher | Jetzt |
+|---|---|---|
+| Hashtags im Rohtext (`#8C7C6E`) | 3,97 : 1 | `#9C8C7E`, 4,91 : 1 |
+| Fokusring in Fuß und dunkler Bahn | 2,74 : 1 | `--clay-warm`, 8,0 : 1 |
+| Fokusring auf der Preisfläche | 1,2 : 1 | `--sand-50`, 5,0 : 1 |
+
+Der Fokusring ist der Punkt, den man am leichtesten übersieht: Er wird einmal global
+gesetzt und dann nie wieder angeschaut — auf zwei von fünf Bahnen war er praktisch
+unsichtbar, und die Fußzeile ist die linkreichste Stelle der Seite.
+
+Dazu drei Dinge, die kein Kontrastwert meldet:
+
+- **Die Sprungmarke** (`.sprung`) steht vor der Kopfzeile. Ohne sie tabbt man durch Marke,
+  drei Anker und zwei Sprachen, bevor der erste Satz kommt — auf jeder Unterseite erneut.
+- **Tippflächen**: Der Sprachumschalter war rund 20 px hoch, die Fußzeilen-Links 26 px.
+  Beide sitzen jetzt auf mindestens 40 px, und auf dem Telefon sind die Fußzeilen-Links die
+  **einzigen** sichtbaren Navigationslinks — die Kopfzeile blendet ihre unter 60rem aus.
+- **`scroll-behavior: smooth`** gilt nur noch bei `prefers-reduced-motion: no-preference`.
+  Ein Sprung über die halbe Startseite ist genau die Bewegung, die bei vestibulären
+  Beschwerden Übelkeit auslöst.
+
+**Die Überschriftenstufen im Rezeptblatt sind `h3`, nicht `h4`** — vorher sprang die
+Gliederung von `h2` direkt auf `h4`. Sie brauchen deshalb eine eigene Regel: Das Blatt ist
+hell, liegt aber **innerhalb** der dunklen Bahn, und `.band-dunkel h3` färbte die beiden
+Zeilen sonst hell auf Sand. Als `h4` entgingen sie dieser Regel zufällig.
+
 ## Was leicht kaputtgeht
 
 - **`.tarif span` gegen `.tarif-sparen`.** Der Sparen-Chip ist ein `span` in `.tarif`, und
@@ -101,6 +156,9 @@ etwas darunter durchläuft.
   anderem Verhältnis brauchen deshalb auch eine neue Regel in `.schirm-bild`.
 - **Zwei Sprachfassungen.** `home.html` und `en/home.html` tragen denselben Aufbau
   wörtlich. Wer eine Sektion ändert, ändert beide — ein Skript prüft das nicht.
+- **Die Tarifzeile bricht schmal um.** `.tarif` ist ein Grid aus drei Spalten (Preis,
+  Erläuterung, Sparen-Chip). Unter 34rem wandert die Erläuterung in eine zweite Zeile,
+  sonst stand der Chip mitten im Satz: „im Jahr, also 2,39 € im **[−20 %]** Monat".
 - **`stil.css` zuerst, `start.css` danach.** Tokens, `@font-face` und der Reset stehen in
   der ersten Datei; die zweite baut darauf auf und überschreibt `.marke`. Dreht man die
   Reihenfolge um, steht die Marke wieder in Versalien und Terracotta.

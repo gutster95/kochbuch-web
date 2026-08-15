@@ -9,7 +9,7 @@
 <title>Kochbuch — aus einem Reel wird ein Rezept</title>
 <link rel="icon" href="bilder/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="bilder/logo-180.png">
-<meta name="description" content="Kochbuch macht aus einem TikTok- oder Instagram-Link ein Rezept mit Zutaten und Schritten. Wochenplan, Kochmodus und geteilte Kochbücher inklusive.">
+<meta name="description" content="Teile ein Reel von TikTok oder Instagram, und Kochbuch macht ein Rezept daraus: Zutaten, Schritte, Bild. Mit Wochenplan, Kochmodus und einem Kochbuch, das zwei Leute teilen können.">
 <meta name="theme-color" content="#FCFAF7">
 <link rel="stylesheet" href="stil.css">
 <link rel="stylesheet" href="start.css">
@@ -29,6 +29,8 @@
 -->
 </head>
 <body class="start">
+
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
 
 <!--
   THESIS: Diese Seite zeigt die Verwandlung selbst - geteilte Caption links,
@@ -122,7 +124,7 @@
   </div>
 </header>
 
-<main>
+<main id="inhalt" tabindex="-1">
 
   <!-- ------------------------------------------------------------------ -->
   <section class="held-start">
@@ -131,9 +133,9 @@
       <div class="held-text">
         <h1>Aus einem Reel wird ein Rezept</h1>
         <p class="gross">
-          Du siehst etwas Gutes auf TikTok oder Instagram, teilst den Link mit Kochbuch —
-          und hast ein Rezept mit Zutaten, Schritten und Bild. Kein Abtippen, kein
-          Zurückspulen, kein Screenshot-Friedhof.
+          Du siehst auf TikTok oder Instagram etwas, das du kochen willst, und teilst den
+          Link mit Kochbuch. Zurück kommt ein Rezept: Zutaten, Schritte, Bild. Nichts
+          abtippen, nichts zurückspulen.
         </p>
         <div class="knopf-reihe">
           <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20vormerken">
@@ -144,7 +146,7 @@
         </div>
         <p class="stand-zeile">
           <span class="punkt" aria-hidden="true"></span>
-          Die Android-Fassung ist in Vorbereitung, die iPhone-Fassung entsteht daneben.
+          Android steht kurz vor dem Start, die iPhone-Fassung entsteht parallel.
         </p>
       </div>
 
@@ -179,11 +181,12 @@
     <div class="bahn">
 
       <div class="verwandlung-kopf">
-        <h2>Links steht, was du teilst. Rechts, was du bekommst.</h2>
+        <h2>Aus dieser Caption wird dieses Rezept</h2>
         <p class="gross">
-          Captions sind Fließtext mit Emojis, Hashtags und Mengen mitten im Satz —
-          und die Hälfte der Zubereitung wird nur im Video gesprochen. Kochbuch liest
-          beides, sortiert Zutaten und Schritte und übersetzt, was fremdsprachig ist.
+          In einer Caption stehen die Mengen mitten im Satz, zwischen Emojis und
+          Hashtags, und die Zubereitung wird oft nur im Video gesagt. Kochbuch liest
+          beides mit, trennt Zutaten von Schritten und übersetzt, was auf Englisch
+          oder Italienisch dasteht.
         </p>
       </div>
 
@@ -216,7 +219,7 @@ alles weitere im Video 👆 speichern nicht vergessen
 
           <div class="rezept-spalten">
             <div class="stufe" style="--i:3">
-              <h4>Zutaten</h4>
+              <h3>Zutaten</h3>
               <ul class="zutaten">
                 <li class="gruppe">Für die Sauce</li>
                 <li><span class="menge">150 g</span> Frischkäse</li>
@@ -230,7 +233,7 @@ alles weitere im Video 👆 speichern nicht vergessen
               </ul>
             </div>
             <div class="stufe" style="--i:4">
-              <h4>Zubereitung</h4>
+              <h3>Zubereitung</h3>
               <ol class="schritte">
                 <li><span class="nr">1</span><span>Linguine in Salzwasser bissfest kochen, eine Tasse Kochwasser aufheben.</span></li>
                 <li><span class="nr">2</span><span>Knoblauch in Olivenöl anschwitzen, Spinat zugeben und zusammenfallen lassen.</span></li>
@@ -243,8 +246,8 @@ alles weitere im Video 👆 speichern nicht vergessen
       </div>
 
       <p class="fussnote">
-        Beispiel mit erfundener Caption — echte Beiträge gehören ihren Urhebern.
-        Was Kochbuch daraus macht, liegt in deinem Kochbuch und sonst nirgends.
+        Die Caption oben ist erfunden; echte Beiträge gehören ihren Urhebern. Was
+        Kochbuch daraus macht, liegt in deinem Kochbuch und sonst nirgends.
       </p>
 
     </div>
@@ -256,17 +259,17 @@ alles weitere im Video 👆 speichern nicht vergessen
 
       <div class="zug">
         <div class="zug-text">
-          <h2>Die Woche steht am Sonntag</h2>
+          <h2>Was diese Woche auf den Tisch kommt</h2>
           <p class="gross">
-            Rezepte wandern mit einem Tipp in die Woche — einzeln aus dem Rezept oder
-            gleich mehrere aus der Liste. Und wenn niemand entscheiden will, würfelt die
-            App: ganze Kategorien lassen sich vorher ausschließen.
+            Ein Tipp legt ein Rezept in die Woche, aus der Liste heraus auch fünf auf
+            einmal. Und wenn ihr euch nicht einigen könnt, würfelt die App die Woche
+            zusammen. Kategorien, auf die gerade niemand Lust hat, lässt du vorher weg.
           </p>
           <ul class="zug-punkte">
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Der Wochenplan gilt für alle verknüpften Kochbücher gemeinsam.</span></li>
+              <span>Verknüpfte Kochbücher planen dieselbe Woche.</span></li>
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Wessen Plan du siehst, entscheidest du je Kochbuch selbst.</span></li>
+              <span>Wessen Plan du siehst, stellst du je Kochbuch selbst ein.</span></li>
           </ul>
         </div>
         <div class="zug-bild">
@@ -282,15 +285,15 @@ alles weitere im Video 👆 speichern nicht vergessen
         <div class="zug-text">
           <h2>Beim Kochen bleibt der Bildschirm an</h2>
           <p class="gross">
-            Der Kochmodus zeigt einen Schritt groß statt acht klein, hakt Zutaten ab und
-            lässt das Display an — und wenn das Handy zwischendurch aus der Hand fällt,
-            kommt die App an derselben Stelle wieder hoch.
+            Im Kochmodus füllt ein Schritt den Bildschirm, Zutaten hakst du beim Lesen
+            ab, und das Display schläft nicht ein. Legst du das Handy zwischendurch
+            weg, stehst du danach wieder an derselben Stelle.
           </p>
           <ul class="zug-punkte">
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Zutatengruppen wie „Für die Sauce" bleiben Überschriften, keine Zutat.</span></li>
+              <span>„Für die Sauce" bleibt eine Überschrift und wird nicht zur Zutat.</span></li>
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Bis zu 30 Minuten später steht der Schritt noch, an dem du warst.</span></li>
+              <span>Auch eine halbe Stunde später stehst du noch im richtigen Schritt.</span></li>
           </ul>
         </div>
         <div class="zug-bild">
@@ -306,15 +309,15 @@ alles weitere im Video 👆 speichern nicht vergessen
         <div class="zug-text">
           <h2>Ein Kochbuch zu zweit</h2>
           <p class="gross">
-            Ein sechsstelliger Einladungscode verbindet zwei Kochbücher. Danach seht ihr
-            beide Sammlungen und teilt euch die Woche — jeder bleibt Herr über seine
-            eigenen Rezepte, und Favoriten bleiben persönlich.
+            Ein sechsstelliger Code verbindet zwei Kochbücher. Danach seht ihr beide
+            Sammlungen und plant dieselbe Woche. Ändern darf jeder nur seine eigenen
+            Rezepte, und die Favoriten bleiben privat.
           </p>
           <ul class="zug-punkte">
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Der Code gilt sieben Tage und genau einmal.</span></li>
+              <span>Der Code gilt sieben Tage und lässt sich einmal einlösen.</span></li>
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Lösen geht jederzeit, ohne dass jemand Rezepte verliert.</span></li>
+              <span>Trennen geht jederzeit; niemand verliert dabei ein Rezept.</span></li>
           </ul>
         </div>
         <div class="zug-bild">
@@ -329,8 +332,8 @@ alles weitere im Video 👆 speichern nicht vergessen
       <div class="leiste-details">
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
-          <span><b>Rechnet auf dem Gerät</b>
-          <span>Wo das Handy es kann, bleibt die Aufbereitung lokal.</span></span>
+          <span><b>Rechnet auf dem Handy</b>
+          <span>Kann dein Gerät es selbst, verlässt der Text es nicht.</span></span>
         </div>
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
@@ -340,7 +343,7 @@ alles weitere im Video 👆 speichern nicht vergessen
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern"/></svg>
           <span><b>Kategorien und Favoriten</b>
-          <span>13 Kategorien zum Start, umbenennbar, dazu eigene.</span></span>
+          <span>13 Kategorien sind da; umbenennen und ergänzen kannst du sie.</span></span>
         </div>
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
@@ -358,9 +361,10 @@ alles weitere im Video 👆 speichern nicht vergessen
 
       <div>
         <h2>Die ersten 15 Rezepte gehen aufs Haus</h2>
-        <p class="gross" style="margin-top:var(--sp-lg)">
-          Sie verfallen nicht. Wer danach weiter importiert, zahlt — weil jeder Import
-          Rechenzeit kostet, die wir bezahlen.
+        <p class="gross" style="margin-top:var(--sp-xl)">
+          Sie laufen nicht ab, du kannst sie dir aufheben. Wer danach weiter Rezepte
+          holt, braucht ein Abo: Jeder Import kostet uns Rechenzeit, und die zahlt
+          niemand sonst.
         </p>
 
         <div class="tarife">
@@ -370,7 +374,7 @@ alles weitere im Video 👆 speichern nicht vergessen
           </div>
           <div class="tarif">
             <b>28,68 €</b>
-            <span>im Jahr — 2,39 € im Monat</span>
+            <span>im Jahr, also 2,39 € im Monat</span>
             <span class="tarif-sparen">−20 %</span>
           </div>
         </div>
@@ -386,11 +390,11 @@ alles weitere im Video 👆 speichern nicht vergessen
         <h3>Was ohne Abo bleibt</h3>
         <ul>
           <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Alle Rezepte, die schon drin sind — lesen, kochen, bearbeiten.</span></li>
+            <span>Alle Rezepte, die schon drin sind: lesen, kochen, bearbeiten.</span></li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
             <span>Wochenplan, Kochmodus, Favoriten und geteilte Kochbücher.</span></li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Dein Konto und der Weg, es mit zwei Tipps wieder zu löschen.</span></li>
+            <span>Dein Konto, samt dem Knopf, mit dem du es wieder löschst.</span></li>
         </ul>
       </div>
 
@@ -402,10 +406,10 @@ alles weitere im Video 👆 speichern nicht vergessen
     <div class="bahn schluss-raster">
 
       <div>
-        <h2>Das Kleingedruckte, groß genug</h2>
-        <p class="gross" style="margin-top:var(--sp-lg)">
-          Wem welche Daten wohin gehen, was das Abo bedeutet und wie man sein Konto
-          wieder loswird — ohne die App zu installieren.
+        <h2>Datenschutz und Rechtliches</h2>
+        <p class="gross" style="margin-top:var(--sp-xl)">
+          Welche Daten wo landen, was im Abo steht und wie du dein Konto wieder
+          löschst. Alles hier nachzulesen, auch ohne die App.
         </p>
       </div>
 
@@ -421,29 +425,29 @@ alles weitere im Video 👆 speichern nicht vergessen
           <a class="rechts-zeile" href="agb/index.html">
             <span>
               <b>Nutzungsbedingungen</b>
-              <span>Abo, Rezeptinhalte, geteilte Kochbücher und die Grenzen des Ganzen.</span>
+              <span>Abo, Rezeptinhalte und was gilt, wenn ihr ein Kochbuch teilt.</span>
             </span>
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
           <a class="rechts-zeile" href="impressum/index.html">
             <span>
               <b>Impressum</b>
-              <span>Wer hinter der App steckt und wie man uns erreicht.</span>
+              <span>Wer hinter der App steckt und wie du uns erreichst.</span>
             </span>
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
           <a class="rechts-zeile" href="konto-loeschen/index.html">
             <span>
               <b>Konto löschen</b>
-              <span>In der App mit zwei Tipps — oder hier, ganz ohne App.</span>
+              <span>In der App mit zwei Tipps, oder hier ganz ohne App.</span>
             </span>
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
         </div>
 
         <div class="kontakt-karte" style="margin-top:var(--sp-2xl)">
-          <h3>Fragen, Fehler, Wünsche</h3>
-          <p>Es antwortet ein Mensch, kein Ticketsystem.</p>
+          <h3>Schreib uns</h3>
+          <p>Bei Fragen, Fehlern und Wünschen antwortet die Person, die die App gebaut hat.</p>
           <a class="mail-zeile" href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
         </div>
       </div>
@@ -462,8 +466,8 @@ alles weitere im Video 👆 speichern nicht vergessen
           Kochbuch
         </a>
         <p class="fuss-satz">
-          Rezepte aus Reels — sortiert, übersetzt und kochbar. Für Android in
-          Vorbereitung, für das iPhone in Arbeit.
+          Rezepte aus Reels, sortiert und übersetzt. Für Android in Vorbereitung,
+          für das iPhone in Arbeit.
         </p>
       </div>
       <div class="fuss-spalte">

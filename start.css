@@ -53,6 +53,17 @@
   border-radius: var(--r-sm);
 }
 
+/*
+  Derselbe Ring auf den beiden gesaettigten Flaechen: Clay600 auf Ink900 kommt
+  auf 2,7:1, auf dem Clay-Verlauf auf 1,2:1 - der Ring waere dort schlicht nicht
+  zu sehen, und die Fusszeile ist die linkreichste Stelle der Seite. Verlangt
+  sind 3:1 (WCAG 1.4.11); ClayWarm haelt 8:1, Sand50 auf Clay 5:1.
+*/
+.band-dunkel :focus-visible,
+.start-fuss :focus-visible { outline-color: var(--clay-warm); }
+
+.band-clay :focus-visible { outline-color: var(--sand-50); }
+
 .start {
   /* Der Fliesstext der Startseite steht dunkler als auf den Rechtsseiten. */
   color: var(--ink-700);
@@ -103,7 +114,12 @@
 .start h1 {
   font-weight: 600;
   font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.25rem);
-  line-height: 1.03;
+  /*
+    1.03 sass auf dem Desktop sauber, drueckte die Zeilen aber zusammen, sobald
+    die Ueberschrift auf dem Telefon dreizeilig umbricht - dort steht sie bei
+    40px, und Oberlaenge und Unterlaenge kamen sich ins Gehege.
+  */
+  line-height: 1.07;
   letter-spacing: -0.025em;
 }
 
@@ -199,13 +215,25 @@
 
 .kopf-nav a:hover { color: var(--ink-900); border-bottom-color: var(--clay-500); }
 
+/*
+  Die Tippflaeche ist groesser als die Schrift: Zwei Buchstaben bei 12,8px sind
+  rund 20px hoch, verlangt sind 44px (WCAG 2.5.5). Das Polster steht am Link,
+  nicht am Container - sonst waechst nur der Abstand, nicht das Ziel.
+*/
 .kopf-sprachen {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-xs);
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   color: var(--ink-500);
+}
+
+.kopf-sprachen a,
+.kopf-sprachen > span[aria-current] {
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 44px;
 }
 
 .kopf-sprachen a { color: var(--ink-500); text-decoration: none; }
@@ -300,6 +328,8 @@
 }
 
 .held-text > * + * { margin-top: var(--sp-2xl); }
+/* Die Displayzeile traegt am meisten Gewicht und braucht entsprechend Luft. */
+.held-text h1 + * { margin-top: var(--sp-3xl); }
 .held-text .stand-zeile { margin-top: var(--sp-lg); }
 
 .held-text .gross { max-width: 30rem; }
@@ -369,7 +399,7 @@
 
 .verwandlung-kopf {
   display: grid;
-  gap: var(--sp-lg);
+  gap: var(--sp-xl);
   max-width: 44rem;
   margin-bottom: var(--sp-4xl);
 }
@@ -412,7 +442,11 @@
   margin: 0;
 }
 
-.roh-text .hash { color: #8C7C6E; }
+/*
+  Blasser als der Rohtext, aber nicht unter die Schwelle: Das fruehere #8C7C6E
+  kam auf 3,97:1 und lag damit unter den 4,5:1 fuer Text dieser Groesse.
+*/
+.roh-text .hash { color: #9C8C7E; }
 
 /* Rechts: das fertige Rezept, in der Flaeche der App. */
 .blatt-rezept {
@@ -458,11 +492,20 @@
   gap: var(--sp-xl);
 }
 
-.rezept-spalten h4 {
+/*
+  Eigene Regel, obwohl es ein h3 ist: Das Blatt ist hell, liegt aber INNERHALB
+  der dunklen Bahn - `.band-dunkel h3` faerbt sonst auch diese beiden Zeilen
+  hell, und sie stehen dann fast unsichtbar auf Sand. Vorher war es ein h4 und
+  entging der Regel; das war aber eine Stufe zu tief (h2 -> h4) und fuer einen
+  Screenreader ein Loch in der Gliederung.
+*/
+.rezept-spalten h3 {
   margin: 0 0 var(--sp-sm);
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.95rem;
+  line-height: 1.25;
   font-weight: 600;
+  letter-spacing: 0;
   color: var(--ink-900);
 }
 
@@ -561,7 +604,14 @@
 /* Jeder zweite Zug dreht die Seiten. */
 .zug-gedreht .zug-bild { order: -1; }
 
+/*
+  Nach einer Ueberschrift mehr Luft als zwischen zwei Absaetzen: Mit einheitlich
+  16px stand eine 45px-Zeile direkt auf ihrem Vorspann, und die Ueberschrift
+  wirkte wie die erste Zeile des Absatzes statt wie sein Titel.
+*/
 .zug-text > * + * { margin-top: var(--sp-lg); }
+.zug-text h2 + * { margin-top: var(--sp-xl); }
+.zug-text .gross + .zug-punkte { margin-top: var(--sp-xl); }
 
 .zug-punkte {
   margin: 0;
@@ -642,8 +692,14 @@
   max-width: 30rem;
 }
 
+/*
+  Grid statt Flex, weil das Abzeichen sonst mitwandert: Auf 390px brach die
+  Zeile "im Jahr - 2,39 EUR im Monat" um, und "-20 %" stand mitten im Satz
+  ("... 2,39 EUR im [-20 %] Monat").
+*/
 .tarif {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: baseline;
   gap: var(--sp-md);
   padding: var(--sp-lg) var(--sp-xl);
@@ -663,8 +719,8 @@
 .tarif span { font-size: 0.92rem; color: var(--auf-clay-leise); }
 
 .tarif .tarif-sparen {
-  margin-left: auto;
-  flex: none;
+  justify-self: end;
+  align-self: center;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -679,6 +735,8 @@
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--auf-clay-leise);
+  /* Ohne Deckel lief die Zeile ueber die volle Spalte: rund 95 Zeichen. */
+  max-width: 34rem;
 }
 
 .bleibt {
@@ -812,11 +870,16 @@
   margin-bottom: var(--sp-md);
 }
 
+/*
+  Auf dem Telefon sind das die einzigen sichtbaren Navigationslinks (die
+  Kopfzeile blendet ihre aus). 5px Polster ergaben 26px hohe Ziele.
+*/
 .fuss-spalte a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
   color: var(--auf-dunkel-leise);
   text-decoration: none;
-  padding: 5px 0;
 }
 
 .fuss-spalte a:hover { color: var(--clay-warm); }
@@ -877,10 +940,46 @@
 /* --- Ganz schmal --------------------------------------------------------- */
 
 @media (max-width: 34rem) {
+  /*
+    Preis und Ersparnis in die erste Zeile, die Erlaeuterung darunter: In einer
+    Zeile brach "im Jahr, also 2,39 EUR im Monat" mitten im letzten Wort um und
+    schob das Abzeichen in die Textmitte.
+  */
+  .tarif { grid-template-columns: 1fr auto; row-gap: var(--sp-xs); }
+  .tarif b { grid-column: 1; grid-row: 1; }
+  .tarif .tarif-sparen { grid-column: 2; grid-row: 1; }
+  .tarif > span:not(.tarif-sparen) { grid-column: 1 / -1; grid-row: 2; }
+
   .band { padding: var(--sp-3xl) 0; }
   .band-eng { padding: var(--sp-2xl) 0; }
   .held-start { padding: var(--sp-2xl) 0 var(--sp-3xl); }
   .blatt { padding: var(--sp-lg); }
   .knopf { width: 100%; justify-content: center; }
   .knopf-reihe { gap: var(--sp-sm); }
+}
+
+/* --- Der Weg an der Navigation vorbei ------------------------------------ */
+/*
+  Diese Seite ist lang und hat einen klebenden Kopf: Wer mit der Tastatur
+  kommt, tabbt sonst durch Marke, drei Anker und zwei Sprachen, bevor der
+  erste Satz dran ist. Sichtbar wird der Sprung nur im Fokus - deshalb steht
+  er ausserhalb des Bildes statt auf display:none, das der Tabreihenfolge
+  entginge.
+*/
+.sprung {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px var(--sp-lg);
+  border-radius: 0 0 var(--r-md) 0;
+  background: var(--ink-900);
+  color: var(--sand-50);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sprung:focus-visible {
+  left: 0;
+  outline-color: var(--clay-warm);
 }

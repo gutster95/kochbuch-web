@@ -74,7 +74,14 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/*
+  Weiches Scrollen nur fuer die, die Bewegung nicht abbestellt haben: Ein Sprung
+  ueber die halbe Startseite ist genau die Art Bewegung, die bei
+  vestibulaeren Beschwerden Uebelkeit ausloest (WCAG 2.3.3).
+*/
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 body {
   margin: 0;
