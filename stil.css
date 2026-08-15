@@ -13,22 +13,25 @@
 
 /* --- Die Schrift kommt von HIER, nicht von Google ------------------------- */
 /*
-  Die Seiten haben Fraunces frueher ueber fonts.googleapis.com geladen. Damit
+  Die Seiten haben die Schrift frueher ueber fonts.googleapis.com geladen. Damit
   ging die IP-Adresse jedes Besuchers ohne Einwilligung an Google - genau der
   Fall, den das LG Muenchen I 2022 entschieden hat (Az. 3 O 17493/20) und der
   seitdem massenhaft abgemahnt wird. Auf einer DATENSCHUTZERKLAERUNG waere das
   besonders schlecht.
 
   Die Datei ist die variable Fassung aus der App
-  (shared/src/commonMain/composeResources/font/fraunces_variable.ttf), damit
-  Website und App buchstaeblich dieselbe Schrift tragen. `font-weight: 100 900`
-  gibt die wght-Achse an den Browser weiter, `font-display: swap` zeigt sofort
-  die Ersatzschrift statt einer leeren Flaeche.
+  (shared/src/commonMain/composeResources/font/domine_variable.ttf), damit
+  Website und App buchstaeblich dieselbe Schrift tragen. `font-weight: 400 700`
+  gibt die wght-Achse an den Browser weiter - Domine hat, anders als Fraunces
+  vorher, weder unter 400 noch ueber 700 etwas anzubieten; eine zu weit
+  angegebene Achse laesst den Browser Gewichte versprechen, die die Datei nicht
+  hat. `font-display: swap` zeigt sofort die Ersatzschrift statt einer leeren
+  Flaeche.
 */
 @font-face {
-  font-family: "Fraunces";
-  src: url("schrift/fraunces.ttf") format("truetype-variations");
-  font-weight: 100 900;
+  font-family: "Domine";
+  src: url("schrift/domine.ttf") format("truetype-variations");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -222,7 +225,7 @@ body {
   haelt nur 4,25:1.
 */
 .marke {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: 1.15rem;
   letter-spacing: 0.02em;
@@ -310,7 +313,7 @@ body {
 }
 
 .fuss-marke {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-size: 1.2rem;
   font-weight: 600;
   color: #F3EBE2;
@@ -382,12 +385,12 @@ main { padding: var(--sp-2xl) 0 var(--sp-3xl); }
 
 /*
   Gewicht 600 und dieselbe optische Groesse wie auf der Startseite. 700 war eine
-  Stufe zu fett: Fraunces traegt als Variable Font bei 700 deutlich mehr
+  Stufe zu fett: Die Serife traegt als Variable Font bei 700 deutlich mehr
   Strichkontrast, und neben einer 600er-Startseite sah dieselbe Marke zweimal
   verschieden aus.
 */
 h1 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: clamp(1.85rem, 1.35rem + 2.1vw, 2.6rem);
   line-height: 1.12;
@@ -398,7 +401,7 @@ h1 {
 }
 
 h2 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: 1.4rem;
   line-height: 1.25;
@@ -415,7 +418,7 @@ h2 {
 }
 
 h3 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: 1.08rem;
   line-height: 1.3;

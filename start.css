@@ -93,7 +93,7 @@
 .start h1,
 .start h2,
 .start h3 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   color: var(--ink-900);
   text-wrap: balance;
   margin: 0;
@@ -372,7 +372,7 @@
 .blatt-rezept .blatt-marke { color: var(--ink-500); }
 
 .rezept-titel {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: 1.35rem;
   line-height: 1.15;
@@ -414,7 +414,7 @@
 */
 .rezept-spalten h3 {
   margin: 0 0 var(--sp-sm);
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-size: 0.95rem;
   line-height: 1.25;
   font-weight: 600;
@@ -444,7 +444,7 @@
 .zutaten .gruppe {
   border-bottom: 0;
   padding-top: var(--sp-md);
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -583,7 +583,7 @@
 }
 
 .preis-zahl {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-weight: 600;
   font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
   line-height: 1;
@@ -617,7 +617,7 @@
 }
 
 .tarif b {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--sand-50);
@@ -699,7 +699,7 @@
 
 .rechts-zeile b {
   display: block;
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Domine", Georgia, serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--ink-900);

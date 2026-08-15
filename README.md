@@ -46,7 +46,8 @@ konto-loeschen/         Löschweg ohne App       en/delete-account/
 stil.css                Tokens, Schrift und die Rechtsseiten
 start.css               nur die Startseite
 DESIGN.md               was auf der Startseite warum so gebaut ist
-schrift/fraunces.ttf    die Schrift der App
+schrift/domine.ttf      die Schrift der App
+schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1)
 bilder/logo.svg         das App-Logo, zugleich Favicon
 bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
 bilder/app-*.webp       die vier Screenshots der Startseite
@@ -105,13 +106,13 @@ App).
 
 ## Google Fonts sind bewusst draußen
 
-Die Bestätigungsseite lud Fraunces früher über `fonts.googleapis.com`. Damit ging die
+Die Bestätigungsseite lud die Schrift früher über `fonts.googleapis.com`. Damit ging die
 IP-Adresse jedes Besuchers ohne Einwilligung an Google — der Fall, den das LG München I 2022
 entschieden hat (Az. 3 O 17493/20) und der seitdem massenhaft abgemahnt wird. Auf einer
 **Datenschutzerklärung** wäre das besonders schlecht.
 
 Die Schriftdatei ist deshalb eine Kopie aus der App
-(`shared/src/commonMain/composeResources/font/fraunces_variable.ttf`) und liegt unter
+(`shared/src/commonMain/composeResources/font/domine_variable.ttf`) und liegt unter
 `schrift/`. Wer die Schrift der App wechselt, kopiert sie hier mit. Ein `woff2`-Subset wäre
 kleiner (die Variable-TTF ist 360 KB), braucht aber `fonttools` samt `brotli` — eine
 Optimierung, keine Voraussetzung.
@@ -138,7 +139,7 @@ python -m http.server 8000
 Dann `http://localhost:8000/` öffnen. Zwei Dinge, die man wirklich anschauen muss:
 
 - **Netzwerk-Reiter der Entwicklerwerkzeuge:** Es darf **keine** Anfrage an
-  `fonts.googleapis.com` oder `fonts.gstatic.com` stehen. Fraunces muss von `localhost`
+  `fonts.googleapis.com` oder `fonts.gstatic.com` stehen. Die Schrift muss von `localhost`
   kommen.
 - **Handybreite** (Gerätesimulation, ~360 px): Die Tabellen in der Datenschutzerklärung
   scrollen in ihrem `.tabelle`-Kasten, die Seite selbst darf nicht seitlich scrollen.

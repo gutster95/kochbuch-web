@@ -40,8 +40,11 @@ wären die Fließtextzeilen darunter nicht mehr sicher lesbar.
 
 ## Schrift
 
-Fraunces trägt **ausschließlich** Überschriften, Rezepttitel, Marke und Preise — genau wie
-in der App (`ui/theme/Type.kt`). Fließtext, Label und Zahlen stehen im System-Sans. Vier
+Domine trägt **ausschließlich** Überschriften, Rezepttitel, Marke und Preise — genau wie
+in der App (`ui/theme/Type.kt`). Bis zum 15.08.2026 stand hier Fraunces; gewechselt wurde
+in der App, und die Website zieht mit, weil sonst Store-Eintrag, Website und App nach drei
+Produkten aussehen. Domine deckt die wght-Achse nur von 400 bis 700 ab — die Serife steht
+überall auf 600, das reicht. Fließtext, Label und Zahlen stehen im System-Sans. Vier
 Größen reichen auch hier: `h1` bis 4,25rem (`clamp`), `h2` bis 2,85rem, `h3` 1,3rem,
 Fließtext 1rem mit einem größeren Vorspann bei 1,2rem.
 
