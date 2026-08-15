@@ -97,10 +97,56 @@ body {
 
 /* --- Kopf und Fuss ------------------------------------------------------- */
 
+/*
+  Derselbe Kopf wie auf der Startseite, und das ist der Grund fuer den ganzen
+  Umbau dieser Datei: Wer aus der App auf die Datenschutzerklaerung tippt, soll
+  nicht das Gefuehl haben, das Produkt gewechselt zu haben. Klebend, weil die
+  Datenschutzerklaerung 380 Zeilen lang ist - der Weg zurueck zur Startseite
+  war vorher nur am Seitenanfang erreichbar.
+*/
 .kopf {
-  border-bottom: 1px solid var(--sand-200);
-  background: var(--sand-50);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--sand-50) 92%, transparent);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease;
 }
+
+.kopf[data-gescrollt="ja"] { border-bottom-color: var(--sand-200); }
+
+/*
+  Der Weg an der Kopfzeile vorbei. Sichtbar nur im Fokus - deshalb ausserhalb
+  des Bildes statt auf display:none, das der Tabreihenfolge entginge.
+*/
+.sprung {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px var(--sp-lg);
+  border-radius: 0 0 var(--r-md) 0;
+  background: var(--ink-900);
+  color: var(--sand-50);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sprung:focus-visible { left: 0; outline-color: var(--clay-warm, #E9A06A); }
+
+/*
+  Der Fokusring steht HIER und nicht in start.css: Er gehoert zu jeder Seite,
+  und die Rechtsseiten hatten bis dahin gar keinen eigenen - sie erbten den des
+  Browsers, der auf hellem Sand kaum zu sehen ist.
+*/
+:focus-visible {
+  outline: 2px solid var(--clay-600);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+::selection { background: var(--clay-100); color: var(--ink-900); }
 
 .kopf-inhalt,
 .inhalt,
@@ -123,13 +169,18 @@ body {
   min-height: 64px;
 }
 
+/*
+  Gemischt und in Ink900, nicht mehr gesperrt in Terracotta-Versalien. Die alte
+  Fassung stammt aus der Zeit, als es nur die Bestaetigungsseite gab; seit der
+  Startseite steht dieselbe Marke zweimal verschieden da - und Clay500 auf Sand
+  haelt nur 4,25:1.
+*/
 .marke {
   font-family: "Fraunces", Georgia, serif;
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--clay-500);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-900);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -154,47 +205,148 @@ body {
 
 .marke:hover { color: var(--clay-600); }
 
-/* Der Sprachumschalter - zwei Kuerzel, das aktuelle ohne Verweis. */
+/*
+  Der Sprachumschalter - zwei Kuerzel, das aktuelle ohne Verweis. Die
+  Tippflaeche ist groesser als die Schrift: Zwei Buchstaben bei 12,8px sind rund
+  20px hoch, verlangt sind 44 (WCAG 2.5.5). Das Polster gehoert an den Link,
+  nicht an den Container - sonst waechst nur der Abstand, nicht das Ziel.
+*/
 .sprachen {
   display: flex;
   align-items: center;
-  gap: var(--sp-sm);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-500);
 }
 
+.sprachen a,
+.sprachen > span[aria-current] {
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 44px;
+}
+
 .sprachen a { color: var(--ink-500); text-decoration: none; }
-.sprachen a:hover { color: var(--clay-500); }
+.sprachen a:hover { color: var(--clay-600); }
 .sprachen [aria-current="true"] { color: var(--ink-900); font-weight: 600; }
 
-.fuss {
-  margin-top: var(--sp-3xl);
-  border-top: 1px solid var(--sand-200);
-  padding: var(--sp-xl) 0 var(--sp-2xl);
-  color: var(--ink-500);
-  font-size: 0.9rem;
+/* --- Der Fuss, gemeinsam fuer alle Seiten -------------------------------- */
+/*
+  Er stand frueher nur auf der Startseite (dort hiess er `.start-fuss`), und die
+  Rechtsseiten trugen darunter eine blasse Linkzeile. Zwei Fuesse fuer einen
+  Auftritt: Wer aus der App auf die Datenschutzerklaerung tippt, landete auf
+  einer Seite, die mit der Startseite nur die Schrift gemein hatte.
+
+  Die Breite kommt von aussen (`.fuss-inhalt` traegt hier 42rem, auf der
+  Startseite `.bahn` 74rem) - der Fuss selbst legt sie nicht fest.
+*/
+/*
+  Kein margin-top: Auf der Startseite schliesst der Fuss unmittelbar an die
+  letzte Bahn an, und ein Abstand hier risse dort einen hellen Streifen auf. Den
+  Luftraum ueber dem Fuss bringt der Textbereich der Rechtsseiten selbst mit
+  (siehe `.inhalt`).
+*/
+.seitenfuss {
+  background: var(--ink-900);
+  color: #C4B2A4;
+  padding: var(--sp-3xl) 0 var(--sp-2xl);
+  font-size: 0.92rem;
 }
 
-.fuss-inhalt {
+.fuss-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2xl);
+  padding-bottom: var(--sp-2xl);
+  border-bottom: 1px solid rgba(243, 235, 226, 0.14);
+}
+
+.fuss-marke {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #F3EBE2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  text-decoration: none;
+}
+
+.fuss-satz { margin-top: var(--sp-md); max-width: 22rem; line-height: 1.6; }
+
+.fuss-spalte b {
+  display: block;
+  color: #F3EBE2;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-md);
+}
+
+/* Mindestens 40px hoch: auf dem Telefon sind das die einzigen Navigationslinks. */
+.fuss-spalte a {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  color: #C4B2A4;
+  text-decoration: none;
+}
+
+.fuss-spalte a:hover { color: #E9A06A; }
+
+/*
+  Die Seite, auf der man gerade steht, ist im Fuss hervorgehoben. `aria-current`
+  allein saehe nur ein Screenreader - und wer vier Rechtstexte untereinander
+  verlinkt, sollte auch mit den Augen erkennen, welcher davon offen ist.
+*/
+.fuss-spalte a[aria-current="page"] { color: #F3EBE2; font-weight: 600; }
+
+.fuss-zeile {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-md) var(--sp-xl);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  padding-top: var(--sp-xl);
+  font-size: 0.85rem;
 }
 
-.fuss a { color: var(--ink-500); }
-.fuss a:hover { color: var(--clay-500); }
+/* Clay600 haelt auf Ink900 nur 2,7:1 - dort braucht der Ring den warmen Ton. */
+.seitenfuss :focus-visible { outline-color: #E9A06A; }
+
+.seitenfuss .sprachen,
+.seitenfuss .sprachen a { color: #C4B2A4; }
+.seitenfuss .sprachen a:hover { color: #E9A06A; }
+.seitenfuss .sprachen [aria-current="true"] { color: #F3EBE2; }
+
+@media (max-width: 62rem) {
+  .fuss-raster { grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); }
+}
+
+@media (max-width: 34rem) {
+  .fuss-raster { grid-template-columns: 1fr; }
+}
 
 /* --- Fliesstext ---------------------------------------------------------- */
 
-main { padding: var(--sp-2xl) 0 0; }
+main { padding: var(--sp-2xl) 0 var(--sp-3xl); }
 
+/*
+  Gewicht 600 und dieselbe optische Groesse wie auf der Startseite. 700 war eine
+  Stufe zu fett: Fraunces traegt als Variable Font bei 700 deutlich mehr
+  Strichkontrast, und neben einer 600er-Startseite sah dieselbe Marke zweimal
+  verschieden aus.
+*/
 h1 {
   font-family: "Fraunces", Georgia, serif;
-  font-weight: 700;
-  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 1.35rem + 2.1vw, 2.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
   color: var(--ink-900);
   margin: 0 0 var(--sp-md);
 }
@@ -202,23 +354,28 @@ h1 {
 h2 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 600;
-  font-size: 1.35rem;
-  line-height: 1.3;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
   color: var(--ink-900);
-  margin: var(--sp-2xl) 0 var(--sp-sm);
+  margin: var(--sp-2xl) 0 var(--sp-md);
   /*
     Sprungmarken aus dem Inhaltsverzeichnis duerfen nicht unter dem Kopf
-    verschwinden.
+    verschwinden - und der klebt jetzt, also braucht es seine volle Hoehe
+    plus Luft statt der frueheren 24px.
   */
-  scroll-margin-top: var(--sp-xl);
+  scroll-margin-top: 84px;
 }
 
 h3 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
+  line-height: 1.3;
   color: var(--ink-900);
   margin: var(--sp-xl) 0 var(--sp-xs);
+  scroll-margin-top: 84px;
 }
 
 p, ul, ol, table { margin: 0 0 var(--sp-lg); }
@@ -226,8 +383,16 @@ p, ul, ol, table { margin: 0 0 var(--sp-lg); }
 ul, ol { padding-left: var(--sp-xl); }
 li { margin-bottom: var(--sp-xs); }
 
-a { color: var(--clay-500); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-a:hover { color: var(--clay-600); }
+/*
+  Clay600 statt Clay500: Auf Sand50 kommt Clay500 auf 4,25:1 und in einer Karte
+  (Sand100) auf 3,94:1 - beides unter den 4,5:1 fuer Text dieser Groesse. Das
+  betraf JEDEN Link in den Rechtstexten, also ausgerechnet die Seiten, die im
+  Play-Eintrag verlinkt sind.
+*/
+a { color: var(--clay-600); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+/* Im Hover bleibt die Farbe und der Strich wird dicker - Clay500 laege auch
+   hier unter der Schwelle, und ein Zustand ist von der Regel nicht ausgenommen. */
+a:hover { text-decoration-thickness: 2px; }
 
 strong { color: var(--ink-900); font-weight: 600; }
 

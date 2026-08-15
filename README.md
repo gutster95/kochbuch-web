@@ -60,12 +60,25 @@ Datei mit, sonst tragen Store-Eintrag, Website und App drei verschiedene Zeichen
 eine gemeinsame Quelle statt eines zweiten, inline gezeichneten Logos: Zwei Fassungen
 laufen auseinander, und beim Icon faellt genau das nicht auf.
 
-**Zwei Stylesheets, und das ist Absicht.** `stil.css` trägt die Tokens, `@font-face` und
-die Gestaltung der vier Rechtstexte — eine Spalte Fließtext auf 42rem. Die Startseite ist
+**Zwei Stylesheets, und das ist Absicht.** `stil.css` trägt die Tokens, `@font-face`,
+**alles Gemeinsame** (Kopf, Marke, Sprachumschalter, Fokusring, Sprungmarke, Fuß) und die
+Gestaltung der vier Rechtstexte — eine Spalte Fließtext auf 42rem. Die Startseite ist
 seit dem Umbau eine eigene Welt und steht in `start.css`; sie lädt beide Dateien, in
 dieser Reihenfolge. Hätte die Startseite in `stil.css` mitgemischt, änderte jeder
 Handgriff an ihr zugleich Datenschutzerklärung, Impressum, AGB und Löschweg — an denselben
 Klassennamen, ohne dass es jemandem auffällt.
+
+**Die Rechtsseiten tragen dieselbe Gestaltung wie die Startseite** (seit 15.08.2026).
+Vorher hatten sie einen eigenen, älteren Auftritt: die Marke in gesperrten
+Terracotta-Versalien, einen unbeweglichen Kopf und darunter eine blasse Linkzeile als Fuß.
+Wer aus der App auf die Datenschutzerklärung tippte, landete auf einer Seite, die mit der
+Startseite nur die Schrift gemein hatte. Geblieben ist der Unterschied, der einen Grund
+hat: **die Lesespalte auf 42rem.** Ein Rechtstext wird gelesen, keine Bahn ist breiter als
+nötig.
+
+Was dabei aus `start.css` nach `stil.css` gewandert ist und dort für **alle** Seiten gilt:
+`:focus-visible`, `::selection`, `.sprung`, `.marke`, `.sprachen` und der komplette Fuß
+(`.seitenfuss`). Wer eines davon ändert, ändert es überall — das ist der Zweck.
 
 Die Gestaltungsentscheidungen der Startseite stehen in `DESIGN.md`, nicht hier: Kopf,
 Bahnen, Gerätedarstellung, die eine Bewegung und die Stellen, an denen sie still

@@ -144,6 +144,26 @@ Gliederung von `h2` direkt auf `h4`. Sie brauchen deshalb eine eigene Regel: Das
 hell, liegt aber **innerhalb** der dunklen Bahn, und `.band-dunkel h3` färbte die beiden
 Zeilen sonst hell auf Sand. Als `h4` entgingen sie dieser Regel zufällig.
 
+## Was die Rechtsseiten davon übernehmen
+
+Seit dem 15.08.2026 tragen Datenschutzerklärung, AGB, Impressum und der Löschweg denselben
+Auftritt — Kopf, Marke, Sprachumschalter, Fokusring, Sprungmarke und Fuß stehen deshalb in
+`stil.css` und nicht mehr hier. Was **nicht** übernommen wurde, ist die Breite: Ein
+Rechtstext bleibt auf 42rem, die Startseite auf 74rem. Ein Gerät neben einer Textspalte
+braucht Platz, ein Absatz Fließtext nicht.
+
+Drei Dinge waren dabei mehr als Kosmetik:
+
+- **Jeder Link in den Rechtstexten stand auf `--clay-500`** und damit auf 4,25 : 1, in
+  einer Karte sogar auf 3,94 : 1. Das betraf ausgerechnet die Seiten, die im
+  Play-Eintrag verlinkt sind. Sie stehen jetzt auf `--clay-600` (6,05 : 1).
+- **Einen Fokusring hatten sie gar nicht.** Er war nur in `start.css` definiert; die
+  Rechtsseiten erbten den des Browsers, der auf hellem Sand kaum zu sehen ist.
+- **Der Kopf klebt jetzt.** Die Datenschutzerklärung ist knapp 400 Zeilen lang, und der Weg
+  zurück zur Startseite war vorher nur ganz oben erreichbar. Dafür musste
+  `scroll-margin-top` an den Überschriften von 24 px auf 84 px — sonst verschwindet das
+  Sprungziel aus dem Inhaltsverzeichnis unter dem Kopf.
+
 ## Was leicht kaputtgeht
 
 - **`.tarif span` gegen `.tarif-sparen`.** Der Sparen-Chip ist ein `span` in `.tarif`, und

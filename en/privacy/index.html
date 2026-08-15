@@ -17,6 +17,8 @@
 </head>
 <body>
 
+<a class="sprung" href="#inhalt">Skip to content</a>
+
 <header class="kopf">
   <div class="kopf-inhalt">
     <a class="marke" href="../home.html"><img class="marke-logo" src="../../bilder/logo.svg" width="24" height="24" alt="">Kochbuch</a>
@@ -27,7 +29,7 @@
   </div>
 </header>
 
-<main>
+<main id="inhalt" tabindex="-1">
   <div class="inhalt">
 
     <h1>Privacy Policy</h1>
@@ -327,14 +329,64 @@
   </div>
 </main>
 
-<footer class="fuss">
+<footer class="seitenfuss">
   <div class="fuss-inhalt">
-    <a href="../home.html">Home</a>
-    <a href="../terms/index.html">Terms</a>
-    <a href="../legal-notice/index.html">Legal notice</a>
-    <a href="../delete-account/index.html">Delete account</a>
+    <div class="fuss-raster">
+      <div>
+        <a class="fuss-marke" href="../../en/home.html">
+          <img class="marke-logo" src="../../bilder/logo.svg" width="24" height="24" alt="">
+          Kochbuch
+        </a>
+        <p class="fuss-satz">Recipes from reels, sorted and translated. In preparation for Android, in the works for iPhone.</p>
+      </div>
+      <div class="fuss-spalte">
+        <b>The app</b>
+        <a href="../../en/home.html#verwandlung">How it works</a>
+        <a href="../../en/home.html#funktionen">Features</a>
+        <a href="../../en/home.html#preis">Price</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Legal</b>
+        <a href="../../en/privacy/index.html" aria-current="page">Privacy</a>
+        <a href="../../en/terms/index.html">Terms</a>
+        <a href="../../en/legal-notice/index.html">Legal notice</a>
+        <a href="../../en/delete-account/index.html">Delete account</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Contact</b>
+        <a href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
+      </div>
+    </div>
+    <div class="fuss-zeile">
+      <span>© 2026 Kochbuch</span>
+      <span class="sprachen">
+        <a href="../../home.html" hreflang="de">DE</a>
+        <span class="teiler" aria-hidden="true">·</span>
+        <span aria-current="true">EN</span>
+      </span>
+    </div>
   </div>
 </footer>
+
+<script>
+/*
+  Ein Handgriff, und er ist Zugabe: Der klebende Kopf bekommt seinen Rand erst,
+  wenn wirklich etwas darunter durchlaeuft. Ohne JavaScript steht die Seite
+  vollstaendig da - dieselbe Regel wie auf der Startseite.
+*/
+(function () {
+  var kopf = document.querySelector('.kopf');
+  if (!kopf) return;
+  var amAnschlag = false;
+  addEventListener('scroll', function () {
+    var jetzt = scrollY > 8;
+    if (jetzt !== amAnschlag) {
+      amAnschlag = jetzt;
+      kopf.setAttribute('data-gescrollt', jetzt ? 'ja' : 'nein');
+    }
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>

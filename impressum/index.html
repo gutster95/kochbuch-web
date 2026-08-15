@@ -21,6 +21,8 @@
 </head>
 <body>
 
+<a class="sprung" href="#inhalt">Zum Inhalt springen</a>
+
 <header class="kopf">
   <div class="kopf-inhalt">
     <a class="marke" href="../home.html"><img class="marke-logo" src="../bilder/logo.svg" width="24" height="24" alt="">Kochbuch</a>
@@ -31,7 +33,7 @@
   </div>
 </header>
 
-<main>
+<main id="inhalt" tabindex="-1">
   <div class="inhalt">
 
     <h1>Impressum</h1>
@@ -109,14 +111,64 @@
   </div>
 </main>
 
-<footer class="fuss">
+<footer class="seitenfuss">
   <div class="fuss-inhalt">
-    <a href="../home.html">Startseite</a>
-    <a href="../datenschutz/index.html">Datenschutz</a>
-    <a href="../agb/index.html">Nutzungsbedingungen</a>
-    <a href="../konto-loeschen/index.html">Konto löschen</a>
+    <div class="fuss-raster">
+      <div>
+        <a class="fuss-marke" href="../home.html">
+          <img class="marke-logo" src="../bilder/logo.svg" width="24" height="24" alt="">
+          Kochbuch
+        </a>
+        <p class="fuss-satz">Rezepte aus Reels, sortiert und übersetzt. Für Android in Vorbereitung, für das iPhone in Arbeit.</p>
+      </div>
+      <div class="fuss-spalte">
+        <b>Die App</b>
+        <a href="../home.html#verwandlung">Wie es geht</a>
+        <a href="../home.html#funktionen">Funktionen</a>
+        <a href="../home.html#preis">Preis</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Rechtliches</b>
+        <a href="../datenschutz/index.html">Datenschutz</a>
+        <a href="../agb/index.html">Nutzungsbedingungen</a>
+        <a href="../impressum/index.html" aria-current="page">Impressum</a>
+        <a href="../konto-loeschen/index.html">Konto löschen</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Kontakt</b>
+        <a href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
+      </div>
+    </div>
+    <div class="fuss-zeile">
+      <span>© 2026 Kochbuch</span>
+      <span class="sprachen">
+        <span aria-current="true">DE</span>
+        <span class="teiler" aria-hidden="true">·</span>
+        <a href="../en/home.html" hreflang="en">EN</a>
+      </span>
+    </div>
   </div>
 </footer>
+
+<script>
+/*
+  Ein Handgriff, und er ist Zugabe: Der klebende Kopf bekommt seinen Rand erst,
+  wenn wirklich etwas darunter durchlaeuft. Ohne JavaScript steht die Seite
+  vollstaendig da - dieselbe Regel wie auf der Startseite.
+*/
+(function () {
+  var kopf = document.querySelector('.kopf');
+  if (!kopf) return;
+  var amAnschlag = false;
+  addEventListener('scroll', function () {
+    var jetzt = scrollY > 8;
+    if (jetzt !== amAnschlag) {
+      amAnschlag = jetzt;
+      kopf.setAttribute('data-gescrollt', jetzt ? 'ja' : 'nein');
+    }
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>

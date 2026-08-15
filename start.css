@@ -43,24 +43,12 @@
 }
 
 /*
-  Die Teile, die niemand gestaltet und die trotzdem jeder sieht.
+  Fokusring, Auswahlfarbe und die Sprungmarke stehen in stil.css - sie gelten
+  fuer den ganzen Auftritt. Hier bleibt nur, was die beiden gesaettigten Bahnen
+  dieser Seite zusaetzlich brauchen: Clay600 kommt auf Ink900 auf 2,7:1 und auf
+  dem Clay-Verlauf auf 1,2:1, der Ring waere dort also nicht zu sehen.
 */
-::selection { background: var(--clay-100); color: var(--ink-900); }
-
-:focus-visible {
-  outline: 2px solid var(--clay-600);
-  outline-offset: 3px;
-  border-radius: var(--r-sm);
-}
-
-/*
-  Derselbe Ring auf den beiden gesaettigten Flaechen: Clay600 auf Ink900 kommt
-  auf 2,7:1, auf dem Clay-Verlauf auf 1,2:1 - der Ring waere dort schlicht nicht
-  zu sehen, und die Fusszeile ist die linkreichste Stelle der Seite. Verlangt
-  sind 3:1 (WCAG 1.4.11); ClayWarm haelt 8:1, Sand50 auf Clay 5:1.
-*/
-.band-dunkel :focus-visible,
-.start-fuss :focus-visible { outline-color: var(--clay-warm); }
+.band-dunkel :focus-visible { outline-color: var(--clay-warm); }
 
 .band-clay :focus-visible { outline-color: var(--sand-50); }
 
@@ -181,23 +169,8 @@
   min-height: 68px;
 }
 
-.start .marke {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  color: var(--ink-900);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-sm);
-  margin-right: auto;
-}
-
-.start .marke:hover { color: var(--clay-600); }
-
-.marke-logo { display: block; flex: none; }
+/* Die Marke selbst steht in stil.css; hier schiebt sie nur die Navigation nach rechts. */
+.start .marke { margin-right: auto; }
 
 .kopf-nav {
   display: flex;
@@ -216,30 +189,10 @@
 .kopf-nav a:hover { color: var(--ink-900); border-bottom-color: var(--clay-500); }
 
 /*
-  Die Tippflaeche ist groesser als die Schrift: Zwei Buchstaben bei 12,8px sind
-  rund 20px hoch, verlangt sind 44px (WCAG 2.5.5). Das Polster steht am Link,
-  nicht am Container - sonst waechst nur der Abstand, nicht das Ziel.
+  Der Sprachumschalter selbst steht in stil.css (`.sprachen`) - er ist auf jeder
+  Seite derselbe. Hier bleibt nur der Trenner, den es nur im Kopf gibt.
 */
-.kopf-sprachen {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-500);
-}
-
-.kopf-sprachen a,
-.kopf-sprachen > span[aria-current] {
-  display: inline-grid;
-  place-items: center;
-  min-width: 40px;
-  min-height: 44px;
-}
-
-.kopf-sprachen a { color: var(--ink-500); text-decoration: none; }
-.kopf-sprachen a:hover { color: var(--clay-600); }
-.kopf-sprachen [aria-current="true"] { color: var(--ink-900); font-weight: 600; }
-.kopf-sprachen .teiler { color: var(--sand-200); }
+.sprachen .teiler { color: var(--sand-200); min-width: 0; min-height: 0; }
 
 @media (max-width: 60rem) {
   .kopf-nav .nur-breit { display: none; }
@@ -830,83 +783,11 @@
 }
 
 /* --- Fuss ---------------------------------------------------------------- */
-
-.start-fuss {
-  background: var(--ink-900);
-  color: var(--auf-dunkel-leise);
-  padding: var(--sp-4xl) 0 var(--sp-2xl);
-  font-size: 0.92rem;
-}
-
-.fuss-raster {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
-  gap: var(--sp-2xl);
-  padding-bottom: var(--sp-2xl);
-  border-bottom: 1px solid rgba(243, 235, 226, 0.14);
-}
-
-.fuss-marke {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--auf-dunkel);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-sm);
-  text-decoration: none;
-}
-
-
-.fuss-satz { margin-top: var(--sp-md); max-width: 22rem; line-height: 1.6; }
-
-.fuss-spalte b {
-  display: block;
-  color: var(--auf-dunkel);
-  font-weight: 600;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: var(--sp-md);
-}
-
 /*
-  Auf dem Telefon sind das die einzigen sichtbaren Navigationslinks (die
-  Kopfzeile blendet ihre aus). 5px Polster ergaben 26px hohe Ziele.
+  Der Fuss steht seit der Angleichung der Rechtsseiten in stil.css
+  (`.seitenfuss`) - er ist auf jeder Seite derselbe. Hier bleibt nur, was die
+  breitere Bahn der Startseite braucht.
 */
-.fuss-spalte a {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
-  color: var(--auf-dunkel-leise);
-  text-decoration: none;
-}
-
-.fuss-spalte a:hover { color: var(--clay-warm); }
-
-.fuss-zeile {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-md);
-  padding-top: var(--sp-xl);
-  font-size: 0.85rem;
-}
-
-.fuss-zeile .kopf-sprachen { color: var(--auf-dunkel-leise); }
-.fuss-zeile .kopf-sprachen a { color: var(--auf-dunkel-leise); }
-.fuss-zeile .kopf-sprachen a:hover { color: var(--clay-warm); }
-.fuss-zeile .kopf-sprachen [aria-current="true"] { color: var(--auf-dunkel); }
-.fuss-zeile .kopf-sprachen .teiler { color: rgba(243, 235, 226, 0.3); }
-
-@media (max-width: 62rem) {
-  .fuss-raster { grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); }
-}
-
-@media (max-width: 34rem) {
-  .fuss-raster { grid-template-columns: 1fr; }
-}
 
 /* --- Die eine Bewegung --------------------------------------------------- */
 /*
