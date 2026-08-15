@@ -148,25 +148,71 @@ body {
 
 ::selection { background: var(--clay-100); color: var(--ink-900); }
 
-.kopf-inhalt,
-.inhalt,
-.fuss-inhalt {
-  /*
-    42rem statt der vollen Breite: Eine Rechtsseite wird gelesen, nicht
-    ueberflogen, und ab etwa 90 Zeichen je Zeile findet das Auge den Anfang der
-    naechsten nicht mehr zuverlaessig.
-  */
+/*
+  42rem fuer den FLIESSTEXT: Eine Rechtsseite wird gelesen, nicht ueberflogen,
+  und ab etwa 90 Zeichen je Zeile findet das Auge den Anfang der naechsten nicht
+  mehr zuverlaessig.
+*/
+.inhalt {
   max-width: 42rem;
   margin: 0 auto;
   padding: 0 var(--sp-xl);
 }
 
-.kopf-inhalt {
+/*
+  Kopf und Fuss dagegen auf derselben Breite wie die Startseite (74rem, dort
+  `.bahn`). Sie sind Seitenelemente, kein Lesetext - stehen sie auf 42rem,
+  ruecken Marke und Navigation auf jeder Rechtsseite weiter nach innen als auf
+  der Startseite, und beim Wechsel springt der Kopf sichtbar.
+*/
+.kopf-inhalt,
+.fuss-inhalt {
+  width: min(100% - 2 * var(--sp-xl), 74rem);
+  margin-inline: auto;
+}
+
+/*
+  Eine Kopfzeile fuer den ganzen Auftritt: links die Marke, rechts dieselben drei
+  Anker und der Sprachumschalter. Auf den Rechtsseiten zeigen die Anker auf die
+  Startseite - wer im Impressum steht, will von dort aus zurueck in die Seite und
+  nicht erst ueber die Marke und dann ein zweites Mal klicken.
+
+  Unterschiedlich ist allein der Container darum: `.kopf-inhalt` haelt die
+  Rechtsseiten auf ihren 42rem, `.bahn` die Startseite auf 74rem.
+*/
+.kopf-inhalt,
+.kopf-reihe {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-lg);
-  min-height: 64px;
+  gap: var(--sp-xl);
+  min-height: 68px;
+}
+
+.marke { margin-right: auto; }
+
+.kopf-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xl);
+  font-size: 0.95rem;
+}
+
+.kopf-nav a {
+  color: var(--ink-700);
+  text-decoration: none;
+  padding: var(--sp-xs) 0;
+  border-bottom: 1px solid transparent;
+}
+
+.kopf-nav a:hover { color: var(--ink-900); border-bottom-color: var(--clay-500); }
+
+/*
+  Auf schmalen Bildschirmen bleiben nur Marke und Sprache stehen. Die drei Anker
+  fallen weg statt zu einem Hamburger zu werden: Es sind Sprungmarken innerhalb
+  einer Seite, kein Menue - und im Fuss stehen sie ohnehin noch einmal.
+*/
+@media (max-width: 60rem) {
+  .kopf-nav .nur-breit { display: none; }
 }
 
 /*

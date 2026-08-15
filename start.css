@@ -146,57 +146,17 @@
 
 /* --- Kopf ---------------------------------------------------------------- */
 
-.start-kopf {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--sand-50) 88%, transparent);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Der Rand kommt erst, wenn wirklich etwas darunter durchlaeuft. */
-.start-kopf[data-gescrollt="ja"] {
-  border-bottom-color: var(--sand-200);
-  background: color-mix(in srgb, var(--sand-50) 96%, transparent);
-}
-
-.kopf-reihe {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-xl);
-  min-height: 68px;
-}
-
-/* Die Marke selbst steht in stil.css; hier schiebt sie nur die Navigation nach rechts. */
-.start .marke { margin-right: auto; }
-
-.kopf-nav {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-xl);
-  font-size: 0.95rem;
-}
-
-.kopf-nav a {
-  color: var(--ink-700);
-  text-decoration: none;
-  padding: var(--sp-xs) 0;
-  border-bottom: 1px solid transparent;
-}
-
-.kopf-nav a:hover { color: var(--ink-900); border-bottom-color: var(--clay-500); }
+/*
+  Der Kopf steht vollstaendig in stil.css - er ist auf jeder Seite derselbe.
+  Verschieden ist nur der Container darin: hier `.bahn` mit 74rem, auf den
+  Rechtsseiten `.kopf-inhalt` mit 42rem.
+*/
 
 /*
   Der Sprachumschalter selbst steht in stil.css (`.sprachen`) - er ist auf jeder
   Seite derselbe. Hier bleibt nur der Trenner, den es nur im Kopf gibt.
 */
 .sprachen .teiler { color: var(--sand-200); min-width: 0; min-height: 0; }
-
-@media (max-width: 60rem) {
-  .kopf-nav .nur-breit { display: none; }
-}
 
 /* --- Knoepfe ------------------------------------------------------------- */
 
@@ -530,11 +490,6 @@
 
 .pfeil svg { width: 26px; height: 26px; }
 
-.fussnote {
-  margin-top: var(--sp-2xl);
-  font-size: 0.85rem;
-  color: var(--auf-dunkel-leise);
-}
 
 @media (max-width: 62rem) {
   .verwandlung { grid-template-columns: 1fr; }
@@ -757,26 +712,9 @@
 .rechts-zeile:hover b { color: var(--clay-600); }
 .rechts-zeile:hover svg { color: var(--clay-600); transform: translateX(4px); }
 
-.kontakt-karte {
-  border-radius: var(--r-xxl);
-  background: var(--sand-100);
-  border: 1px solid var(--sand-200);
-  padding: var(--sp-2xl);
-  box-shadow: 0 26px 50px -34px var(--shadow);
-}
 
-.kontakt-karte > * + * { margin-top: var(--sp-lg); }
 
-.mail-zeile {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem);
-  font-weight: 600;
-  color: var(--clay-600);
-  text-decoration: none;
-  word-break: break-word;
-}
 
-.mail-zeile:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 62rem) {
   .schluss-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }

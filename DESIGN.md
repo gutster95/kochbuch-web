@@ -147,10 +147,20 @@ Zeilen sonst hell auf Sand. Als `h4` entgingen sie dieser Regel zufällig.
 ## Was die Rechtsseiten davon übernehmen
 
 Seit dem 15.08.2026 tragen Datenschutzerklärung, AGB, Impressum und der Löschweg denselben
-Auftritt — Kopf, Marke, Sprachumschalter, Fokusring, Sprungmarke und Fuß stehen deshalb in
-`stil.css` und nicht mehr hier. Was **nicht** übernommen wurde, ist die Breite: Ein
-Rechtstext bleibt auf 42rem, die Startseite auf 74rem. Ein Gerät neben einer Textspalte
-braucht Platz, ein Absatz Fließtext nicht.
+Auftritt — Kopf samt Navigation, Marke, Sprachumschalter, Fokusring, Sprungmarke und Fuß
+stehen deshalb in `stil.css` und nicht mehr hier.
+
+**Die Kopfzeile trägt überall dieselben drei Anker** („Wie es geht", „Funktionen",
+„Preis"); auf den Rechtsseiten zeigen sie auf die Startseite. Vorher stand dort nur die
+Marke und DE/EN — beim Wechsel von der Startseite ins Impressum verschwand die halbe
+Navigation, und das sah nach zwei Websites aus.
+
+**Kopf und Fuß laufen auf 74rem, der Fließtext auf 42rem.** Beides zusammen ist der Grund,
+warum `.kopf-inhalt` und `.fuss-inhalt` nicht mehr dieselbe Breitenregel haben wie
+`.inhalt`: Sie sind Seitenelemente, kein Lesetext. Auf 42rem rückten Marke und Navigation
+auf jeder Rechtsseite weiter nach innen als auf der Startseite, und der Kopf sprang beim
+Seitenwechsel sichtbar. Die Lesespalte bleibt dagegen schmal — ein Rechtstext wird
+gelesen, keine Bahn ist breiter als nötig.
 
 Drei Dinge waren dabei mehr als Kosmetik:
 
