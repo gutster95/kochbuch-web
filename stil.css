@@ -124,6 +124,25 @@ body {
   text-transform: uppercase;
   color: var(--clay-500);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+/*
+  Das App-Logo neben dem Schriftzug - dieselbe Datei, die auch als Favicon
+  haengt (bilder/logo.svg). Bewusst eine gemeinsame Quelle statt eines zweiten,
+  inline gezeichneten Logos: Zwei Fassungen laufen auseinander, und beim Icon
+  faellt genau das nicht auf.
+
+  Die Sperrung des Schriftzugs (0.12em) legt rechts vom letzten Buchstaben Luft
+  an, links vom ersten aber nicht - das Logo stuende sonst optisch zu nah.
+  Deshalb ein eigener Abstand hier und nicht nur das gap.
+*/
+.marke-logo {
+  display: block;
+  margin-right: 0.1rem;
+  flex: none;
 }
 
 .marke:hover { color: var(--clay-600); }
@@ -294,55 +313,15 @@ th { color: var(--ink-900); font-weight: 600; }
 
 .verzeichnis li { margin-bottom: var(--sp-xs); }
 
-/* --- Die Startseite ------------------------------------------------------ */
-
-.held {
-  padding: var(--sp-3xl) 0 var(--sp-2xl);
-  text-align: center;
-}
-
-.held .vorspann { max-width: 34rem; margin-left: auto; margin-right: auto; }
-
-.knopf {
-  display: inline-block;
-  background: var(--clay-500);
-  color: var(--sand-50);
-  border-radius: var(--r-xl);
-  padding: var(--sp-md) var(--sp-xl);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.knopf:hover { background: var(--clay-600); color: var(--sand-50); }
-
-.kacheln {
-  display: grid;
-  gap: var(--sp-lg);
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  margin-bottom: var(--sp-lg);
-}
-
-.kachel {
-  display: block;
-  background: var(--sand-100);
-  border: 1px solid var(--sand-200);
-  border-radius: var(--r-xl);
-  padding: var(--sp-lg) var(--sp-xl);
-  text-decoration: none;
-  color: var(--ink-700);
-}
-
-.kachel:hover { border-color: var(--clay-500); color: var(--ink-700); }
-
-.kachel b {
-  display: block;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.05rem;
-  color: var(--ink-900);
-  margin-bottom: var(--sp-xs);
-}
-
-.kachel span { font-size: 0.92rem; color: var(--ink-500); }
+/* --- Die Startseite steht in start.css ----------------------------------- */
+/*
+  Hier standen frueher .held, .knopf, .kacheln und .kachel - die Bauteile der
+  alten Startseite, die aus einer Textspalte und zwei Kachelreihen bestand. Die
+  Startseite ist seit dem Umbau eine eigene Welt (web/start.css) und benutzt
+  keinen dieser Namen mehr; die Rechtsseiten haben sie nie benutzt. Sie stehen
+  bewusst NICHT vorsichtshalber weiter hier: Totes CSS ist die Sorte Ballast,
+  die beim naechsten Umbau als "wird schon irgendwo gebraucht" ueberlebt.
+*/
 
 /* --- Die Bestaetigungsseite ---------------------------------------------- */
 /*
@@ -366,7 +345,7 @@ body.mittig {
   animation: auftauchen 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
 
-.mittig .marke { display: block; margin-bottom: var(--sp-xl); font-size: 0.95rem; }
+.mittig .marke { display: inline-flex; margin-bottom: var(--sp-xl); font-size: 0.95rem; }
 
 .haken {
   width: 84px;

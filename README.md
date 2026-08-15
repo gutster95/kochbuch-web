@@ -43,9 +43,33 @@ datenschutz/            Datenschutzerklärung    en/privacy/
 agb/                    Nutzungsbedingungen     en/terms/
 impressum/              Impressum               en/legal-notice/
 konto-loeschen/         Löschweg ohne App       en/delete-account/
-stil.css                die gemeinsame Gestaltung
+stil.css                Tokens, Schrift und die Rechtsseiten
+start.css               nur die Startseite
+DESIGN.md               was auf der Startseite warum so gebaut ist
 schrift/fraunces.ttf    die Schrift der App
+bilder/logo.svg         das App-Logo, zugleich Favicon
+bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
+bilder/app-*.webp       die vier Screenshots der Startseite
 ```
+
+**Das Logo ist eine Datei fuer alles** (`bilder/logo.svg`): Marke im Kopf und Fuss jeder
+Seite und zugleich `rel="icon"`. Seine Geometrie ist woertlich aus
+`app/src/main/res/drawable/ic_launcher_foreground.xml` uebernommen — Ring um (54,52),
+Spiegel um (54,54), derselbe Terracotta-Verlauf. Wer das App-Icon aendert, aendert diese
+Datei mit, sonst tragen Store-Eintrag, Website und App drei verschiedene Zeichen. Bewusst
+eine gemeinsame Quelle statt eines zweiten, inline gezeichneten Logos: Zwei Fassungen
+laufen auseinander, und beim Icon faellt genau das nicht auf.
+
+**Zwei Stylesheets, und das ist Absicht.** `stil.css` trägt die Tokens, `@font-face` und
+die Gestaltung der vier Rechtstexte — eine Spalte Fließtext auf 42rem. Die Startseite ist
+seit dem Umbau eine eigene Welt und steht in `start.css`; sie lädt beide Dateien, in
+dieser Reihenfolge. Hätte die Startseite in `stil.css` mitgemischt, änderte jeder
+Handgriff an ihr zugleich Datenschutzerklärung, Impressum, AGB und Löschweg — an denselben
+Klassennamen, ohne dass es jemandem auffällt.
+
+Die Gestaltungsentscheidungen der Startseite stehen in `DESIGN.md`, nicht hier: Kopf,
+Bahnen, Gerätedarstellung, die eine Bewegung und die Stellen, an denen sie still
+kaputtgeht.
 
 **Die Wurzel ist die Bestätigungsseite und nicht die Startseite** — das sieht falsch aus,
 ist aber Absicht: Supabases Site URL zeigt auf `https://gutster95.github.io/kochbuch-web/`,
@@ -105,6 +129,20 @@ Dann `http://localhost:8000/` öffnen. Zwei Dinge, die man wirklich anschauen mu
   kommen.
 - **Handybreite** (Gerätesimulation, ~360 px): Die Tabellen in der Datenschutzerklärung
   scrollen in ihrem `.tabelle`-Kasten, die Seite selbst darf nicht seitlich scrollen.
+  Auf der Startseite dasselbe: Sie ist bei 390 px auf `scrollWidth == Viewport` geprüft.
+
+Screenshots ohne Browser-Werkzeug gehen auch mit dem installierten Chrome:
+
+```powershell
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu `
+  --hide-scrollbars --virtual-time-budget=5000 --window-size=1440,3200 `
+  --screenshot=desktop.png "http://localhost:8000/home.html"
+```
+
+**Für die Handybreite taugt `--window-size=390,…` nicht** — das Fenster hat unter Windows
+eine Mindestbreite, und der Screenshot beschneidet dann eine breiter gerenderte Seite. Das
+sieht wie ein Überlauf aus, der keiner ist. Verlässlich ist eine Hilfsseite, die
+`home.html` in einem `<iframe width=390>` lädt, und ein Screenshot davon.
 
 Interne Links lassen sich ohne Server prüfen — das Skript dafür steht in der
 Commit-Historie zu diesem Ordner.

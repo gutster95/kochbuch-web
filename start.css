@@ -1,0 +1,886 @@
+/*
+  Die Startseite - und NUR sie.
+
+  stil.css bleibt, was es war: die Gestaltung der Rechtsseiten, eine Spalte
+  Fliesstext auf 42rem. Diese Datei liegt daneben und traegt die Landingpage.
+  Bewusst getrennt und nicht in stil.css hineingeschrieben: Datenschutz,
+  Impressum, AGB und der Loeschweg haengen an denselben Klassen (.kopf, .inhalt,
+  .kacheln), und eine Startseite, die dort mitmischt, aendert vier Rechtstexte
+  mit, ohne dass es jemand merkt.
+
+  Die Tokens kommen aus stil.css, das die Startseite VOR dieser Datei laedt -
+  Farben, Radien, Abstaende und @font-face stehen dort einmal. Wer eine Farbe
+  aendert, aendert sie in ui/theme/Color.kt und in stil.css, nie hier.
+
+  Kein Build-Schritt, keine Abhaengigkeit, keine Anfrage nach draussen.
+*/
+
+/* --- Was diese Seite zusaetzlich braucht --------------------------------- */
+
+:root {
+  /*
+    Die gesaettigten Enden derselben Achse. Sie stehen in Color.kt als
+    ClayGradientStart/Mid/End und tragen in der App die Verlaufskarte des
+    Abo-Screens; hier tragen sie die Preisflaeche.
+  */
+  --clay-tief: #8E3A1E;
+  --clay-warm: #E9A06A;
+
+  /*
+    Text auf dunklem Grund wird NICHT grau. Ink900 ist ein warmer Ton, und ein
+    neutrales Grau darauf sieht schmutzig aus - dieselbe Begruendung wie bei
+    ShadowTint in Color.kt. Das hier ist Sand200, in die Tiefe gezogen.
+  */
+  --auf-dunkel:       #F3EBE2;
+  --auf-dunkel-leise: #C4B2A4;
+  --auf-clay-leise:   #FADFCF;
+
+  --sp-4xl: 72px;
+  --sp-5xl: 112px;
+
+  /* Eine Kurve fuer die ganze Seite: schnell los, weich aus. */
+  --kurve: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+  Die Teile, die niemand gestaltet und die trotzdem jeder sieht.
+*/
+::selection { background: var(--clay-100); color: var(--ink-900); }
+
+:focus-visible {
+  outline: 2px solid var(--clay-600);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+.start {
+  /* Der Fliesstext der Startseite steht dunkler als auf den Rechtsseiten. */
+  color: var(--ink-700);
+  overflow-x: hidden;
+}
+
+/* --- Raster -------------------------------------------------------------- */
+/*
+  Ein Mass fuer die ganze Seite. Die Rechtsseiten stehen auf 42rem, weil sie
+  gelesen werden; hier wird geschaut, und ein Telefon neben einer Textspalte
+  braucht Platz.
+*/
+.bahn {
+  width: min(100% - 2 * var(--sp-xl), 74rem);
+  margin-inline: auto;
+}
+
+.band { padding: var(--sp-5xl) 0; }
+.band-eng { padding: var(--sp-4xl) 0; }
+
+/* Die beiden gesaettigten Flaechen der Seite. */
+.band-dunkel {
+  background: var(--ink-900);
+  color: var(--auf-dunkel);
+}
+
+.band-clay {
+  /*
+    Von unten dunkel nach oben warm: Der Preis steht oben in 3rem, die
+    Fliesstextzeilen darunter stehen auf dem dunkleren Ende. Flaches Clay500
+    kaeme bei 16px Text auf 4,4:1 und damit unter die Schwelle.
+  */
+  background: linear-gradient(160deg, var(--clay-600) 0%, var(--clay-tief) 62%, #6F2712 100%);
+  color: var(--sand-50);
+}
+
+/* --- Ueberschriften ------------------------------------------------------ */
+
+.start h1,
+.start h2,
+.start h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--ink-900);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.start h1 {
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+}
+
+.start h2 {
+  font-weight: 600;
+  font-size: clamp(1.85rem, 1.35rem + 2.1vw, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  scroll-margin-top: 88px;
+}
+
+.start h3 {
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.band-dunkel h2,
+.band-dunkel h3 { color: var(--auf-dunkel); }
+
+.band-clay h2,
+.band-clay h3 { color: var(--sand-50); }
+
+.start p { margin: 0; }
+
+.gross {
+  font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--ink-700);
+  max-width: 34rem;
+}
+
+.band-dunkel .gross { color: var(--auf-dunkel-leise); }
+.band-clay .gross { color: var(--auf-clay-leise); }
+
+/* --- Kopf ---------------------------------------------------------------- */
+
+.start-kopf {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--sand-50) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Der Rand kommt erst, wenn wirklich etwas darunter durchlaeuft. */
+.start-kopf[data-gescrollt="ja"] {
+  border-bottom-color: var(--sand-200);
+  background: color-mix(in srgb, var(--sand-50) 96%, transparent);
+}
+
+.kopf-reihe {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xl);
+  min-height: 68px;
+}
+
+.start .marke {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-900);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-right: auto;
+}
+
+.start .marke:hover { color: var(--clay-600); }
+
+.marke-logo { display: block; flex: none; }
+
+.kopf-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xl);
+  font-size: 0.95rem;
+}
+
+.kopf-nav a {
+  color: var(--ink-700);
+  text-decoration: none;
+  padding: var(--sp-xs) 0;
+  border-bottom: 1px solid transparent;
+}
+
+.kopf-nav a:hover { color: var(--ink-900); border-bottom-color: var(--clay-500); }
+
+.kopf-sprachen {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-500);
+}
+
+.kopf-sprachen a { color: var(--ink-500); text-decoration: none; }
+.kopf-sprachen a:hover { color: var(--clay-600); }
+.kopf-sprachen [aria-current="true"] { color: var(--ink-900); font-weight: 600; }
+.kopf-sprachen .teiler { color: var(--sand-200); }
+
+@media (max-width: 60rem) {
+  .kopf-nav .nur-breit { display: none; }
+}
+
+/* --- Knoepfe ------------------------------------------------------------- */
+
+.knopf-reihe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-md);
+}
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 14px var(--sp-xl);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.25s var(--kurve), background-color 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.25s var(--kurve);
+}
+
+/*
+  Clay600 statt Clay500: Weisse Schrift auf Clay500 kommt auf 4,4:1 und liegt
+  damit unter 4,5:1 fuer Text dieser Groesse. Clay600 haelt 6,3:1.
+*/
+.knopf-voll {
+  background: var(--clay-600);
+  color: var(--sand-50);
+  box-shadow: 0 12px 26px -14px rgba(107, 74, 52, 0.55);
+}
+
+.knopf-voll:hover {
+  background: #8B3B20;
+  color: var(--sand-50);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -16px rgba(107, 74, 52, 0.6);
+}
+
+.knopf-leer {
+  background: transparent;
+  border-color: var(--sand-200);
+  color: var(--ink-900);
+}
+
+.knopf-leer:hover { border-color: var(--ink-500); color: var(--ink-900); transform: translateY(-2px); }
+
+.band-clay .knopf-voll {
+  background: var(--sand-50);
+  color: var(--clay-600);
+  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.5);
+}
+
+.band-clay .knopf-voll:hover { background: #fff; color: var(--clay-600); }
+
+.knopf svg { display: block; }
+
+/* --- Held ---------------------------------------------------------------- */
+
+.held-start {
+  position: relative;
+  padding: var(--sp-4xl) 0 var(--sp-5xl);
+  /*
+    Ein Hauch Waerme hinter dem Telefon statt einer flachen Flaeche. Zwei sehr
+    weiche Farbkreise, keine Deko-Formen.
+  */
+  background:
+    radial-gradient(60rem 40rem at 78% 8%, var(--clay-100) 0%, transparent 62%),
+    radial-gradient(45rem 32rem at 8% 82%, var(--sage-100) 0%, transparent 58%),
+    var(--sand-50);
+}
+
+.held-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: var(--sp-4xl);
+}
+
+.held-text > * + * { margin-top: var(--sp-2xl); }
+.held-text .stand-zeile { margin-top: var(--sp-lg); }
+
+.held-text .gross { max-width: 30rem; }
+
+/* Die ehrliche Zeile unter den Knoepfen: kein Store-Abzeichen, das es nicht gibt. */
+.stand-zeile {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  font-size: 0.9rem;
+  color: var(--ink-500);
+}
+
+.punkt {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage-500);
+  flex: none;
+}
+
+@media (max-width: 60rem) {
+  .held-raster { grid-template-columns: 1fr; gap: var(--sp-3xl); }
+  .held-text .gross { max-width: none; }
+}
+
+/* --- Das Telefon --------------------------------------------------------- */
+/*
+  Im Rahmen stehen echte Screenshots vom Geraet (Pixel 9, 1080x2424). Vorher
+  war der Bildschirminhalt HTML in der Gestaltung der App - hundert Zeilen
+  Nachbau, die bei jeder Aenderung an der echten App still veralteten.
+
+  Das Seitenverhaeltnis bringt das Bild selbst mit (width/height am <img>);
+  der Rahmen richtet sich danach. Ein aspect-ratio am Rahmen waere falsch:
+  Das Polster von 10px zaehlt mit, das Bild sasse dann leicht verzerrt darin.
+*/
+
+.telefon {
+  width: 100%;
+  max-width: 320px;
+  margin-inline: auto;
+  background: var(--ink-900);
+  border-radius: 44px;
+  padding: 10px;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.12) inset,
+    0 40px 80px -40px rgba(31, 26, 22, 0.55),
+    0 12px 30px -18px rgba(31, 26, 22, 0.4);
+}
+
+.telefon-kippen {
+  transform: rotate(-2.2deg);
+  transform-origin: 60% 50%;
+}
+
+.schirm-bild {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1080 / 2424;
+  object-fit: cover;
+  border-radius: 35px;
+  background: var(--sand-50);
+}
+
+/* --- Die Verwandlung ----------------------------------------------------- */
+
+.verwandlung-kopf {
+  display: grid;
+  gap: var(--sp-lg);
+  max-width: 44rem;
+  margin-bottom: var(--sp-4xl);
+}
+
+.verwandlung {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--sp-xl);
+}
+
+.blatt {
+  border-radius: var(--r-xxl);
+  padding: var(--sp-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+/* Links: was aus der App geteilt wird. Rohtext, Zeilenumbrueche wie im Original. */
+.blatt-roh {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(243, 235, 226, 0.14);
+}
+
+.blatt-marke {
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--auf-dunkel-leise);
+}
+
+.band-clay .blatt-marke { color: var(--auf-clay-leise); }
+
+.roh-text {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--auf-dunkel-leise);
+  white-space: pre-line;
+  margin: 0;
+}
+
+.roh-text .hash { color: #8C7C6E; }
+
+/* Rechts: das fertige Rezept, in der Flaeche der App. */
+.blatt-rezept {
+  background: var(--sand-50);
+  color: var(--ink-700);
+  border: 1px solid var(--sand-200);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+}
+
+.blatt-rezept .blatt-marke { color: var(--ink-500); }
+
+.rezept-titel {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  color: var(--ink-900);
+}
+
+.rezept-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  font-size: 0.85rem;
+  color: var(--ink-500);
+}
+
+.marke-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--clay-100);
+  color: var(--clay-600);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.rezept-spalten {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--sp-xl);
+}
+
+.rezept-spalten h4 {
+  margin: 0 0 var(--sp-sm);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.zutaten,
+.schritte { margin: 0; padding: 0; list-style: none; font-size: 0.88rem; }
+
+.zutaten li {
+  display: flex;
+  gap: var(--sp-sm);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--sand-200);
+  color: var(--ink-700);
+}
+
+.zutaten li:last-child { border-bottom: 0; }
+.zutaten .menge { color: var(--ink-900); font-weight: 600; flex: none; min-width: 3.4rem; }
+
+/*
+  Die Gruppenzeile. In der App steht sie als "##Fuer den Teig" in derselben
+  Zutatenliste (siehe IngredientGroups) - hier bekommt sie dieselbe Rolle:
+  Ueberschrift statt Zutat.
+*/
+.zutaten .gruppe {
+  border-bottom: 0;
+  padding-top: var(--sp-md);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.zutaten .gruppe:first-child { padding-top: 0; }
+
+.schritte li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--sp-sm);
+  padding: 6px 0;
+  color: var(--ink-700);
+  line-height: 1.5;
+}
+
+.schritte .nr {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--clay-600);
+  background: var(--clay-100);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  margin-top: 2px;
+}
+
+/* Der Pfeil zwischen den beiden Blaettern. */
+.pfeil {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  color: var(--clay-warm);
+  background: rgba(192, 90, 49, 0.18);
+  border: 1px solid rgba(233, 160, 106, 0.35);
+}
+
+.pfeil svg { width: 26px; height: 26px; }
+
+.fussnote {
+  margin-top: var(--sp-2xl);
+  font-size: 0.85rem;
+  color: var(--auf-dunkel-leise);
+}
+
+@media (max-width: 62rem) {
+  .verwandlung { grid-template-columns: 1fr; }
+  .pfeil { transform: rotate(90deg); justify-self: center; }
+  .rezept-spalten { grid-template-columns: 1fr; gap: var(--sp-lg); }
+}
+
+/* --- Die Funktionen ------------------------------------------------------ */
+
+.zug {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-4xl);
+  padding: var(--sp-4xl) 0;
+}
+
+.zug + .zug { border-top: 1px solid var(--sand-200); }
+
+/* Jeder zweite Zug dreht die Seiten. */
+.zug-gedreht .zug-bild { order: -1; }
+
+.zug-text > * + * { margin-top: var(--sp-lg); }
+
+.zug-punkte {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--sp-sm);
+  font-size: 0.98rem;
+}
+
+.zug-punkte li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: var(--sp-md);
+  align-items: start;
+  color: var(--ink-700);
+}
+
+.zug-punkte svg { color: var(--clay-500); margin-top: 3px; }
+
+.zug-bild { display: grid; place-items: center; }
+
+.zug-bild .telefon { max-width: 272px; }
+
+@media (max-width: 62rem) {
+  .zug { grid-template-columns: 1fr; gap: var(--sp-2xl); padding: var(--sp-3xl) 0; }
+  .zug-gedreht .zug-bild { order: 0; }
+}
+
+/* --- Die kleinen Wahrheiten ---------------------------------------------- */
+/*
+  Bewusst KEINE vierte Kachelwand aus Symbol, Titel und Satz: Die Seite hat
+  ihre Aussage schon dreimal gross erzaehlt, hier reicht eine Zeile je Punkt.
+*/
+.leiste-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--sp-xl) var(--sp-2xl);
+  padding-top: var(--sp-2xl);
+  border-top: 1px solid var(--sand-200);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--sp-md);
+  align-items: start;
+}
+
+.detail svg { color: var(--sage-500); margin-top: 2px; }
+.detail b { display: block; color: var(--ink-900); font-weight: 600; font-size: 0.98rem; }
+.detail span { font-size: 0.9rem; color: var(--ink-500); }
+
+/* --- Der Preis ----------------------------------------------------------- */
+
+.preis-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--sp-4xl);
+  align-items: start;
+}
+
+.preis-zahl {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--sand-50);
+}
+
+.preis-zusatz { font-size: 1.05rem; color: var(--auf-clay-leise); }
+
+.tarife {
+  display: grid;
+  gap: var(--sp-md);
+  margin-top: var(--sp-xl);
+  max-width: 30rem;
+}
+
+.tarif {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-md);
+  padding: var(--sp-lg) var(--sp-xl);
+  border-radius: var(--r-xl);
+  background: rgba(252, 250, 247, 0.1);
+  border: 1px solid rgba(252, 250, 247, 0.2);
+}
+
+.tarif b {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--sand-50);
+  flex: none;
+}
+
+.tarif span { font-size: 0.92rem; color: var(--auf-clay-leise); }
+
+.tarif .tarif-sparen {
+  margin-left: auto;
+  flex: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--sand-50);
+  color: var(--clay-600);
+}
+
+.preis-klein {
+  margin-top: var(--sp-lg);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--auf-clay-leise);
+}
+
+.bleibt {
+  border-radius: var(--r-xxl);
+  padding: var(--sp-xl);
+  background: rgba(31, 26, 22, 0.22);
+  border: 1px solid rgba(252, 250, 247, 0.14);
+}
+
+.bleibt h3 { margin-bottom: var(--sp-md); }
+
+.bleibt ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--sp-sm); }
+
+.bleibt li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: var(--sp-md);
+  align-items: start;
+  font-size: 0.95rem;
+  color: var(--sand-50);
+}
+
+.bleibt svg { color: var(--clay-warm); margin-top: 3px; }
+
+@media (max-width: 62rem) {
+  .preis-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
+}
+
+/* --- Rechtliches und Kontakt --------------------------------------------- */
+
+.schluss-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--sp-4xl);
+  align-items: start;
+}
+
+.rechts-liste { display: grid; }
+
+.rechts-zeile {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--sp-lg);
+  padding: var(--sp-lg) 0;
+  border-bottom: 1px solid var(--sand-200);
+  text-decoration: none;
+  color: var(--ink-700);
+}
+
+.rechts-zeile:first-child { border-top: 1px solid var(--sand-200); }
+
+.rechts-zeile b {
+  display: block;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.rechts-zeile span { font-size: 0.9rem; color: var(--ink-500); }
+
+.rechts-zeile svg { color: var(--ink-500); transition: transform 0.25s var(--kurve), color 0.2s ease; }
+.rechts-zeile:hover { color: var(--ink-700); }
+.rechts-zeile:hover b { color: var(--clay-600); }
+.rechts-zeile:hover svg { color: var(--clay-600); transform: translateX(4px); }
+
+.kontakt-karte {
+  border-radius: var(--r-xxl);
+  background: var(--sand-100);
+  border: 1px solid var(--sand-200);
+  padding: var(--sp-2xl);
+  box-shadow: 0 26px 50px -34px var(--shadow);
+}
+
+.kontakt-karte > * + * { margin-top: var(--sp-lg); }
+
+.mail-zeile {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem);
+  font-weight: 600;
+  color: var(--clay-600);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.mail-zeile:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 62rem) {
+  .schluss-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
+}
+
+/* --- Fuss ---------------------------------------------------------------- */
+
+.start-fuss {
+  background: var(--ink-900);
+  color: var(--auf-dunkel-leise);
+  padding: var(--sp-4xl) 0 var(--sp-2xl);
+  font-size: 0.92rem;
+}
+
+.fuss-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2xl);
+  padding-bottom: var(--sp-2xl);
+  border-bottom: 1px solid rgba(243, 235, 226, 0.14);
+}
+
+.fuss-marke {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--auf-dunkel);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  text-decoration: none;
+}
+
+
+.fuss-satz { margin-top: var(--sp-md); max-width: 22rem; line-height: 1.6; }
+
+.fuss-spalte b {
+  display: block;
+  color: var(--auf-dunkel);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-md);
+}
+
+.fuss-spalte a {
+  display: block;
+  color: var(--auf-dunkel-leise);
+  text-decoration: none;
+  padding: 5px 0;
+}
+
+.fuss-spalte a:hover { color: var(--clay-warm); }
+
+.fuss-zeile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  padding-top: var(--sp-xl);
+  font-size: 0.85rem;
+}
+
+.fuss-zeile .kopf-sprachen { color: var(--auf-dunkel-leise); }
+.fuss-zeile .kopf-sprachen a { color: var(--auf-dunkel-leise); }
+.fuss-zeile .kopf-sprachen a:hover { color: var(--clay-warm); }
+.fuss-zeile .kopf-sprachen [aria-current="true"] { color: var(--auf-dunkel); }
+.fuss-zeile .kopf-sprachen .teiler { color: rgba(243, 235, 226, 0.3); }
+
+@media (max-width: 62rem) {
+  .fuss-raster { grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); }
+}
+
+@media (max-width: 34rem) {
+  .fuss-raster { grid-template-columns: 1fr; }
+}
+
+/* --- Die eine Bewegung --------------------------------------------------- */
+/*
+  Ein orchestrierter Moment statt Effekten an jedem Abschnitt: Beim ersten
+  Sichtbarwerden der Verwandlung laufen die Zeilen des fertigen Rezepts von
+  oben nach unten ein - dieselbe Reihenfolge, in der die App sie erzeugt.
+
+  Der Grundzustand ist SICHTBAR. Die Klasse .laeuft setzt JS erst, wenn es
+  wirklich animieren darf; ohne JS, ohne IntersectionObserver und bei
+  abbestellter Bewegung steht der Inhalt einfach da.
+*/
+.laeuft .stufe {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.laeuft.sichtbar .stufe {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s var(--kurve), transform 0.6s var(--kurve);
+  transition-delay: calc(var(--i, 0) * 65ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .laeuft .stufe,
+  .laeuft.sichtbar .stufe { opacity: 1; transform: none; transition: none; }
+  .knopf, .rechts-zeile svg { transition: none; }
+  .telefon-kippen { transform: none; }
+}
+
+/* --- Ganz schmal --------------------------------------------------------- */
+
+@media (max-width: 34rem) {
+  .band { padding: var(--sp-3xl) 0; }
+  .band-eng { padding: var(--sp-2xl) 0; }
+  .held-start { padding: var(--sp-2xl) 0 var(--sp-3xl); }
+  .blatt { padding: var(--sp-lg); }
+  .knopf { width: 100%; justify-content: center; }
+  .knopf-reihe { gap: var(--sp-sm); }
+}

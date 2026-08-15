@@ -6,103 +6,532 @@
 <!-- noindex, solange die Angaben Platzhalter sind (siehe web/README.md).
      Raus, sobald Anschrift und Kontakt stehen. -->
 <meta name="robots" content="noindex">
-<title>Kochbuch — Rezepte aus Reels</title>
-<meta name="description" content="Kochbuch macht aus einem TikTok- oder Instagram-Link ein Rezept mit Zutaten und Schritten.">
+<title>Kochbuch — aus einem Reel wird ein Rezept</title>
+<link rel="icon" href="bilder/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="bilder/logo-180.png">
+<meta name="description" content="Kochbuch macht aus einem TikTok- oder Instagram-Link ein Rezept mit Zutaten und Schritten. Wochenplan, Kochmodus und geteilte Kochbücher inklusive.">
+<meta name="theme-color" content="#FCFAF7">
 <link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="start.css">
 <!--
   Die Startseite des Auftritts. Sie hat zwei Aufgaben, und die zweite ist die
-  wichtigere: Sie erklaert kurz, was die App tut - und sie ist der Ort, an dem
+  wichtigere: Sie erklaert, was die App tut - und sie ist der Ort, an dem
   Datenschutzerklaerung, Impressum, Nutzungsbedingungen und der Loeschweg
   verlinkt sind. Google Play verlangt eine oeffentlich erreichbare URL fuer die
   Datenschutzerklaerung und eine zweite fuer die Kontoloeschung ohne App.
 
-  Statisch, ohne Build-Schritt, fuer GitHub Pages - siehe supabase/README.md.
-  Alle Pfade sind RELATIV: Die Seite liegt unter /kochbuch-web/, absolute Pfade
-  wie /stil.css zeigten dort ins Leere.
+  Statisch, ohne Build-Schritt, fuer GitHub Pages. Alle Pfade sind RELATIV: Die
+  Seite liegt unter /kochbuch-web/, absolute Pfade wie /stil.css zeigten dort
+  ins Leere.
+
+  Zwei Stylesheets: stil.css traegt Tokens, Schrift und die Rechtsseiten,
+  start.css nur diese Seite - siehe den Kopf von start.css.
 -->
 </head>
-<body>
+<body class="start">
 
-<header class="kopf">
-  <div class="kopf-inhalt">
-    <a class="marke" href="index.html">Kochbuch</a>
-    <nav class="sprachen" aria-label="Sprache">
-      <span aria-current="true">DE</span>
-      <a href="en/home.html" hreflang="en">EN</a>
+<!--
+  THESIS: Diese Seite zeigt die Verwandlung selbst - geteilte Caption links,
+  fertiges Rezept rechts - statt die Kachelwand aus Symbol, Titel und Satz, die
+  jede App-Startseite dieser Kategorie ausliefert.
+  OWN-WORLD: Die Palette der App (Sand-Grund, Ink-Tiefe, Clay-Akzent, Sage als
+  zweite Stimme), Fraunces ausschliesslich in Ueberschriften, System-Sans im
+  Text, 28px-Radien, warme versetzte Schatten, gezeichnete SVG-Symbole in einer
+  Strichstaerke. Zwei gesaettigte Vollflaechen brechen den hellen Grund: die
+  dunkle Beweis-Bahn und die Preisbahn im Clay-Verlauf.
+  STORY: Der Besucher versteht in einem Blick, dass ein geteilter Link ein
+  sauberes Rezept wird; er glaubt es, weil er die Umwandlung sieht statt sie
+  behauptet zu bekommen; er merkt sich die App vor.
+  FIRST VIEWPORT: Links die Zeile "Aus einem Reel wird ein Rezept" auf voller
+  Displaygroesse, Vorspann, zwei Knoepfe und die ehrliche Standzeile; rechts das
+  Telefon mit der echten Rezeptliste, leicht gekippt und angeschnitten.
+  FORM: Der aufgeschlagene Kochbuch-Doppelseite - links Text, rechts Objekt -
+  Platz 2 der abgeleiteten Strukturen. Kein Seed-Key: auf diesem Rechner ist
+  kein Node installiert, concept-seed.mjs konnte nicht laufen.
+  FINISH: unreviewed und undocumented ist unfertig; dieser Build endet mit der
+  Durchsicht, dem Urteil und DESIGN.md.
+-->
+
+<!-- Die Symbole. Eine Strichstaerke (1.6), ein Stil, keine Emoji als Icon. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="i-kalender" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="5" width="17" height="15" rx="3"/>
+      <path d="M3.5 10h17M8 3.5v3M16 3.5v3"/>
+      <path d="M7.5 14h3M13.5 14h3M7.5 17h3"/>
+    </g>
+    <g id="i-herz" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19.5S4.5 15.2 4.5 9.8A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7.5 1.8c0 5.4-7.5 9.7-7.5 9.7"/>
+    </g>
+    <g id="i-teilen" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 15.5V4M12 4 8.2 7.8M12 4l3.8 3.8"/>
+      <path d="M5 13.5v4.8A1.7 1.7 0 0 0 6.7 20h10.6a1.7 1.7 0 0 0 1.7-1.7v-4.8"/>
+    </g>
+    <g id="i-lupe" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/>
+    </g>
+    <g id="i-pfeil-rechts" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 12h14M13 6.5l5.5 5.5L13 17.5"/>
+    </g>
+    <g id="i-haken" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m4.5 12.5 5 5 10-11"/>
+    </g>
+    <g id="i-topf" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 9.5h15v5.8A4.7 4.7 0 0 1 14.8 20H9.2a4.7 4.7 0 0 1-4.7-4.7z"/>
+      <path d="M4.5 12H3M19.5 12H21M9 6.5s-.8-1.2 0-2.5M12 6.5s-.8-1.2 0-2.5M15 6.5s-.8-1.2 0-2.5"/>
+    </g>
+    <g id="i-personen" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9.5" cy="8" r="3"/>
+      <path d="M3.5 19.5a6 6 0 0 1 12 0"/>
+      <path d="M16 5.4a3 3 0 0 1 0 5.2M17 14.2a6 6 0 0 1 3.5 5.3"/>
+    </g>
+    <g id="i-sprache" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8"/>
+      <path d="M4 12h16M12 4c2.2 2.3 3.3 5 3.3 8s-1.1 5.7-3.3 8c-2.2-2.3-3.3-5-3.3-8S9.8 6.3 12 4"/>
+    </g>
+    <g id="i-chip" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="7" y="7" width="10" height="10" rx="2.5"/>
+      <path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/>
+    </g>
+    <g id="i-stern" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 4.5 14.1 9l4.9.6-3.6 3.4.9 4.9-4.3-2.4-4.3 2.4.9-4.9L5 9.6 9.9 9z"/>
+    </g>
+    <g id="i-wandeln" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 8h13M11.5 3.5 16 8l-4.5 4.5"/>
+      <path d="M21 16H8M12.5 11.5 8 16l4.5 4.5"/>
+    </g>
+  </defs>
+</svg>
+
+<header class="start-kopf" id="seitenkopf">
+  <div class="bahn kopf-reihe">
+    <a class="marke" href="home.html">
+      <img class="marke-logo" src="bilder/logo.svg" width="26" height="26" alt="">
+      Kochbuch
+    </a>
+    <nav class="kopf-nav" aria-label="Seitenbereiche">
+      <a class="nur-breit" href="#verwandlung">Wie es geht</a>
+      <a class="nur-breit" href="#funktionen">Funktionen</a>
+      <a class="nur-breit" href="#preis">Preis</a>
+      <span class="kopf-sprachen">
+        <span aria-current="true">DE</span>
+        <span class="teiler" aria-hidden="true">·</span>
+        <a href="en/home.html" hreflang="en">EN</a>
+      </span>
     </nav>
   </div>
 </header>
 
 <main>
-  <div class="inhalt">
 
-    <section class="held">
-      <h1>Aus einem Reel wird ein Rezept</h1>
-      <p class="vorspann">
-        Schick der App einen TikTok- oder Instagram-Link. Sie wertet das Video aus und
-        macht daraus ein Rezept mit Zutaten und Schritten — zum Nachkochen, Planen und
-        Teilen.
+  <!-- ------------------------------------------------------------------ -->
+  <section class="held-start">
+    <div class="bahn held-raster">
+
+      <div class="held-text">
+        <h1>Aus einem Reel wird ein Rezept</h1>
+        <p class="gross">
+          Du siehst etwas Gutes auf TikTok oder Instagram, teilst den Link mit Kochbuch —
+          und hast ein Rezept mit Zutaten, Schritten und Bild. Kein Abtippen, kein
+          Zurückspulen, kein Screenshot-Friedhof.
+        </p>
+        <div class="knopf-reihe">
+          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20vormerken">
+            Vormerken
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+          <a class="knopf knopf-leer" href="#verwandlung">Erst ansehen</a>
+        </div>
+        <p class="stand-zeile">
+          <span class="punkt" aria-hidden="true"></span>
+          Die Android-Fassung ist in Vorbereitung, die iPhone-Fassung entsteht daneben.
+        </p>
+      </div>
+
+      <div class="held-bild">
+        <!--
+          Echte Screenshots vom Geraet (Pixel 9, 1080x2424), nicht mehr der
+          frueher hier stehende HTML-Nachbau: Der lief bei jeder Aenderung an
+          der App aus dem Takt, und niemand haette es gemerkt.
+
+          Die abgebildeten Rezepte sind ein eigens angelegtes Demo-Kochbuch mit
+          Fotos von Pexels. Bewusst NICHT das echte Kochbuch: Dort stehen
+          fremde Instagram-Bilder samt @handle, und die auf eine Werbeseite zu
+          stellen waere eine oeffentliche Zugaenglichmachung fremder Werke
+          (§ 19a UrhG) - genau das, wogegen Migration 013 die Buckets
+          privat gemacht hat.
+
+          Wer die Bilder neu erzeugt: gleiche Geraetebreite behalten, sonst
+          passt das Seitenverhaeltnis in .telefon nicht mehr.
+        -->
+        <div class="telefon telefon-kippen">
+          <img class="schirm-bild" src="bilder/app-rezepte.webp"
+               width="640" height="1436" fetchpriority="high" decoding="async"
+               alt="Die Rezeptliste der App: sechs Rezeptkarten mit Foto und Titel, darunter die Reiterleiste mit Rezepte, Woche, Kategorien und Suche.">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band band-dunkel" id="verwandlung">
+    <div class="bahn">
+
+      <div class="verwandlung-kopf">
+        <h2>Links steht, was du teilst. Rechts, was du bekommst.</h2>
+        <p class="gross">
+          Captions sind Fließtext mit Emojis, Hashtags und Mengen mitten im Satz —
+          und die Hälfte der Zubereitung wird nur im Video gesprochen. Kochbuch liest
+          beides, sortiert Zutaten und Schritte und übersetzt, was fremdsprachig ist.
+        </p>
+      </div>
+
+      <div class="verwandlung" id="verwandlung-block">
+        <div class="blatt blatt-roh">
+          <span class="blatt-marke">Geteilter Beitrag</span>
+          <p class="roh-text">🍋 CREAMY LEMON PASTA ✨ das schnellste Abendessen der Woche, versprochen!!
+
+zutaten für 2:
+250g Linguine, 200g Spinat (frisch!), 1 Zitrone, 150g Frischkäse, 2 Knoblauchzehen, 40g Parmesan, Olivenöl, Salz &amp; Pfeffer
+
+alles weitere im Video 👆 speichern nicht vergessen
+<span class="hash">#pasta #zitronenpasta #feierabendküche #rezepte</span></p>
+        </div>
+
+        <div class="pfeil" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><use href="#i-wandeln"/></svg>
+        </div>
+
+        <div class="blatt blatt-rezept">
+          <span class="blatt-marke stufe" style="--i:0">Im Kochbuch</span>
+          <div class="rezept-titel stufe" style="--i:1">Cremige Zitronen-Pasta mit Spinat</div>
+          <div class="rezept-meta stufe" style="--i:2">
+            <span class="marke-chip">
+              <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-topf"/></svg>
+              Pasta
+            </span>
+            <span>2 Portionen · 20 Minuten</span>
+          </div>
+
+          <div class="rezept-spalten">
+            <div class="stufe" style="--i:3">
+              <h4>Zutaten</h4>
+              <ul class="zutaten">
+                <li class="gruppe">Für die Sauce</li>
+                <li><span class="menge">150 g</span> Frischkäse</li>
+                <li><span class="menge">1</span> Zitrone, Schale und Saft</li>
+                <li><span class="menge">2</span> Knoblauchzehen</li>
+                <li><span class="menge">40 g</span> Parmesan</li>
+                <li class="gruppe">Dazu</li>
+                <li><span class="menge">250 g</span> Linguine</li>
+                <li><span class="menge">200 g</span> Spinat, frisch</li>
+                <li><span class="menge">2 EL</span> Olivenöl</li>
+              </ul>
+            </div>
+            <div class="stufe" style="--i:4">
+              <h4>Zubereitung</h4>
+              <ol class="schritte">
+                <li><span class="nr">1</span><span>Linguine in Salzwasser bissfest kochen, eine Tasse Kochwasser aufheben.</span></li>
+                <li><span class="nr">2</span><span>Knoblauch in Olivenöl anschwitzen, Spinat zugeben und zusammenfallen lassen.</span></li>
+                <li><span class="nr">3</span><span>Frischkäse, Zitronenschale und -saft einrühren, mit Kochwasser cremig ziehen.</span></li>
+                <li><span class="nr">4</span><span>Pasta unterheben, mit Parmesan, Salz und Pfeffer abschmecken.</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="fussnote">
+        Beispiel mit erfundener Caption — echte Beiträge gehören ihren Urhebern.
+        Was Kochbuch daraus macht, liegt in deinem Kochbuch und sonst nirgends.
       </p>
-    </section>
 
-    <div class="kacheln">
-      <div class="kachel">
-        <b>Importieren</b>
-        <span>Link teilen, warten, fertig. Zutaten, Schritte und Bild stehen im Kochbuch.</span>
-      </div>
-      <div class="kachel">
-        <b>Wochenplan</b>
-        <span>Rezepte in die Woche legen — allein oder gemeinsam mit verknüpften Kochbüchern.</span>
-      </div>
-      <div class="kachel">
-        <b>Kochmodus</b>
-        <span>Schritt für Schritt, mit Bildschirm, der anbleibt.</span>
-      </div>
     </div>
+  </section>
 
-    <h2 id="rechtliches">Rechtliches</h2>
-    <p>
-      Die App ist kostenpflichtig, sobald die ersten Importe aufgebraucht sind. Was das
-      heißt, wem welche Daten wohin gehen und wie man sein Konto wieder loswird, steht
-      hier:
-    </p>
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band" id="funktionen">
+    <div class="bahn">
 
-    <div class="kacheln">
-      <a class="kachel" href="datenschutz/index.html">
-        <b>Datenschutzerklärung</b>
-        <span>Welche Daten wir verarbeiten, wer sie sonst noch sieht und wie lange sie bleiben.</span>
-      </a>
-      <a class="kachel" href="agb/index.html">
-        <b>Nutzungsbedingungen</b>
-        <span>Abo, Rezeptinhalte, geteilte Kochbücher und die Grenzen des Ganzen.</span>
-      </a>
-      <a class="kachel" href="impressum/index.html">
-        <b>Impressum</b>
-        <span>Wer hinter der App steckt und wie man uns erreicht.</span>
-      </a>
-      <a class="kachel" href="konto-loeschen/index.html">
-        <b>Konto löschen</b>
-        <span>In der App mit zwei Tipps — oder hier, ganz ohne App.</span>
-      </a>
+      <div class="zug">
+        <div class="zug-text">
+          <h2>Die Woche steht am Sonntag</h2>
+          <p class="gross">
+            Rezepte wandern mit einem Tipp in die Woche — einzeln aus dem Rezept oder
+            gleich mehrere aus der Liste. Und wenn niemand entscheiden will, würfelt die
+            App: ganze Kategorien lassen sich vorher ausschließen.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Der Wochenplan gilt für alle verknüpften Kochbücher gemeinsam.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Wessen Plan du siehst, entscheidest du je Kochbuch selbst.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild">
+          <div class="telefon">
+            <img class="schirm-bild" src="bilder/app-woche.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="Der Wochenplan der App mit sechs eingeplanten Rezepten und dem Wuerfel-Knopf unten rechts.">
+          </div>
+        </div>
+      </div>
+
+      <div class="zug zug-gedreht">
+        <div class="zug-text">
+          <h2>Beim Kochen bleibt der Bildschirm an</h2>
+          <p class="gross">
+            Der Kochmodus zeigt einen Schritt groß statt acht klein, hakt Zutaten ab und
+            lässt das Display an — und wenn das Handy zwischendurch aus der Hand fällt,
+            kommt die App an derselben Stelle wieder hoch.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Zutatengruppen wie „Für die Sauce" bleiben Überschriften, keine Zutat.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Bis zu 30 Minuten später steht der Schritt noch, an dem du warst.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild">
+          <div class="telefon">
+            <img class="schirm-bild" src="bilder/app-kochmodus.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="Der Kochmodus der App: Schritt 3 von 5 gross dargestellt, unten die Knoepfe Zurueck und Weiter.">
+          </div>
+        </div>
+      </div>
+
+      <div class="zug">
+        <div class="zug-text">
+          <h2>Ein Kochbuch zu zweit</h2>
+          <p class="gross">
+            Ein sechsstelliger Einladungscode verbindet zwei Kochbücher. Danach seht ihr
+            beide Sammlungen und teilt euch die Woche — jeder bleibt Herr über seine
+            eigenen Rezepte, und Favoriten bleiben persönlich.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Der Code gilt sieben Tage und genau einmal.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Lösen geht jederzeit, ohne dass jemand Rezepte verliert.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild">
+          <div class="telefon">
+            <img class="schirm-bild" src="bilder/app-kochbuecher.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="Die Kochbuch-Verwaltung der App: der eigene Einladungscode und ein verknuepftes Kochbuch.">
+          </div>
+        </div>
+      </div>
+
+      <div class="leiste-details">
+        <div class="detail">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
+          <span><b>Rechnet auf dem Gerät</b>
+          <span>Wo das Handy es kann, bleibt die Aufbereitung lokal.</span></span>
+        </div>
+        <div class="detail">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
+          <span><b>Sechs Sprachen</b>
+          <span>Deutsch, Englisch, Französisch, Spanisch, Italienisch, Polnisch.</span></span>
+        </div>
+        <div class="detail">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern"/></svg>
+          <span><b>Kategorien und Favoriten</b>
+          <span>13 Kategorien zum Start, umbenennbar, dazu eigene.</span></span>
+        </div>
+        <div class="detail">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
+          <span><b>Auch von Hand</b>
+          <span>Omas Rezept kommt ohne Link hinein, mit eigenem Foto.</span></span>
+        </div>
+      </div>
+
     </div>
+  </section>
 
-    <h2 id="kontakt">Kontakt</h2>
-    <p>
-      Fragen, Fehler, Wünsche:
-      <a href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
-    </p>
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band band-clay" id="preis">
+    <div class="bahn preis-raster">
 
-  </div>
+      <div>
+        <h2>Die ersten 15 Rezepte gehen aufs Haus</h2>
+        <p class="gross" style="margin-top:var(--sp-lg)">
+          Sie verfallen nicht. Wer danach weiter importiert, zahlt — weil jeder Import
+          Rechenzeit kostet, die wir bezahlen.
+        </p>
+
+        <div class="tarife">
+          <div class="tarif">
+            <b>2,99 €</b>
+            <span>im Monat</span>
+          </div>
+          <div class="tarif">
+            <b>28,68 €</b>
+            <span>im Jahr — 2,39 € im Monat</span>
+            <span class="tarif-sparen">−20 %</span>
+          </div>
+        </div>
+
+        <p class="preis-klein">
+          Alle Preise inkl. MwSt. Das Abo verlängert sich automatisch und ist jederzeit
+          über den App Store bzw. Google Play kündbar. Der endgültige Preis steht im
+          Kaufdialog des Stores.
+        </p>
+      </div>
+
+      <div class="bleibt">
+        <h3>Was ohne Abo bleibt</h3>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+            <span>Alle Rezepte, die schon drin sind — lesen, kochen, bearbeiten.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+            <span>Wochenplan, Kochmodus, Favoriten und geteilte Kochbücher.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+            <span>Dein Konto und der Weg, es mit zwei Tipps wieder zu löschen.</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band band-eng" id="rechtliches">
+    <div class="bahn schluss-raster">
+
+      <div>
+        <h2>Das Kleingedruckte, groß genug</h2>
+        <p class="gross" style="margin-top:var(--sp-lg)">
+          Wem welche Daten wohin gehen, was das Abo bedeutet und wie man sein Konto
+          wieder loswird — ohne die App zu installieren.
+        </p>
+      </div>
+
+      <div>
+        <div class="rechts-liste">
+          <a class="rechts-zeile" href="datenschutz/index.html">
+            <span>
+              <b>Datenschutzerklärung</b>
+              <span>Welche Daten wir verarbeiten, wer sie sonst noch sieht, wie lange sie bleiben.</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+          <a class="rechts-zeile" href="agb/index.html">
+            <span>
+              <b>Nutzungsbedingungen</b>
+              <span>Abo, Rezeptinhalte, geteilte Kochbücher und die Grenzen des Ganzen.</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+          <a class="rechts-zeile" href="impressum/index.html">
+            <span>
+              <b>Impressum</b>
+              <span>Wer hinter der App steckt und wie man uns erreicht.</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+          <a class="rechts-zeile" href="konto-loeschen/index.html">
+            <span>
+              <b>Konto löschen</b>
+              <span>In der App mit zwei Tipps — oder hier, ganz ohne App.</span>
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+        </div>
+
+        <div class="kontakt-karte" style="margin-top:var(--sp-2xl)">
+          <h3>Fragen, Fehler, Wünsche</h3>
+          <p>Es antwortet ein Mensch, kein Ticketsystem.</p>
+          <a class="mail-zeile" href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </main>
 
-<footer class="fuss">
-  <div class="fuss-inhalt">
-    <a href="datenschutz/index.html">Datenschutz</a>
-    <a href="agb/index.html">Nutzungsbedingungen</a>
-    <a href="impressum/index.html">Impressum</a>
-    <a href="konto-loeschen/index.html">Konto löschen</a>
+<footer class="start-fuss">
+  <div class="bahn">
+    <div class="fuss-raster">
+      <div>
+        <a class="fuss-marke" href="home.html">
+          <img class="marke-logo" src="bilder/logo.svg" width="24" height="24" alt="">
+          Kochbuch
+        </a>
+        <p class="fuss-satz">
+          Rezepte aus Reels — sortiert, übersetzt und kochbar. Für Android in
+          Vorbereitung, für das iPhone in Arbeit.
+        </p>
+      </div>
+      <div class="fuss-spalte">
+        <b>Die App</b>
+        <a href="#verwandlung">Wie es geht</a>
+        <a href="#funktionen">Funktionen</a>
+        <a href="#preis">Preis</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Rechtliches</b>
+        <a href="datenschutz/index.html">Datenschutz</a>
+        <a href="agb/index.html">Nutzungsbedingungen</a>
+        <a href="impressum/index.html">Impressum</a>
+        <a href="konto-loeschen/index.html">Konto löschen</a>
+      </div>
+      <div class="fuss-spalte">
+        <b>Kontakt</b>
+        <a href="mailto:info@juicyslaedle.de">info@juicyslaedle.de</a>
+      </div>
+    </div>
+    <div class="fuss-zeile">
+      <span>© 2026 Kochbuch</span>
+      <span class="kopf-sprachen">
+        <span aria-current="true">DE</span>
+        <span class="teiler" aria-hidden="true">·</span>
+        <a href="en/home.html" hreflang="en">EN</a>
+      </span>
+    </div>
   </div>
 </footer>
+
+<script>
+/*
+  Zwei Handgriffe, mehr nicht - und beide sind Zugabe: Ohne JavaScript steht die
+  Seite vollstaendig da.
+
+  1. Der Kopf bekommt erst einen Rand, wenn wirklich etwas darunter durchlaeuft.
+  2. Die eine Bewegung der Seite: Beim ersten Sichtbarwerden laeuft das fertige
+     Rezept Zeile fuer Zeile ein - in derselben Reihenfolge, in der die App es
+     erzeugt. Die Klasse .laeuft wird HIER gesetzt und nicht im HTML: Sie blendet
+     den Inhalt aus, und was ein fehlgeschlagenes Skript ausblendet, sieht
+     niemand wieder.
+*/
+(function () {
+  var kopf = document.getElementById('seitenkopf');
+  var amAnschlag = false;
+  addEventListener('scroll', function () {
+    var jetzt = scrollY > 8;
+    if (jetzt !== amAnschlag) {
+      amAnschlag = jetzt;
+      kopf.setAttribute('data-gescrollt', jetzt ? 'ja' : 'nein');
+    }
+  }, { passive: true });
+
+  var block = document.getElementById('verwandlung-block');
+  var ruhig = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!block || ruhig.matches || !('IntersectionObserver' in window)) return;
+
+  block.classList.add('laeuft');
+  new IntersectionObserver(function (eintraege, beobachter) {
+    eintraege.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('sichtbar');
+      beobachter.unobserve(e.target);
+    });
+  }, { threshold: 0.25 }).observe(block);
+})();
+</script>
 
 </body>
 </html>

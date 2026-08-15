@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-label="Kochbuch">
+  <!--
+    Das App-Logo: Teller von oben - ein Ring mit Punkt in der Mitte, auf dem
+    Terracotta-Verlauf der App. Die Geometrie ist woertlich aus
+    app/src/main/res/drawable/ic_launcher_foreground.xml uebernommen, damit
+    Website, Android-Icon und iOS-Icon dasselbe Zeichen tragen.
+
+    Der Ring sitzt zwei Einheiten hoeher als der Punkt (52 gegen 54). Das ist so
+    gewollt: Der tiefer sitzende Spiegel gibt dem Teller Tiefe. Nicht
+    "korrigieren" - beim Portieren nach iOS war genau das der erste Griff, und
+    das Ergebnis war flacher.
+
+    Weiss und nicht Sand50 wie sonst im Theme: Auf dem Terracotta traegt reines
+    Weiss den Kontrast, den ein Zeichen in Faviconsgroesse braucht.
+  -->
+  <defs>
+    <linearGradient id="logo-verlauf" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C05A31"/>
+      <stop offset="1" stop-color="#9E4526"/>
+    </linearGradient>
+  </defs>
+  <rect width="108" height="108" rx="24" fill="url(#logo-verlauf)"/>
+  <circle cx="54" cy="52" r="24" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+  <circle cx="54" cy="54" r="14" fill="#FFFFFF"/>
+</svg>
