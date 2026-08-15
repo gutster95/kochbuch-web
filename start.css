@@ -838,29 +838,3 @@
   .knopf { width: 100%; justify-content: center; }
   .knopf-reihe { gap: var(--sp-sm); }
 }
-
-/* --- Der Weg an der Navigation vorbei ------------------------------------ */
-/*
-  Diese Seite ist lang und hat einen klebenden Kopf: Wer mit der Tastatur
-  kommt, tabbt sonst durch Marke, drei Anker und zwei Sprachen, bevor der
-  erste Satz dran ist. Sichtbar wird der Sprung nur im Fokus - deshalb steht
-  er ausserhalb des Bildes statt auf display:none, das der Tabreihenfolge
-  entginge.
-*/
-.sprung {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  z-index: 100;
-  padding: 12px var(--sp-lg);
-  border-radius: 0 0 var(--r-md) 0;
-  background: var(--ink-900);
-  color: var(--sand-50);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.sprung:focus-visible {
-  left: 0;
-  outline-color: var(--clay-warm);
-}
