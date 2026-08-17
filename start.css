@@ -227,13 +227,19 @@
   transform: translateY(-2px);
 }
 
-.knopf-leer {
-  background: transparent;
-  border-color: var(--sand-200);
+/*
+  Der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem Grund -
+  auf dem alten Sandverlauf ging das, auf der Holzplatte des Fotos nicht: Die
+  Maserung lief mitten durch die Schrift, und der Knopf sah aus wie ein Rahmen
+  um nichts. Jetzt volle Flaeche in Sand50.
+*/
+.knopf-weiss {
+  background: var(--sand-50);
   color: var(--ink-900);
+  border-color: var(--sand-200);
 }
 
-.knopf-leer:hover { border-color: var(--ink-500); color: var(--ink-900); transform: translateY(-2px); }
+.knopf-weiss:hover { background: #fff; color: var(--ink-900); transform: translateY(-2px); }
 
 .band-clay .knopf-voll {
   background: var(--sand-50);
@@ -806,29 +812,13 @@
   .zug-gedreht .zug-bild { order: 0; }
 }
 
-/* --- Die kleinen Wahrheiten ---------------------------------------------- */
 /*
-  Bewusst KEINE vierte Kachelwand aus Symbol, Titel und Satz: Die Seite hat
-  ihre Aussage schon dreimal gross erzaehlt, hier reicht eine Zeile je Punkt.
+  Hier stand eine Leiste aus vier, zuletzt drei Kleinzeilen: sechs Sprachen,
+  Kategorien und Favoriten, Suche ueber alles. Sie ist ersatzlos entfallen -
+  das sind Selbstverstaendlichkeiten, die jede Rezept-App hat, und die
+  Bildschirmfotos darueber zeigen sie ohnehin. Was wirklich unterscheidet,
+  steht als eigene Bahn weiter oben (.staerke).
 */
-.leiste-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--sp-xl) var(--sp-2xl);
-  padding-top: var(--sp-2xl);
-  border-top: 1px solid var(--sand-200);
-}
-
-.detail {
-  display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: var(--sp-md);
-  align-items: start;
-}
-
-.detail svg { color: var(--sage-500); margin-top: 2px; }
-.detail b { display: block; color: var(--ink-900); font-weight: 600; font-size: 0.98rem; }
-.detail span { font-size: 0.9rem; color: var(--ink-500); }
 
 /* --- Holen und Preis ----------------------------------------------------- */
 /*
@@ -1097,6 +1087,76 @@
 
 @media (max-width: 62rem) {
   .holen-raster { grid-template-columns: minmax(0, 1fr); gap: var(--sp-2xl); }
+}
+
+/* --- Die Stimmen --------------------------------------------------------- */
+/*
+  Die letzte Bahn vor dem Fuss. Sie steht auf Sand100 statt auf dem Sand50 der
+  Seite - zwei helle Bahnen hintereinander (Funktionen, Stimmen) waeren sonst
+  eine einzige lange Flaeche.
+
+  Die Saetze darin sind PLATZHALTER und tragen darum einen roten Hinweis; siehe
+  den Kommentar im HTML. Wer sie gegen echte tauscht, nimmt ihn weg.
+*/
+
+.band-sand { background: var(--sand-100); }
+
+.stimmen-hinweis {
+  max-width: 44rem;
+  margin: 0 auto var(--sp-2xl);
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.stimmen-raster {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-lg);
+}
+
+.stimme {
+  display: grid;
+  align-content: start;
+  gap: var(--sp-md);
+  margin: 0;
+  padding: var(--sp-xl);
+  border-radius: var(--r-xxl);
+  background: var(--sand-50);
+  border: 1px solid var(--sand-200);
+}
+
+/*
+  Die Sterne sind gefuellt (i-stern-voll), nicht die offene Kontur aus der
+  Symbolliste: Ein Umriss-Stern liest sich als "nicht vergeben".
+*/
+.sterne {
+  display: flex;
+  gap: 3px;
+  color: var(--clay-500);
+}
+
+.sterne svg { display: block; }
+
+/*
+  Ohne Anfuehrungszeichen im Text - `blockquote` sagt schon, was es ist, und
+  ein getipptes Zitatzeichen stuende in sechs Sprachen verschieden.
+*/
+.stimme blockquote {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+.stimme figcaption {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+@media (max-width: 62rem) {
+  .stimmen-raster { grid-template-columns: 1fr; }
 }
 
 /* --- Fuss ---------------------------------------------------------------- */

@@ -83,16 +83,13 @@
       <path d="M3.5 19.5a6 6 0 0 1 12 0"/>
       <path d="M16 5.4a3 3 0 0 1 0 5.2M17 14.2a6 6 0 0 1 3.5 5.3"/>
     </g>
-    <g id="i-sprache" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="8"/>
-      <path d="M4 12h16M12 4c2.2 2.3 3.3 5 3.3 8s-1.1 5.7-3.3 8c-2.2-2.3-3.3-5-3.3-8S9.8 6.3 12 4"/>
-    </g>
     <g id="i-chip" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="7" y="7" width="10" height="10" rx="2.5"/>
       <path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/>
     </g>
-    <g id="i-stern" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 4.5 14.1 9l4.9.6-3.6 3.4.9 4.9-4.3-2.4-4.3 2.4.9-4.9L5 9.6 9.9 9z"/>
+    <!-- Der gefuellte Stern der Bewertungen. Der offene (i-stern) bleibt fuer die Liste. -->
+    <g id="i-stern-voll" fill="currentColor" stroke="none">
+      <path d="M12 3.6 14.4 8.9l5.8.7-4.3 4 1.1 5.7L12 16.5l-5 2.8 1.1-5.7-4.3-4 5.8-.7z"/>
     </g>
     <!-- Von Hand eintragen: Stift auf Zeile. -->
     <g id="i-stift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -161,7 +158,7 @@
       man sieht: auf einem Telefon hochkant die mittleren rund 40 Prozent.
     -->
     <img class="held-foto" src="bilder/header.webp"
-         width="1489" height="683" fetchpriority="high" decoding="async"
+         width="2560" height="1174" fetchpriority="high" decoding="async"
          alt="Ein Smartphone liegt auf einer hellen Holzarbeitsplatte und zeigt die Rezeptliste der App; daneben Kirschtomaten, ein Holzloeffel und rohe Spaghetti.">
     <!--
       KEIN Schleier hinter dem Text, und das ist gemessen: Auf dieser Platte
@@ -184,20 +181,8 @@
             Kochbuch holen
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
-          <a class="knopf knopf-leer" href="#verwandlung">Erst ansehen</a>
+          <a class="knopf knopf-weiss" href="#verwandlung">Jetzt entdecken</a>
         </div>
-        <!--
-          Der Preis steht schon hier und nicht erst unten am Knopf: Wer ihn zum
-          ersten Mal an der Kasse liest, erlebt ihn als Falle - dieselbe
-          Begruendung wie im WelcomeOverlay der App.
-        -->
-        <p class="held-preis">
-          <b>15 Rezepte geschenkt</b>, ohne Verfall. Danach 2,99&nbsp;€ im Monat.
-        </p>
-        <p class="stand-zeile">
-          <span class="punkt" aria-hidden="true"></span>
-          Android steht kurz vor dem Start, die iPhone-Fassung entsteht parallel.
-        </p>
       </div>
     </div>
   </section>
@@ -343,17 +328,17 @@
             <input class="takt-eingabe" type="radio" name="takt" id="takt-monat" checked>
             <label for="takt-monat">Monatlich</label>
             <input class="takt-eingabe" type="radio" name="takt" id="takt-jahr">
-            <label for="takt-jahr">Jährlich<span class="takt-sparen">−20 %</span></label>
+            <label for="takt-jahr">Jährlich<span class="takt-sparen">−16 %</span></label>
           </div>
 
           <h3>Premium</h3>
 
           <p class="plan-preis">
-            <b class="nur-monat">2,99 €</b><b class="nur-jahr">2,39 €</b>
-            <span class="nur-monat">im Monat</span><span class="nur-jahr">im Monat</span>
+            <b class="nur-monat">2,99 €</b><b class="nur-jahr">29,99 €</b>
+            <span class="nur-monat">im Monat</span><span class="nur-jahr">im Jahr</span>
           </p>
           <p class="plan-satz nur-monat">Monatlich abgerechnet, jederzeit kündbar.</p>
-          <p class="plan-satz nur-jahr">Jährlich abgerechnet mit 28,68 €.</p>
+          <p class="plan-satz nur-jahr">Das sind 2,50 € im Monat. Jederzeit kündbar.</p>
 
           <ul class="plan-liste">
             <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>Unbegrenzt</b> Rezepte importieren</span></li>
@@ -533,27 +518,44 @@ alles weitere im Video 👆 speichern nicht vergessen
         </div>
       </div>
 
+
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band band-sand" id="stimmen">
+    <div class="bahn">
+
+      <div class="staerken-kopf">
+        <p class="augenbraue">Stimmen</p>
+        <h2>Was die ersten Köche sagen</h2>
+      </div>
+
       <!--
-        Was frueher als Alleinstellung gehandelt wurde und keine ist: Kategorien
-        und Favoriten hat jede Rezept-App, sechs Sprachen merkt nur, wer eine
-        davon spricht. Eine Zeile je Punkt, mehr braucht es nicht.
+        Die Saetze sind ERFUNDEN und stehen nur, bis es echte gibt. Der rote
+        Hinweis darueber ist Absicht - derselbe Mechanismus wie bei den offenen
+        Angaben im Impressum: Ein dezenter Platzhalter ueberlebt jede Durchsicht,
+        und diese hier duerfen die Veroeffentlichung nicht ueberleben. Erfundene
+        Bewertungen sind irrefuehrende Werbung (Paragraf 5b Absatz 3 UWG).
       -->
-      <div class="leiste-details">
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
-          <span><b>Sechs Sprachen</b>
-          <span>Deutsch, Englisch, Französisch, Spanisch, Italienisch, Polnisch.</span></span>
-        </div>
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern"/></svg>
-          <span><b>Kategorien und Favoriten</b>
-          <span>13 Kategorien sind da; umbenennen und ergänzen kannst du sie.</span></span>
-        </div>
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-topf"/></svg>
-          <span><b>Suche über alles</b>
-          <span>Titel, Zutaten und Schritte, auch in den Rezepten des anderen.</span></span>
-        </div>
+      <p class="stimmen-hinweis"><span class="todo">PLATZHALTER — erfundene Stimmen. Vor der Veröffentlichung durch echte ersetzen oder die ganze Bahn entfernen: Erfundene Bewertungen sind irreführende Werbung (§ 5b Abs. 3 UWG).</span></p>
+
+      <div class="stimmen-raster">
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 von 5 Sternen"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Cooler Vibe, läuft einfach. Ich teile das Reel und hab das Rezept, bevor der Wasserkessel pfeift.</blockquote>
+          <figcaption>Lena M.</figcaption>
+        </figure>
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 von 5 Sternen"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Top App. Wir planen die Woche zu zweit, und wenn wir uns nicht einigen, würfelt sie halt.</blockquote>
+          <figcaption>Jonas und Pia</figcaption>
+        </figure>
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 von 5 Sternen"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Endlich keine dreihundert Screenshots mehr im Fotoalbum, die ich sowieso nie wiederfinde.</blockquote>
+          <figcaption>Sarah K.</figcaption>
+        </figure>
       </div>
 
     </div>

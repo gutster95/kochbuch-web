@@ -22,7 +22,7 @@ Die vier Seiten stehen weiterhin im Fuß jeder Seite, Kontolöschung eingeschlos
 verlangt eine öffentlich erreichbare URL, keine prominente.
 
 Der Aufbau ist damit: erstes Bild → **die vier Gründe** → **Preis** → die Verwandlung →
-drei Funktionen mit Gerät.
+drei Funktionen mit Gerät → **Stimmen**.
 
 **Der Preis steht an dritter Stelle, nicht am Ende.** Er stand zuerst ganz unten, und das
 war die falsche Reihenfolge: Wer wissen will, was etwas kostet, sucht es zuerst — und wer
@@ -154,7 +154,23 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   sind bewusst **keine**: Solange es die Store-Einträge nicht gibt, führte jeder Link ins
   Leere. Deshalb `<div>` statt `<a>`, kein `:hover`, und je ein Statuswort („in Kürze",
   „in Arbeit"). Beim Start werden daraus Links mit den vorgeschriebenen Store-Abzeichen.
+- **`.stimme`** — drei Bewertungen als letzte Bahn vor dem Fuß, auf `--sand-100` statt auf
+  dem Sand50 der Seite: Zwei helle Bahnen hintereinander (Funktionen, Stimmen) wären sonst
+  eine einzige lange Fläche. Die Sterne sind **gefüllt** (`i-stern-voll`), nicht die offene
+  Kontur — ein Umriss-Stern liest sich als „nicht vergeben“.
+
+  **Die Sätze darin sind erfunden** und tragen deshalb denselben roten Hinweis wie die
+  offenen Angaben im Impressum. Erfundene Bewertungen sind irreführende Werbung
+  (§ 5b Abs. 3 UWG); der Hinweis bleibt, bis echte Stimmen dastehen oder die Bahn wieder
+  verschwindet.
 - Die frühere **`.rechts-zeile`** (Pflichtlinks als Liste) ist mit der Rechtsbahn entfallen.
+- Die frühere **`.leiste-details`** ist es auch: vier, zuletzt drei Kleinzeilen unter den
+  Funktionen — sechs Sprachen, Kategorien und Favoriten, Suche über alles. Das sind
+  Selbstverständlichkeiten, die jede Rezept-App hat, und die Bildschirmfotos darüber zeigen
+  sie ohnehin.
+- **`.knopf-weiss`** — der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem
+  Grund; auf dem alten Sandverlauf ging das, auf der Holzplatte des Fotos nicht: Die
+  Maserung lief mitten durch die Schrift, und der Knopf sah aus wie ein Rahmen um nichts.
 - Der **Vormerken-Knopf** (`mailto:`) unter den Store-Zeilen ist ebenfalls raus. Er sammelte
   Adressen für einen Verteiler, den es nicht gibt und nicht geben soll — und eine
   E-Mail-Adresse einzusammeln, ohne zu wissen, was man damit tut, ist der Anfang jedes
@@ -286,9 +302,9 @@ Regel verschwindet.
   anderem Verhältnis brauchen deshalb auch eine neue Regel in `.schirm-bild`.
 - **Zwei Sprachfassungen.** `home.html` und `en/home.html` tragen denselben Aufbau
   wörtlich. Wer eine Sektion ändert, ändert beide — ein Skript prüft das nicht.
-- **Die Tarifzeile bricht schmal um.** `.tarif` ist ein Grid aus drei Spalten (Preis,
-  Erläuterung, Sparen-Chip). Unter 34rem wandert die Erläuterung in eine zweite Zeile,
-  sonst stand der Chip mitten im Satz: „im Jahr, also 2,39 € im **[−20 %]** Monat".
+- **Zwei Tarifkarten, ein Umschalter.** `.plan` / `.plan-voll` haben die frühere
+  `.tarif`-Zeile abgelöst. Unter 34rem stehen sie untereinander: nebeneinander blieben je
+  150 px, und der Preis brach dort zweizeilig um („2,99" über „€").
 - **`stil.css` zuerst, `start.css` danach.** Tokens, `@font-face` und der Reset stehen in
   der ersten Datei; die zweite baut darauf auf und überschreibt `.marke`. Dreht man die
   Reihenfolge um, steht die Marke wieder in Versalien und Terracotta.

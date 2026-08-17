@@ -41,6 +41,13 @@ Select-String -Path web\home.html, web\en\home.html -Pattern 'store-knopf'
 Bis dahin hat der Block **keine** Handlung, und das ist Absicht: Ein Vormerken-Knopf stand
 dort kurz und ist wieder raus — er sammelte Adressen für einen Verteiler, den es nicht gibt.
 
+**Und die Stimmen auf der Startseite sind erfunden.** Die Bahn `#stimmen` trägt drei
+Zitate, die es so nie gegeben hat; sie stehen als Beispiel, bis es echte gibt. Über ihnen
+liegt derselbe rote Hinweis wie im Impressum, und er muss dort liegen bleiben, bis die
+Sätze echt sind: **Erfundene Bewertungen sind irreführende Werbung** (§ 5b Abs. 3 UWG,
+seit 2022 ausdrücklich geregelt). Entweder echte Stimmen einsetzen — mit der Zustimmung
+der Leute, deren Namen darunter stehen — oder die ganze Bahn entfernen.
+
 **Solange Platzhalter drinstehen, tragen alle Seiten `<meta name="robots" content="noindex">`.**
 Ein unvollständiges Impressum ist abmahnfähig, und wer es nicht findet, mahnt es nicht ab;
 Play und die App rufen die Seiten direkt auf und brauchen keine Indexierung. Die Zeile fliegt

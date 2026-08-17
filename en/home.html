@@ -73,16 +73,13 @@
       <path d="M3.5 19.5a6 6 0 0 1 12 0"/>
       <path d="M16 5.4a3 3 0 0 1 0 5.2M17 14.2a6 6 0 0 1 3.5 5.3"/>
     </g>
-    <g id="i-sprache" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="8"/>
-      <path d="M4 12h16M12 4c2.2 2.3 3.3 5 3.3 8s-1.1 5.7-3.3 8c-2.2-2.3-3.3-5-3.3-8S9.8 6.3 12 4"/>
-    </g>
     <g id="i-chip" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="7" y="7" width="10" height="10" rx="2.5"/>
       <path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/>
     </g>
-    <g id="i-stern" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 4.5 14.1 9l4.9.6-3.6 3.4.9 4.9-4.3-2.4-4.3 2.4.9-4.9L5 9.6 9.9 9z"/>
+    <!-- Der gefuellte Stern der Bewertungen. Der offene (i-stern) bleibt fuer die Liste. -->
+    <g id="i-stern-voll" fill="currentColor" stroke="none">
+      <path d="M12 3.6 14.4 8.9l5.8.7-4.3 4 1.1 5.7L12 16.5l-5 2.8 1.1-5.7-4.3-4 5.8-.7z"/>
     </g>
     <!-- Von Hand eintragen: Stift auf Zeile. -->
     <g id="i-stift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -143,7 +140,7 @@
       man sieht: auf einem Telefon hochkant die mittleren rund 40 Prozent.
     -->
     <img class="held-foto" src="../bilder/header.webp"
-         width="1489" height="683" fetchpriority="high" decoding="async"
+         width="2560" height="1174" fetchpriority="high" decoding="async"
          alt="A smartphone lying on a light wooden worktop showing the app recipe list, next to cherry tomatoes, a wooden spoon and dry spaghetti.">
     <!--
       KEIN Schleier hinter dem Text, und das ist gemessen: Auf dieser Platte
@@ -166,15 +163,8 @@
             Get Kochbuch
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
-          <a class="knopf knopf-leer" href="#verwandlung">See it first</a>
+          <a class="knopf knopf-weiss" href="#verwandlung">Take a look</a>
         </div>
-        <p class="held-preis">
-          <b>15 recipes on us</b>, and they never expire. After that €2.99&nbsp;a month.
-        </p>
-        <p class="stand-zeile">
-          <span class="punkt" aria-hidden="true"></span>
-          The Android version is in preparation, the iPhone version is being built alongside it.
-        </p>
       </div>
     </div>
   </section>
@@ -303,17 +293,17 @@
             <input class="takt-eingabe" type="radio" name="takt" id="takt-monat" checked>
             <label for="takt-monat">Monthly</label>
             <input class="takt-eingabe" type="radio" name="takt" id="takt-jahr">
-            <label for="takt-jahr">Yearly<span class="takt-sparen">−20 %</span></label>
+            <label for="takt-jahr">Yearly<span class="takt-sparen">−16 %</span></label>
           </div>
 
           <h3>Premium</h3>
 
           <p class="plan-preis">
-            <b class="nur-monat">€2.99</b><b class="nur-jahr">€2.39</b>
-            <span class="nur-monat">per month</span><span class="nur-jahr">per month</span>
+            <b class="nur-monat">€2.99</b><b class="nur-jahr">€29.99</b>
+            <span class="nur-monat">per month</span><span class="nur-jahr">per year</span>
           </p>
           <p class="plan-satz nur-monat">Billed monthly, cancel any time.</p>
-          <p class="plan-satz nur-jahr">Billed yearly at €28.68.</p>
+          <p class="plan-satz nur-jahr">That is €2.50 a month. Cancel any time.</p>
 
           <ul class="plan-liste">
             <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>Unlimited</b> recipe imports</span></li>
@@ -486,22 +476,44 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
-      <div class="leiste-details">
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
-          <span><b>Six languages</b>
-          <span>German, English, French, Spanish, Italian, Polish.</span></span>
-        </div>
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern"/></svg>
-          <span><b>Categories and favourites</b>
-          <span>13 categories are there; rename them and add your own.</span></span>
-        </div>
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-topf"/></svg>
-          <span><b>Search across everything</b>
-          <span>Titles, ingredients and steps, in the other person's recipes too.</span></span>
-        </div>
+
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band band-sand" id="stimmen">
+    <div class="bahn">
+
+      <div class="staerken-kopf">
+        <p class="augenbraue">Voices</p>
+        <h2>What the first cooks say</h2>
+      </div>
+
+      <!--
+        Die Saetze sind ERFUNDEN und stehen nur, bis es echte gibt. Der rote
+        Hinweis darueber ist Absicht - derselbe Mechanismus wie bei den offenen
+        Angaben im Impressum: Ein dezenter Platzhalter ueberlebt jede Durchsicht,
+        und diese hier duerfen die Veroeffentlichung nicht ueberleben. Erfundene
+        Bewertungen sind irrefuehrende Werbung (Paragraf 5b Absatz 3 UWG).
+      -->
+      <p class="stimmen-hinweis"><span class="todo">PLACEHOLDER — invented quotes. Replace with real ones before launch, or remove the whole band: made-up reviews are misleading advertising (§ 5b (3) UWG).</span></p>
+
+      <div class="stimmen-raster">
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Great vibe, just works. I share the reel and the recipe is there before the kettle boils.</blockquote>
+          <figcaption>Lena M.</figcaption>
+        </figure>
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Top app. We plan the week together, and when we cannot agree it just rolls the dice.</blockquote>
+          <figcaption>Jonas and Pia</figcaption>
+        </figure>
+        <figure class="stimme">
+          <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
+          <blockquote>Finally no more three hundred screenshots in my camera roll that I never find again.</blockquote>
+          <figcaption>Sarah K.</figcaption>
+        </figure>
       </div>
 
     </div>
