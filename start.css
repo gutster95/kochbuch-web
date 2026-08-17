@@ -277,25 +277,51 @@
 
 /* --- Held ---------------------------------------------------------------- */
 
+/*
+  Das erste Bild ist seit dem 17.08.2026 ein Foto: Arbeitsplatte, das Telefon
+  mit der echten Rezeptliste darauf, Zutaten daneben. Der Text liegt links auf
+  der freien Holzflaeche - die Aufnahme ist dafuer angelegt.
+
+  Vorher standen hier zwei sehr weiche Farbkreise als Grund und daneben ein
+  gekippter Telefonrahmen; beides ist im Foto aufgegangen.
+*/
 .held-start {
   position: relative;
-  padding: var(--sp-4xl) 0 var(--sp-5xl);
-  /*
-    Ein Hauch Waerme hinter dem Telefon statt einer flachen Flaeche. Zwei sehr
-    weiche Farbkreise, keine Deko-Formen.
-  */
-  background:
-    radial-gradient(60rem 40rem at 78% 8%, var(--clay-100) 0%, transparent 62%),
-    radial-gradient(45rem 32rem at 8% 82%, var(--sage-100) 0%, transparent 58%),
-    var(--sand-50);
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  min-height: clamp(28rem, 42vw, 40rem);
+  padding: var(--sp-4xl) 0;
+  background: var(--sand-50);
 }
 
-.held-raster {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
-  gap: var(--sp-4xl);
+/*
+  `cover` fuellt die Bahn immer ganz und schneidet den Ueberschuss symmetrisch
+  ab - weisse Balken kann es damit auf keinem Seitenverhaeltnis geben. Der Preis
+  dafuer: Beschnitten wird auf BEIDEN Achsen, je nachdem welche knapper ist. Auf
+  einem Telefon hochkant bleiben von der Breite rund 40 Prozent uebrig. Alles,
+  was man erkennen koennen muss, gehoert deshalb in die Bildmitte.
+*/
+.held-foto {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
+
+/*
+  Hier lag ein Sand50-Verlauf als Schleier hinter dem Text, und er ist wieder
+  raus: Auf dieser Platte kommt Ink900 in der linken Bildhaelfte im Mittel auf
+  9,9:1 und im dunkelsten Punkt auf 7,3:1 - gemessen ueber 30.000 Punkte, kein
+  einziger unter 4,5:1. Ein Schleier haette die Maserung zugedeckt, ohne etwas
+  zu gewinnen. Bei einem dunkleren Foto gehoert er zurueck; die erste Fassung
+  dieses Bildes kam in den Schattenstreifen auf 2,5:1.
+*/
+
+.held-raster { display: grid; }
 
 .held-text > * + * { margin-top: var(--sp-2xl); }
 /* Die Displayzeile traegt am meisten Gewicht und braucht entsprechend Luft. */
@@ -303,7 +329,14 @@
 .held-text .held-preis { margin-top: var(--sp-xl); }
 .held-text .stand-zeile { margin-top: var(--sp-sm); }
 
-.held-text .gross { max-width: 30rem; }
+/*
+  Die Textspalte deckelt sich selbst auf die linke Haelfte. Ein Grid mit zweiter
+  Spalte waere die Alternative gewesen - nur steht in der zweiten Spalte nichts,
+  was das Raster halten muesste: rechts liegt das Foto, und das haengt an der
+  Bahn, nicht an der Spalte.
+*/
+.held-text { max-width: min(30rem, 48%); }
+.held-text .gross { max-width: 28rem; }
 
 /*
   Der Preis im ersten Bild. Er steht bewusst hier und nicht erst am Knopf ganz
@@ -339,8 +372,30 @@
   flex: none;
 }
 
-@media (max-width: 60rem) {
-  .held-raster { grid-template-columns: 1fr; gap: var(--sp-3xl); }
+/*
+  Schmal wird aus dem Grund ein Bild DARUEBER. Der Grund ist der Beschnitt: Bei
+  390px Fensterbreite zeigt `cover` von einem 21:9-Bild die mittleren rund 40
+  Prozent - die freie Holzflaeche links waere weg, der Text laege auf dem
+  Telefon. Als eigener Streifen bleibt das Bild ganz, und der Text steht darunter
+  auf Sand.
+*/
+@media (max-width: 62rem) {
+  .held-start {
+    display: block;
+    min-height: 0;
+    padding: 0 0 var(--sp-3xl);
+  }
+
+  .held-foto {
+    position: static;
+    height: clamp(13rem, 46vw, 20rem);
+    /* Etwas nach rechts gerueckt, damit das Telefon im Ausschnitt bleibt. */
+    object-position: 62% center;
+  }
+
+  .held-raster { padding-top: var(--sp-2xl); }
+
+  .held-text { max-width: none; }
   .held-text .gross { max-width: none; }
 }
 
@@ -369,11 +424,6 @@
     frueher darunter standen, sind raus - siehe der Hinweis im Kopf der Datei.
   */
   box-shadow: 0 2px 0 rgba(255, 255, 255, 0.12) inset;
-}
-
-.telefon-kippen {
-  transform: rotate(-2.2deg);
-  transform-origin: 60% 50%;
 }
 
 .schirm-bild {
@@ -1082,7 +1132,6 @@
   .laeuft .stufe,
   .laeuft.sichtbar .stufe { opacity: 1; transform: none; transition: none; }
   .knopf { transition: none; }
-  .telefon-kippen { transform: none; }
 }
 
 /* --- Ganz schmal --------------------------------------------------------- */

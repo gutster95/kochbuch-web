@@ -131,8 +131,29 @@
 
   <!-- ------------------------------------------------------------------ -->
   <section class="held-start">
-    <div class="bahn held-raster">
+    <!--
+      Das Foto ist der Grund des ersten Bildes, nicht ein Bild daneben: Der
+      frueher hier stehende gekippte Telefonrahmen ist darin aufgegangen - das
+      Geraet auf der Arbeitsplatte IST das Telefon. Es liegt bewusst rechts und
+      der Text links; die Aufnahme ist so angelegt.
 
+      `object-fit: cover` fuellt die Bahn immer vollstaendig und schneidet den
+      Ueberschuss symmetrisch ab. Weisse Balken kann es damit nicht geben - auch
+      nicht auf 21:9, auch nicht auf 32:9. Was sich aendert, ist nur, wie viel
+      man sieht: auf einem Telefon hochkant die mittleren rund 40 Prozent.
+    -->
+    <img class="held-foto" src="../bilder/header.webp"
+         width="1489" height="683" fetchpriority="high" decoding="async"
+         alt="A smartphone lying on a light wooden worktop showing the app recipe list, next to cherry tomatoes, a wooden spoon and dry spaghetti.">
+    <!--
+      KEIN Schleier hinter dem Text, und das ist gemessen: Auf dieser Platte
+      kommt Ink900 in der linken Bildhaelfte im Mittel auf 9,9:1 und im
+      dunkelsten Punkt noch auf 7,3:1 - kein einziger Messpunkt faellt unter
+      4,5:1. Wer das Foto gegen ein dunkleres tauscht, misst neu und legt
+      gegebenenfalls einen Sand50-Verlauf darunter; eine erste, dunklere Fassung
+      dieses Bildes kam im Schatten auf 2,5:1 und haette einen gebraucht.
+    -->
+    <div class="bahn held-raster">
       <div class="held-text">
         <h1>A reel becomes a recipe</h1>
         <p class="gross">
@@ -155,15 +176,6 @@
           The Android version is in preparation, the iPhone version is being built alongside it.
         </p>
       </div>
-
-      <div class="held-bild">
-        <div class="telefon telefon-kippen">
-          <img class="schirm-bild" src="../bilder/app-rezepte.webp"
-               width="640" height="1436" fetchpriority="high" decoding="async"
-               alt="The recipe list: six recipe cards with photo and title, with the tab bar below.">
-        </div>
-      </div>
-
     </div>
   </section>
 

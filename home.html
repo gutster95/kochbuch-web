@@ -149,8 +149,29 @@
 
   <!-- ------------------------------------------------------------------ -->
   <section class="held-start">
-    <div class="bahn held-raster">
+    <!--
+      Das Foto ist der Grund des ersten Bildes, nicht ein Bild daneben: Der
+      frueher hier stehende gekippte Telefonrahmen ist darin aufgegangen - das
+      Geraet auf der Arbeitsplatte IST das Telefon. Es liegt bewusst rechts und
+      der Text links; die Aufnahme ist so angelegt.
 
+      `object-fit: cover` fuellt die Bahn immer vollstaendig und schneidet den
+      Ueberschuss symmetrisch ab. Weisse Balken kann es damit nicht geben - auch
+      nicht auf 21:9, auch nicht auf 32:9. Was sich aendert, ist nur, wie viel
+      man sieht: auf einem Telefon hochkant die mittleren rund 40 Prozent.
+    -->
+    <img class="held-foto" src="bilder/header.webp"
+         width="1489" height="683" fetchpriority="high" decoding="async"
+         alt="Ein Smartphone liegt auf einer hellen Holzarbeitsplatte und zeigt die Rezeptliste der App; daneben Kirschtomaten, ein Holzloeffel und rohe Spaghetti.">
+    <!--
+      KEIN Schleier hinter dem Text, und das ist gemessen: Auf dieser Platte
+      kommt Ink900 in der linken Bildhaelfte im Mittel auf 9,9:1 und im
+      dunkelsten Punkt noch auf 7,3:1 - kein einziger Messpunkt faellt unter
+      4,5:1. Wer das Foto gegen ein dunkleres tauscht, misst neu und legt
+      gegebenenfalls einen Sand50-Verlauf darunter; eine erste, dunklere Fassung
+      dieses Bildes kam im Schatten auf 2,5:1 und haette einen gebraucht.
+    -->
+    <div class="bahn held-raster">
       <div class="held-text">
         <h1>Aus einem Reel wird ein Rezept</h1>
         <p class="gross">
@@ -178,30 +199,6 @@
           Android steht kurz vor dem Start, die iPhone-Fassung entsteht parallel.
         </p>
       </div>
-
-      <div class="held-bild">
-        <!--
-          Echte Screenshots vom Geraet (Pixel 9, 1080x2424), nicht mehr der
-          frueher hier stehende HTML-Nachbau: Der lief bei jeder Aenderung an
-          der App aus dem Takt, und niemand haette es gemerkt.
-
-          Die abgebildeten Rezepte sind ein eigens angelegtes Demo-Kochbuch mit
-          Fotos von Pexels. Bewusst NICHT das echte Kochbuch: Dort stehen
-          fremde Instagram-Bilder samt @handle, und die auf eine Werbeseite zu
-          stellen waere eine oeffentliche Zugaenglichmachung fremder Werke
-          (§ 19a UrhG) - genau das, wogegen Migration 013 die Buckets
-          privat gemacht hat.
-
-          Wer die Bilder neu erzeugt: gleiche Geraetebreite behalten, sonst
-          passt das Seitenverhaeltnis in .telefon nicht mehr.
-        -->
-        <div class="telefon telefon-kippen">
-          <img class="schirm-bild" src="bilder/app-rezepte.webp"
-               width="640" height="1436" fetchpriority="high" decoding="async"
-               alt="Die Rezeptliste der App: sechs Rezeptkarten mit Foto und Titel, darunter die Reiterleiste mit Rezepte, Woche, Kategorien und Suche.">
-        </div>
-      </div>
-
     </div>
   </section>
 
