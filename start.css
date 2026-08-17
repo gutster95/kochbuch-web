@@ -58,6 +58,15 @@
   overflow-x: hidden;
 }
 
+/*
+  `main { padding: 32px 0 48px }` in stil.css gilt dem FLIESSTEXT der
+  Rechtsseiten. Auf der Startseite trug es zwei sandfarbene Balken ein, die wie
+  ein Fehler aussahen und einer waren: einen 32px hohen zwischen Kopfzeile und
+  dem Verlauf des ersten Bildes, einen 48px hohen zwischen der Clay-Bahn und dem
+  dunklen Fuss. Hier bringt jede Bahn ihre Polsterung selbst mit.
+*/
+.start main { padding: 0; }
+
 /* --- Raster -------------------------------------------------------------- */
 /*
   Ein Mass fuer die ganze Seite. Die Rechtsseiten stehen auf 42rem, weil sie
@@ -721,28 +730,27 @@
   Frueher zwei Dinge an zwei Orten: eine Preisbahn ohne Handlung und gar kein
   Holen-Block. Wer am Ende der Preisbahn stand, konnte nichts tun; der einzige
   Knopf der Seite stand ganz oben im ersten Bild. Jetzt tragen beide dieselbe
-  Bahn - Angebot und Preis in einem Blick.
+  Bahn - links das Angebot mit den beiden Store-Zeilen, rechts die zwei Tarife.
 
-  .preis-zahl und .preis-zusatz standen hier ohne einen einzigen Treffer im
-  HTML und sind mit dem Umbau entfallen.
+  Die Bahn steht seit dem 17.08.2026 an DRITTER Stelle, direkt hinter den vier
+  Gruenden: Was etwas kostet, gehoert vor die Ausfuehrlichkeit und nicht dahinter.
+
+  .preis-zahl, .preis-zusatz, .tarif und .bleibt sind mit diesem Umbau
+  entfallen - drei Preiszeilen untereinander und eine Kasten-Liste "Was ohne Abo
+  bleibt" beantworteten dieselbe Frage zweimal und keine davon vergleichend.
 */
 
 .holen-raster {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--sp-4xl);
+  /*
+    Die rechte Spalte ist die breitere, und das ist gerechnet: Zwei Tarifkarten
+    nebeneinander brauchen je rund 300px, sonst bricht in der Liste jede zweite
+    Zeile um ("Unbegrenzt Kochbuecher / verknuepfen"). Der Steg ist aus dem
+    gleichen Grund 48px statt der 72px der uebrigen Bahnen.
+  */
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--sp-3xl);
   align-items: start;
-}
-
-/*
-  Tarife und Kleingedrucktes stehen rechts, nicht unter dem Knopf: Links das
-  Angebot und die Handlung, rechts die Zahlen - vorher trug die linke Spalte
-  beides, und die rechte endete auf halber Hoehe mit einer handbreiten leeren
-  Flaeche darunter.
-*/
-.holen-neben {
-  display: grid;
-  gap: var(--sp-xl);
 }
 
 /*
@@ -755,7 +763,7 @@
   die Seite liess sich nur seitlich schieben.
 */
 .holen-haupt,
-.holen-neben { min-width: 0; }
+.plan-paar { min-width: 0; }
 
 /*
   Die beiden Store-Zeilen. Sie sehen aus wie Knoepfe und sind bewusst keine:
@@ -764,12 +772,15 @@
   nicht bewegt, klickt auch niemand zweimal an. Beim Start werden daraus <a>
   mit den offiziellen Abzeichen.
 */
+/*
+  Untereinander, nicht nebeneinander: In der halben Bahn blieben je 150px, und
+  "Google Play" brach dort auf zwei Zeilen um, "App Store" auf drei.
+*/
 .store-liste {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: var(--sp-md);
   margin-top: var(--sp-2xl);
-  max-width: 34rem;
+  max-width: 21rem;
 }
 
 .store-knopf {
@@ -785,8 +796,8 @@
 }
 
 /*
-  30px statt 26: Bei 26 waren Roboterkopf und Apfel auf dem Clay-Grund nicht mehr
-  auseinanderzuhalten - beide lasen sich als "runde Form mit Strich oben".
+  30px statt 26: Bei 26 waren Roboterkopf und Apfel auf dem Clay-Grund nicht
+  mehr auseinanderzuhalten - beide lasen sich als "runde Form mit Strich oben".
 */
 .store-knopf svg { display: block; color: var(--sand-50); }
 
@@ -812,52 +823,8 @@
   white-space: nowrap;
 }
 
-.holen-knopf { margin-top: var(--sp-lg); }
-
-.tarife {
-  display: grid;
-  gap: var(--sp-md);
-}
-
-/*
-  Grid statt Flex, weil das Abzeichen sonst mitwandert: Auf 390px brach die
-  Zeile "im Jahr - 2,39 EUR im Monat" um, und "-20 %" stand mitten im Satz
-  ("... 2,39 EUR im [-20 %] Monat").
-*/
-.tarif {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: baseline;
-  gap: var(--sp-md);
-  padding: var(--sp-lg) var(--sp-xl);
-  border-radius: var(--r-xl);
-  background: rgba(252, 250, 247, 0.1);
-  border: 1px solid rgba(252, 250, 247, 0.2);
-}
-
-.tarif b {
-  font-family: "Domine", Georgia, serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--sand-50);
-  flex: none;
-}
-
-.tarif span { font-size: 0.92rem; color: var(--auf-clay-leise); }
-
-.tarif .tarif-sparen {
-  justify-self: end;
-  align-self: center;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: var(--sand-50);
-  color: var(--clay-600);
-}
-
 .preis-klein {
+  margin-top: var(--sp-2xl);
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--auf-clay-leise);
@@ -865,40 +832,168 @@
   max-width: 34rem;
 }
 
-.bleibt {
-  border-radius: var(--r-xxl);
-  padding: var(--sp-xl);
-  background: rgba(31, 26, 22, 0.22);
-  border: 1px solid rgba(252, 250, 247, 0.14);
+/* --- Die zwei Tarife ------------------------------------------------------ */
+
+.plan-paar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-lg);
+  align-items: start;
 }
 
-.bleibt h3 { margin-bottom: var(--sp-md); }
-
-.bleibt ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--sp-sm); }
-
-.bleibt li {
+.plan {
   display: grid;
-  grid-template-columns: 20px 1fr;
+  align-content: start;
   gap: var(--sp-md);
-  align-items: start;
-  font-size: 0.95rem;
+  padding: var(--sp-xl);
+  border-radius: var(--r-xxl);
+  background: rgba(31, 26, 22, 0.18);
+  border: 1px solid rgba(252, 250, 247, 0.16);
+}
+
+/*
+  Die bezahlte Karte ist die hellere, nicht die dunklere: Auf einer Clay-Bahn
+  ist Naehe zum Sand der Seite das Signal "das hier ist gemeint". Sie traegt
+  ausserdem als einzige einen vollen Rand und einen Schatten.
+*/
+.plan-voll {
+  background: rgba(252, 250, 247, 0.12);
+  border-color: rgba(252, 250, 247, 0.42);
+  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.55);
+}
+
+.plan h3 {
+  color: var(--sand-50);
+  font-size: 1.35rem;
+}
+
+.plan-satz {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--auf-clay-leise);
+}
+
+.plan-preis {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+}
+
+.plan-preis b {
+  font-family: "Domine", Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--sand-50);
 }
 
-.bleibt svg { color: var(--clay-warm); margin-top: 3px; }
+.plan-preis span { font-size: 0.9rem; color: var(--auf-clay-leise); }
+
+.plan-liste {
+  margin: var(--sp-sm) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--sp-sm);
+}
+
+.plan-liste li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: var(--sp-md);
+  align-items: start;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--sand-50);
+}
+
+.plan-liste b { font-weight: 700; }
+
+.plan-liste svg { margin-top: 3px; color: var(--auf-clay-leise); }
+
+/* Nur die bezahlte Karte bekommt die Haken in voller Helligkeit. */
+.plan-voll .plan-liste svg { color: var(--sand-50); }
+
+/* --- Monatlich oder jaehrlich -------------------------------------------- */
+/*
+  Ein Paar Radio-Knoepfe, umgeschaltet mit `:has()` - ohne eine Zeile
+  JavaScript. Die Eingaben bleiben im Dokument und nur optisch verborgen
+  (`opacity: 0`, nicht `display: none`): Ein `display: none` naehme sie aus der
+  Tabreihenfolge, und der Umschalter waere mit der Tastatur nicht mehr zu
+  bedienen.
+*/
+.takt-schalter {
+  display: inline-flex;
+  align-self: start;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(31, 26, 22, 0.28);
+  border: 1px solid rgba(252, 250, 247, 0.2);
+  margin-bottom: var(--sp-xs);
+}
+
+.takt-eingabe {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.takt-schalter label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--auf-clay-leise);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.takt-eingabe:checked + label {
+  background: var(--sand-50);
+  color: var(--clay-600);
+}
+
+/* Der Fokusring haengt am Label, weil die Eingabe selbst unsichtbar ist. */
+.takt-eingabe:focus-visible + label {
+  outline: 2px solid var(--sand-50);
+  outline-offset: 2px;
+}
+
+.takt-sparen {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(252, 250, 247, 0.22);
+}
+
+.takt-eingabe:checked + label .takt-sparen {
+  background: var(--clay-100);
+  color: var(--clay-600);
+}
+
+/*
+  Beide Preise stehen im HTML, einer wird ausgeblendet. Der Grundzustand zeigt
+  den MONATSPREIS - wo `:has()` fehlt, steht damit der hoehere Preis da. Eine
+  Anzeige, die zu niedrig faellt, waere die falsche Richtung (PAngV).
+*/
+.nur-jahr { display: none; }
+
+.plan-voll:has(#takt-jahr:checked) .nur-monat { display: none; }
+.plan-voll:has(#takt-jahr:checked) .nur-jahr { display: revert; }
 
 @media (max-width: 62rem) {
   .holen-raster { grid-template-columns: minmax(0, 1fr); gap: var(--sp-2xl); }
 }
-
-/*
-  Die Bahn "Datenschutz und Rechtliches" ist mit dem Umbau entfallen, und mit
-  ihr .schluss-raster und .rechts-zeile. Sie stand zwischen dem Preis und dem
-  Fuss und nahm damit genau den Platz ein, an dem der Besucher die App holen
-  sollte. Die vier Seiten sind weiterhin von jeder Seite aus erreichbar - im
-  Fuss, wo eine Datenschutzerklaerung gesucht wird. Play verlangt eine
-  oeffentlich erreichbare URL, keine prominente.
-*/
 
 /* --- Fuss ---------------------------------------------------------------- */
 /*
@@ -940,14 +1035,10 @@
 
 @media (max-width: 34rem) {
   /*
-    Preis und Ersparnis in die erste Zeile, die Erlaeuterung darunter: In einer
-    Zeile brach "im Jahr, also 2,39 EUR im Monat" mitten im letzten Wort um und
-    schob das Abzeichen in die Textmitte.
+    Die zwei Tarife untereinander. Nebeneinander blieben je 150px - der Preis
+    stand dann zweizeilig, "2,99" ueber "EUR".
   */
-  .tarif { grid-template-columns: 1fr auto; row-gap: var(--sp-xs); }
-  .tarif b { grid-column: 1; grid-row: 1; }
-  .tarif .tarif-sparen { grid-column: 2; grid-row: 1; }
-  .tarif > span:not(.tarif-sparen) { grid-column: 1 / -1; grid-row: 2; }
+  .plan-paar { grid-template-columns: minmax(0, 1fr); }
 
   .band { padding: var(--sp-3xl) 0; }
   .held-start { padding: var(--sp-2xl) 0 var(--sp-3xl); }
@@ -968,9 +1059,4 @@
   */
   .staerken-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
 
-  /*
-    Zwei Store-Kacheln nebeneinander brauchen 492px - mehr, als ein Telefon hat.
-    Untereinander statt `auto-fit`: Die Regel hat dort nichts mehr zu rechnen.
-  */
-  .store-liste { grid-template-columns: minmax(0, 1fr); }
 }

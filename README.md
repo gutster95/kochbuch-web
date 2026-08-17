@@ -38,8 +38,8 @@ Apple. In **beiden** Sprachfassungen (`home.html`, `en/home.html`). Zu finden mi
 Select-String -Path web\home.html, web\en\home.html -Pattern 'store-knopf'
 ```
 
-Der Vormerken-Knopf darunter (`mailto:`) ist solange die einzige Handlung des Blocks, die
-wirklich etwas tut; er fliegt zum Start ebenfalls raus.
+Bis dahin hat der Block **keine** Handlung, und das ist Absicht: Ein Vormerken-Knopf stand
+dort kurz und ist wieder raus — er sammelte Adressen für einen Verteiler, den es nicht gibt.
 
 **Solange Platzhalter drinstehen, tragen alle Seiten `<meta name="robots" content="noindex">`.**
 Ein unvollständiges Impressum ist abmahnfähig, und wer es nicht findet, mahnt es nicht ab;

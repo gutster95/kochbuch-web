@@ -130,8 +130,8 @@
       Kochbuch
     </a>
     <nav class="kopf-nav" aria-label="Seitenbereiche">
-      <a class="nur-breit" href="#verwandlung">Wie es geht</a>
       <a class="nur-breit" href="#staerken">Warum</a>
+      <a class="nur-breit" href="#holen">Preis</a>
       <a class="nur-breit" href="#funktionen">Funktionen</a>
       <span class="sprachen">
         <span aria-current="true">DE</span>
@@ -210,6 +210,172 @@
   </section>
 
   <!-- ------------------------------------------------------------------ -->
+  <!--
+    Die vier Gruende, und zwar in voller Groesse. Sie standen vorher als
+    Vierzeiler unter den Funktionen - eine Zeile Text neben einem 20px-Symbol,
+    ganz unten in einer hellen Bahn - und wurden dort ueberblaettert. Zwei der
+    frueheren vier sind ueberdies KEINE Gruende, sondern
+    Selbstverstaendlichkeiten (Kategorien, Favoriten) bzw. eine Fussnote (sechs
+    Sprachen); sie stehen jetzt als kleine Zeile hinter den Funktionen. An ihrer
+    Stelle stehen die beiden, die die App wirklich von einem Ordner voller
+    Screenshots unterscheiden: der geteilte Wochenplan und das verknuepfte
+    Kochbuch.
+  -->
+  <section class="band" id="staerken">
+    <div class="bahn">
+
+      <div class="staerken-kopf">
+        <p class="augenbraue">Warum Kochbuch</p>
+        <h2>Rezepte sammeln kann jeder. Das hier nicht.</h2>
+      </div>
+
+      <div class="staerken-raster">
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
+          <h3>Ein Kochbuch für zwei</h3>
+          <p>
+            Ein sechsstelliger Code verbindet eure Sammlungen. Ab da seht ihr beide
+            Kochbücher als eines — und niemand tippt etwas doppelt ein.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalender"/></svg>
+          <h3>Gemeinsamer Wochenplan</h3>
+          <p>
+            Was diese Woche auf den Tisch kommt, steht an einer Stelle. Und wenn ihr
+            euch nicht einigt, würfelt die App die Woche zusammen.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
+          <h3>Rechnet auf dem Handy</h3>
+          <p>
+            Kann dein Gerät die Auswertung selbst, verlässt kein Wort des Rezepts das
+            Telefon. Erst sonst springt unser Server ein.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stift"/></svg>
+          <h3>Auch ganz ohne Link</h3>
+          <p>
+            Omas Blechkuchen steht auf keinem Reel. Den tippst du von Hand ein, mit
+            eigenem Foto — und er steht danach zwischen allen anderen.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!--
+    Der Holen-Block. Er traegt den Preis mit, statt ihn in eine eigene Bahn zu
+    stellen: Wer sich entscheidet, entscheidet ueber beides zugleich - was es
+    kann und was es kostet. Eine getrennte Preisbahn ohne Knopf war eine Bahn,
+    an deren Ende der Besucher nichts tun konnte.
+  -->
+  <section class="band band-clay" id="holen">
+    <div class="bahn holen-raster">
+
+      <div class="holen-haupt">
+        <h2>Was Kochbuch kostet</h2>
+        <p class="gross" style="margin-top:var(--sp-xl)">
+          Die ersten 15 Rezepte gehen aufs Haus, und sie laufen nicht ab. Wer danach
+          weiter Rezepte holt, braucht ein Abo: Jeder Import kostet uns Rechenzeit, und
+          die zahlt niemand sonst.
+        </p>
+
+        <!--
+          Die beiden Zeilen sind noch KEINE Links: Es gibt weder einen
+          Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere
+          fuehrt, ist schlimmer als ein ehrlicher Hinweis. Vor der
+          Veroeffentlichung wird aus jedem store-knopf ein <a> mit der
+          Store-Adresse und dem vorgeschriebenen Abzeichen (siehe
+          web/README.md, Abschnitt "Vor der Veroeffentlichung").
+        -->
+        <div class="store-liste">
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-android"/></svg>
+            <span class="store-text">
+              <span class="store-klein">Für Android</span>
+              <span class="store-gross">Google Play</span>
+            </span>
+            <span class="store-status">in Kürze</span>
+          </div>
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-apfel"/></svg>
+            <span class="store-text">
+              <span class="store-klein">Fürs iPhone</span>
+              <span class="store-gross">App Store</span>
+            </span>
+            <span class="store-status">in Arbeit</span>
+          </div>
+        </div>
+
+        <p class="preis-klein">
+          Alle Preise inkl. MwSt. Das Abo verlängert sich automatisch und ist jederzeit
+          über den App Store bzw. Google Play kündbar. Der endgültige Preis steht im
+          Kaufdialog des Stores.
+        </p>
+      </div>
+
+      <!--
+        Die beiden Tarife nebeneinander. Der Umschalter monatlich/jaehrlich ist
+        ein Paar Radio-Knoepfe plus :has() und KEIN JavaScript: Die Seite kommt
+        sonst ohne aus, und ein Preis, den erst ein Skript einsetzt, ist bei
+        abgeschaltetem JavaScript ein leeres Feld. Wo :has() fehlt, bleibt der
+        MONATSPREIS stehen - also der hoehere. Eine Anzeige, die zu niedrig
+        faellt, waere die falsche Richtung (PAngV).
+      -->
+      <div class="plan-paar">
+
+        <article class="plan">
+          <h3>Kostenlos</h3>
+          <p class="plan-satz">Alles, was du zum Anfangen brauchst.</p>
+          <ul class="plan-liste">
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>15 Rezepte</b> importieren, einmalig</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>Ein</b> verknüpftes Kochbuch</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span>Deine Rezepte bleiben gespeichert</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span>Wochenplan und Favoriten</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span>Kochmodus, Suche und Kategorien</span></li>
+          </ul>
+        </article>
+
+        <article class="plan plan-voll">
+          <div class="takt-schalter">
+            <input class="takt-eingabe" type="radio" name="takt" id="takt-monat" checked>
+            <label for="takt-monat">Monatlich</label>
+            <input class="takt-eingabe" type="radio" name="takt" id="takt-jahr">
+            <label for="takt-jahr">Jährlich<span class="takt-sparen">−20 %</span></label>
+          </div>
+
+          <h3>Premium</h3>
+
+          <p class="plan-preis">
+            <b class="nur-monat">2,99 €</b><b class="nur-jahr">2,39 €</b>
+            <span class="nur-monat">im Monat</span><span class="nur-jahr">im Monat</span>
+          </p>
+          <p class="plan-satz nur-monat">Monatlich abgerechnet, jederzeit kündbar.</p>
+          <p class="plan-satz nur-jahr">Jährlich abgerechnet mit 28,68 €.</p>
+
+          <ul class="plan-liste">
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>Unbegrenzt</b> Rezepte importieren</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span><b>Unbegrenzt</b> Kochbücher verknüpfen</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span>Alles aus der kostenlosen Fassung</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg><span>Neue Funktionen ohne Aufpreis</span></li>
+          </ul>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
   <section class="band band-dunkel" id="verwandlung">
     <div class="bahn">
 
@@ -278,68 +444,6 @@ alles weitere im Video 👆 speichern nicht vergessen
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ------------------------------------------------------------------ -->
-  <!--
-    Die vier Gruende, und zwar in voller Groesse. Sie standen vorher als
-    Vierzeiler unter den Funktionen - eine Zeile Text neben einem 20px-Symbol,
-    ganz unten in einer hellen Bahn - und wurden dort ueberblaettert. Zwei der
-    frueheren vier sind ueberdies KEINE Gruende, sondern
-    Selbstverstaendlichkeiten (Kategorien, Favoriten) bzw. eine Fussnote (sechs
-    Sprachen); sie stehen jetzt als kleine Zeile hinter den Funktionen. An ihrer
-    Stelle stehen die beiden, die die App wirklich von einem Ordner voller
-    Screenshots unterscheiden: der geteilte Wochenplan und das verknuepfte
-    Kochbuch.
-  -->
-  <section class="band" id="staerken">
-    <div class="bahn">
-
-      <div class="staerken-kopf">
-        <p class="augenbraue">Warum Kochbuch</p>
-        <h2>Rezepte sammeln kann jeder. Das hier nicht.</h2>
-      </div>
-
-      <div class="staerken-raster">
-
-        <article class="staerke">
-          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
-          <h3>Ein Kochbuch für zwei</h3>
-          <p>
-            Ein sechsstelliger Code verbindet eure Sammlungen. Ab da seht ihr beide
-            Kochbücher als eines — und niemand tippt etwas doppelt ein.
-          </p>
-        </article>
-
-        <article class="staerke">
-          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalender"/></svg>
-          <h3>Gemeinsamer Wochenplan</h3>
-          <p>
-            Was diese Woche auf den Tisch kommt, steht an einer Stelle. Und wenn ihr
-            euch nicht einigt, würfelt die App die Woche zusammen.
-          </p>
-        </article>
-
-        <article class="staerke">
-          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
-          <h3>Rechnet auf dem Handy</h3>
-          <p>
-            Kann dein Gerät die Auswertung selbst, verlässt kein Wort des Rezepts das
-            Telefon. Erst sonst springt unser Server ein.
-          </p>
-        </article>
-
-        <article class="staerke">
-          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stift"/></svg>
-          <h3>Auch ganz ohne Link</h3>
-          <p>
-            Omas Blechkuchen steht auf keinem Reel. Den tippst du von Hand ein, mit
-            eigenem Foto — und er steht danach zwischen allen anderen.
-          </p>
-        </article>
-
-      </div>
     </div>
   </section>
 
@@ -453,103 +557,6 @@ alles weitere im Video 👆 speichern nicht vergessen
     </div>
   </section>
 
-  <!-- ------------------------------------------------------------------ -->
-  <!--
-    Der Holen-Block. Er traegt den Preis mit, statt ihn in eine eigene Bahn zu
-    stellen: Wer sich entscheidet, entscheidet ueber beides zugleich - was es
-    kann und was es kostet. Eine getrennte Preisbahn ohne Knopf war eine Bahn,
-    an deren Ende der Besucher nichts tun konnte.
-  -->
-  <section class="band band-clay" id="holen">
-    <div class="bahn holen-raster">
-
-      <div class="holen-haupt">
-        <h2>Kochbuch aufs Handy holen</h2>
-        <p class="gross" style="margin-top:var(--sp-xl)">
-          Die ersten 15 Rezepte gehen aufs Haus, und sie laufen nicht ab. Wer danach
-          weiter Rezepte holt, braucht ein Abo: Jeder Import kostet uns Rechenzeit, und
-          die zahlt niemand sonst.
-        </p>
-
-        <!--
-          Die beiden Zeilen sind noch KEINE Links: Es gibt weder einen
-          Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere
-          fuehrt, ist schlimmer als ein ehrlicher Hinweis. Vor der
-          Veroeffentlichung wird aus jedem <div class="store-knopf"> ein <a> mit
-          der Store-Adresse und dem vorgeschriebenen Abzeichen (siehe
-          web/README.md, Abschnitt "Vor der Veroeffentlichung"). Der Knopf
-          darunter ist solange die einzige Handlung, die wirklich etwas tut.
-        -->
-        <div class="store-liste">
-          <div class="store-knopf">
-            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-android"/></svg>
-            <span class="store-text">
-              <span class="store-klein">Für Android</span>
-              <span class="store-gross">Google Play</span>
-            </span>
-            <span class="store-status">in Kürze</span>
-          </div>
-          <div class="store-knopf">
-            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-apfel"/></svg>
-            <span class="store-text">
-              <span class="store-klein">Fürs iPhone</span>
-              <span class="store-gross">App Store</span>
-            </span>
-            <span class="store-status">in Arbeit</span>
-          </div>
-        </div>
-
-        <div class="knopf-reihe holen-knopf">
-          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20vormerken">
-            Sag mir Bescheid, sobald es sie gibt
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-        </div>
-
-      </div>
-
-      <div class="holen-neben">
-
-        <div class="tarife">
-          <div class="tarif">
-            <b>0 €</b>
-            <span>die ersten 15 Rezepte, ohne Verfall</span>
-          </div>
-          <div class="tarif">
-            <b>2,99 €</b>
-            <span>im Monat</span>
-          </div>
-          <div class="tarif">
-            <b>28,68 €</b>
-            <span>im Jahr, also 2,39 € im Monat</span>
-            <span class="tarif-sparen">−20 %</span>
-          </div>
-        </div>
-
-        <p class="preis-klein">
-          Alle Preise inkl. MwSt. Das Abo verlängert sich automatisch und ist jederzeit
-          über den App Store bzw. Google Play kündbar. Der endgültige Preis steht im
-          Kaufdialog des Stores.
-        </p>
-
-        <div class="bleibt">
-          <h3>Was ohne Abo bleibt</h3>
-          <ul>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Alle Rezepte, die schon drin sind: lesen, kochen, bearbeiten.</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Wochenplan, Kochmodus, Favoriten und geteilte Kochbücher.</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Rezepte von Hand eintragen, so viele du willst.</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Dein Konto, samt dem Knopf, mit dem du es wieder löschst.</span></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
 </main>
 
 <footer class="seitenfuss">
@@ -567,10 +574,10 @@ alles weitere im Video 👆 speichern nicht vergessen
       </div>
       <div class="fuss-spalte">
         <b>Die App</b>
-        <a href="#verwandlung">Wie es geht</a>
         <a href="#staerken">Warum Kochbuch</a>
+        <a href="#holen">Preis</a>
+        <a href="#verwandlung">Wie es geht</a>
         <a href="#funktionen">Funktionen</a>
-        <a href="#holen">Preis und Holen</a>
       </div>
       <div class="fuss-spalte">
         <b>Rechtliches</b>

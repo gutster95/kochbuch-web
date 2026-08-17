@@ -21,8 +21,14 @@ zwischen Preis und Fuß und nahm den Platz ein, an dem der Besucher die App hole
 Die vier Seiten stehen weiterhin im Fuß jeder Seite, Kontolöschung eingeschlossen; Play
 verlangt eine öffentlich erreichbare URL, keine prominente.
 
-Der Aufbau ist damit: erstes Bild → die Verwandlung → **die vier Gründe** → drei Funktionen
-mit Gerät → Holen und Preis.
+Der Aufbau ist damit: erstes Bild → **die vier Gründe** → **Preis** → die Verwandlung →
+drei Funktionen mit Gerät.
+
+**Der Preis steht an dritter Stelle, nicht am Ende.** Er stand zuerst ganz unten, und das
+war die falsche Reihenfolge: Wer wissen will, was etwas kostet, sucht es zuerst — und wer
+es erst nach fünf Bahnen Begeisterung findet, liest es als das, was verschwiegen werden
+sollte. Die Ausführlichkeit (Verwandlung, Funktionen) kommt danach; sie ist für die, die
+nach dem Preis noch da sind.
 
 Was bewusst **nicht** gebaut ist: die Wand aus sechs gleich großen Kacheln aus Symbol,
 Überschrift und zwei Zeilen Text. Sie ist der Normalfall dieser Kategorie (auch bei der
@@ -104,11 +110,32 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   spezifischer als `.knopf-voll` und gewinnt trotz später geladener Datei. Mit einer Klasse
   allein bekam der Knopf Farbe und Polsterung der Kopfzeilen-Anker (`4px 0`), und die
   Schrift stand links und rechts über die Pille hinaus.
+- **`.plan` / `.plan-voll`** — die zwei Tarife nebeneinander: links kostenlos, rechts
+  Premium. Die **bezahlte** Karte ist die **hellere**; auf einer Clay-Bahn ist Nähe zum
+  Sand der Seite das Signal „das hier ist gemeint“. Sie trägt als einzige einen vollen
+  Rand und einen Schatten.
+
+  Ersetzt hat das Paar zwei Dinge, die dieselbe Frage zweimal und keines davon vergleichend
+  beantworteten: drei Preiszeilen untereinander (`.tarif`) und einen Kasten „Was ohne Abo
+  bleibt“ (`.bleibt`).
+- **`.takt-schalter`** — monatlich oder jährlich, ein Paar Radio-Knöpfe plus `:has()` und
+  **kein JavaScript**. Beide Preise stehen im HTML, einer wird ausgeblendet. Ein Preis, den
+  erst ein Skript einsetzt, ist bei abgeschaltetem JavaScript ein leeres Feld.
+
+  Der Grundzustand zeigt den **Monatspreis**, also den höheren: Wo `:has()` fehlt, bleibt er
+  stehen. Eine Anzeige, die zu niedrig fällt, wäre die falsche Richtung (PAngV). Die
+  Eingaben sind nur optisch verborgen (`opacity: 0`, **nicht** `display: none`) — Letzteres
+  nähme sie aus der Tabreihenfolge, und der Umschalter wäre mit der Tastatur nicht mehr zu
+  bedienen.
 - **`.store-knopf`** — die beiden Store-Zeilen im Holen-Block. Sie sehen aus wie Knöpfe und
   sind bewusst **keine**: Solange es die Store-Einträge nicht gibt, führte jeder Link ins
   Leere. Deshalb `<div>` statt `<a>`, kein `:hover`, und je ein Statuswort („in Kürze",
   „in Arbeit"). Beim Start werden daraus Links mit den vorgeschriebenen Store-Abzeichen.
 - Die frühere **`.rechts-zeile`** (Pflichtlinks als Liste) ist mit der Rechtsbahn entfallen.
+- Der **Vormerken-Knopf** (`mailto:`) unter den Store-Zeilen ist ebenfalls raus. Er sammelte
+  Adressen für einen Verteiler, den es nicht gibt und nicht geben soll — und eine
+  E-Mail-Adresse einzusammeln, ohne zu wissen, was man damit tut, ist der Anfang jedes
+  Einwilligungsproblems.
 
 ## Symbole
 
@@ -217,6 +244,14 @@ Drei Dinge waren dabei mehr als Kosmetik:
   Sprungziel aus dem Inhaltsverzeichnis unter dem Kopf.
 
 ## Was leicht kaputtgeht
+
+**`main { padding: 32px 0 48px }` steht in `stil.css` und gilt dem Fließtext der
+Rechtsseiten.** Auf der Startseite trug es zwei sandfarbene Balken ein, die wie ein Fehler
+aussahen und einer waren: einen 32px hohen zwischen Kopfzeile und dem Verlauf des ersten
+Bildes, einen 48px hohen zwischen der Clay-Bahn und dem dunklen Fuß. `start.css` setzt die
+Polsterung deshalb mit `.start main { padding: 0 }` zurück — hier bringt jede Bahn ihre
+eigene mit. Wer eine neue Vollflächen-Bahn baut, sieht den Balken sofort wieder, wenn die
+Regel verschwindet.
 
 - **`.tarif span` gegen `.tarif-sparen`.** Der Sparen-Chip ist ein `span` in `.tarif`, und
   `.tarif span { color: … }` ist spezifischer als eine Klasse allein — der Chip stand
