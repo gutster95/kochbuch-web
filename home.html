@@ -41,8 +41,8 @@
   Scrollhoehe aus an eine Stelle: den Holen-Block.
   OWN-WORLD: Die Palette der App (Sand-Grund, Ink-Tiefe, Clay-Akzent, Sage als
   zweite Stimme), Domine ausschliesslich in Ueberschriften, System-Sans im
-  Text, 28px-Radien, warme versetzte Schatten, gezeichnete SVG-Symbole in einer
-  Strichstaerke. Zwei gesaettigte Vollflaechen brechen den hellen Grund: die
+  Text, 28px-Radien, KEINE Schatten (getrennt wird ueber Rand und Flaechenton),
+  gezeichnete SVG-Symbole in einer Strichstaerke. Zwei gesaettigte Vollflaechen brechen den hellen Grund: die
   dunkle Beweis-Bahn und die Holen-Bahn im Clay-Verlauf.
   STORY: Der Besucher versteht in einem Blick, dass ein geteilter Link ein
   sauberes Rezept wird; er sieht danach die vier Gruende, warum er die App will;
@@ -93,10 +93,6 @@
     </g>
     <g id="i-stern" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 4.5 14.1 9l4.9.6-3.6 3.4.9 4.9-4.3-2.4-4.3 2.4.9-4.9L5 9.6 9.9 9z"/>
-    </g>
-    <g id="i-wandeln" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 8h13M11.5 3.5 16 8l-4.5 4.5"/>
-      <path d="M21 16H8M12.5 11.5 8 16l4.5 4.5"/>
     </g>
     <!-- Von Hand eintragen: Stift auf Zeile. -->
     <g id="i-stift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -391,7 +387,9 @@
 
       <div class="verwandlung" id="verwandlung-block">
         <div class="blatt blatt-roh">
-          <span class="blatt-marke">Geteilter Beitrag</span>
+          <div class="blatt-kopf">
+            <span class="blatt-marke">Geteilter Beitrag</span>
+          </div>
           <p class="roh-text">🍋 CREAMY LEMON PASTA ✨ das schnellste Abendessen der Woche, versprochen!!
 
 zutaten für 2:
@@ -401,12 +399,19 @@ alles weitere im Video 👆 speichern nicht vergessen
 <span class="hash">#pasta #zitronenpasta #feierabendküche #rezepte</span></p>
         </div>
 
+        <!--
+          Ein Pfeil, EINE Richtung. Hier stand ein Doppelpfeil, und der
+          behauptete, die Verwandlung liefe auch rueckwaerts - aus dem Rezept
+          wieder eine Caption. Sie laeuft von links nach rechts, und nur so.
+        -->
         <div class="pfeil" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><use href="#i-wandeln"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#i-pfeil-rechts"/></svg>
         </div>
 
         <div class="blatt blatt-rezept">
-          <span class="blatt-marke stufe" style="--i:0">Im Kochbuch</span>
+          <div class="blatt-kopf">
+            <span class="blatt-marke stufe" style="--i:0">Im Kochbuch</span>
+          </div>
           <div class="rezept-titel stufe" style="--i:1">Cremige Zitronen-Pasta mit Spinat</div>
           <div class="rezept-meta stufe" style="--i:2">
             <span class="marke-chip">

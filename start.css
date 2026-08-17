@@ -388,17 +388,31 @@
 
 /* --- Die Verwandlung ----------------------------------------------------- */
 
+/*
+  Zentriert wie der Kopf der Gruende-Bahn. Er stand als einziger Bahnenkopf
+  linksbuendig, und das Paar darunter ist symmetrisch - die Ueberschrift zog die
+  ganze Bahn nach links, obwohl unter ihr zwei gleich schwere Blaetter stehen.
+*/
 .verwandlung-kopf {
   display: grid;
-  gap: var(--sp-xl);
+  gap: var(--sp-md);
+  justify-items: center;
+  text-align: center;
   max-width: 44rem;
-  margin-bottom: var(--sp-4xl);
+  margin: 0 auto var(--sp-4xl);
 }
 
+/*
+  `stretch` statt `start`: Die beiden Blaetter sind unterschiedlich hoch, und
+  der Pfeil sitzt in der Mitte der ZEILE - also in der Mitte des hoeheren. Er
+  zeigte damit auf halber Hoehe des Rezepts los, waehrend das linke Blatt
+  darueber schon zu Ende war. Gleich hohe Blaetter loesen das, ohne dass der
+  Pfeil einen gerechneten Abstand braucht.
+*/
 .verwandlung {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: start;
+  align-items: stretch;
   gap: var(--sp-xl);
 }
 
@@ -409,6 +423,19 @@
   flex-direction: column;
   gap: var(--sp-md);
 }
+
+/*
+  Dieselbe Kopfzeile auf beiden Blaettern - Marke, darunter ein Haarstrich.
+  Ohne sie war links ein grauer Textblock und rechts eine gebaute Karte: zwei
+  Dinge, die nichts miteinander zu tun zu haben schienen. Die gemeinsame Zeile
+  macht aus ihnen ein Vorher und ein Nachher.
+*/
+.blatt-kopf {
+  padding-bottom: var(--sp-md);
+  border-bottom: 1px solid rgba(243, 235, 226, 0.16);
+}
+
+.blatt-rezept .blatt-kopf { border-bottom-color: var(--sand-200); }
 
 /* Links: was aus der App geteilt wird. Rohtext, Zeilenumbrueche wie im Original. */
 .blatt-roh {
@@ -552,24 +579,46 @@
   margin-top: 2px;
 }
 
-/* Der Pfeil zwischen den beiden Blaettern. */
+/*
+  Der Pfeil zwischen den beiden Blaettern, mit einem Haarstrich nach links und
+  rechts: Er soll nicht zwischen den Blaettern schweben, sondern das eine ins
+  andere fuehren.
+*/
 .pfeil {
+  position: relative;
   align-self: center;
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   color: var(--clay-warm);
   background: rgba(192, 90, 49, 0.18);
   border: 1px solid rgba(233, 160, 106, 0.35);
 }
 
-.pfeil svg { width: 26px; height: 26px; }
+.pfeil::before,
+.pfeil::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: var(--sp-xl);
+  height: 1px;
+  background: rgba(233, 160, 106, 0.3);
+}
+
+.pfeil::before { right: 100%; }
+.pfeil::after { left: 100%; }
+
+.pfeil svg { width: 24px; height: 24px; }
 
 
 @media (max-width: 62rem) {
   .verwandlung { grid-template-columns: 1fr; }
+  /*
+    Untereinander zeigt der Pfeil nach unten. Die Drehung nimmt die beiden
+    Haarstriche mit - sie sitzen am Pfeil, nicht an der Bahn.
+  */
   .pfeil { transform: rotate(90deg); justify-self: center; }
   .rezept-spalten { grid-template-columns: 1fr; gap: var(--sp-lg); }
 }

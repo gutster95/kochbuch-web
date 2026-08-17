@@ -59,8 +59,18 @@ sähe aus wie ein Rechtstext mit Bildern. Deshalb tragen zwei Bahnen die volle S
 | Der Preis | Verlauf `--clay-600` → `#8E3A1E` → `#6F2712` | `--sand-50`, sekundär `#FADFCF` |
 | Fuß | `--ink-900` | wie die Verwandlungsbahn |
 
-**Sekundärtext auf farbigem Grund ist nie grau**, sondern aus dem Ton der Fläche gezogen —
-dieselbe Begründung wie bei `ShadowTint` in `Color.kt`.
+**Sekundärtext auf farbigem Grund ist nie grau**, sondern aus dem Ton der Fläche gezogen.
+
+**Der Auftritt wirft keine Schatten.** Es lagen sieben `box-shadow`-Regeln auf den Seiten —
+unter beiden Knopfarten, zweifach unter dem Telefonrahmen, unter der Rezeptkarte, unter der
+Premium-Karte und unter den Karten der Rechtsseiten. Sie ließen die Bauteile über dem Grund
+schweben, statt die Seite als Fläche zu lesen; auf warmem Sand wird ein weicher schwarzer
+Schatten überdies grau, nicht dunkler. Getrennt wird jetzt über **Rand und Flächenton**, und
+das trug ohnehin schon: helle Karte auf dunkler Bahn, hellere Karte neben blasserer, Rand um
+die Rechtsseiten-Kästen. Geblieben ist eine einzige Regel, und sie ist kein Schatten — die
+Lichtkante **innen** an der Oberkante des Telefonrahmens (`inset`); ohne sie ist der Rahmen
+ein schwarzes Rechteck. `--shadow` (aus `ShadowTint` in `Color.kt`) trug danach nichts mehr
+und ist mitgegangen.
 
 **Knöpfe stehen in `--clay-600`, nicht in `--clay-500`.** Weiß auf Clay500 kommt auf
 4,4 : 1 und liegt damit unter der Schwelle für Text dieser Größe; Clay600 hält 6,3 : 1.
@@ -101,7 +111,21 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   war sieben Tage gültig — ein gültiger Code auf einer öffentlichen Seite ist ein Zugang zum
   eigenen Kochbuch) und Bild wie Name des verknüpften Kontos (eine reale Person, die dem
   nicht zugestimmt hat). Wer die Bilder neu erzeugt, muss beides wieder ersetzen.
-- **`.blatt-roh` / `.blatt-rezept`** — die zwei Seiten der Verwandlung.
+- **`.blatt-roh` / `.blatt-rezept`** — die zwei Seiten der Verwandlung, gleich hoch
+  (`align-items: stretch`) und mit derselben Kopfzeile aus Marke und Haarstrich
+  (`.blatt-kopf`). Vorher war links ein grauer Textblock und rechts eine gebaute Karte: zwei
+  Dinge, die nichts miteinander zu tun zu haben schienen. Der Bahnenkopf darüber steht
+  **zentriert** — er war der einzige linksbündige der Seite und zog eine symmetrische Bahn
+  nach links.
+- **`.pfeil`** — dazwischen, mit je einem Haarstrich nach links und rechts, damit er nicht
+  zwischen den Blättern schwebt, sondern das eine ins andere führt. Er zeigt in **eine**
+  Richtung: Hier stand ein Doppelpfeil, und der behauptete, die Verwandlung liefe auch
+  rückwärts — aus dem Rezept wieder eine Caption. Hochkant dreht er samt Strichen um 90°.
+
+  Weil beide Blätter verschieden hoch sind, saß der Pfeil vorher in der Mitte des
+  **höheren**: Er zeigte auf halber Rezepthöhe los, während das linke Blatt darüber schon zu
+  Ende war. Gleich hohe Blätter lösen das, ohne dass der Pfeil einen gerechneten Abstand
+  braucht.
 - **`.zug`** — ein Funktionsabschnitt, jeder zweite gedreht (`.zug-gedreht`).
 - **`.staerke`** — eine der vier Spalten der Gründe-Bahn: 44px-Symbol in Clay, Überschrift,
   zwei Sätze, alles zentriert. Kein Hintergrund, kein Rand.
@@ -112,8 +136,7 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   Schrift stand links und rechts über die Pille hinaus.
 - **`.plan` / `.plan-voll`** — die zwei Tarife nebeneinander: links kostenlos, rechts
   Premium. Die **bezahlte** Karte ist die **hellere**; auf einer Clay-Bahn ist Nähe zum
-  Sand der Seite das Signal „das hier ist gemeint“. Sie trägt als einzige einen vollen
-  Rand und einen Schatten.
+  Sand der Seite das Signal „das hier ist gemeint“. Sie trägt als einzige einen vollen Rand.
 
   Ersetzt hat das Paar zwei Dinge, die dieselbe Frage zweimal und keines davon vergleichend
   beantworteten: drei Preiszeilen untereinander (`.tarif`) und einen Kasten „Was ohne Abo
