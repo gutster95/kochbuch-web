@@ -13,6 +13,13 @@
   aendert, aendert sie in ui/theme/Color.kt und in stil.css, nie hier.
 
   Kein Build-Schritt, keine Abhaengigkeit, keine Anfrage nach draussen.
+
+  KEINE SCHLAGSCHATTEN. Die Seite hatte welche - unter den Knoepfen, unter dem
+  Telefon, unter der Rezeptkarte, unter der Premium-Karte - und sie sahen nach
+  Bauteilen aus, die ueber dem Grund schweben, statt nach einer Flaeche.
+  Getrennt wird ueber Rand und Flaechenton, nicht ueber Tiefe. Wer hier ein
+  `box-shadow` ergaenzt, nimmt es wieder heraus; die einzige Ausnahme ist die
+  Lichtkante INNEN am Telefonrahmen (`inset`), und die ist kein Schatten.
 */
 
 /* --- Was diese Seite zusaetzlich braucht --------------------------------- */
@@ -202,7 +209,7 @@
   line-height: 1;
   cursor: pointer;
   transition: transform 0.25s var(--kurve), background-color 0.2s ease,
-              border-color 0.2s ease, box-shadow 0.25s var(--kurve);
+              border-color 0.2s ease;
 }
 
 /*
@@ -212,14 +219,12 @@
 .knopf-voll {
   background: var(--clay-600);
   color: var(--sand-50);
-  box-shadow: 0 12px 26px -14px rgba(107, 74, 52, 0.55);
 }
 
 .knopf-voll:hover {
   background: #8B3B20;
   color: var(--sand-50);
   transform: translateY(-2px);
-  box-shadow: 0 18px 34px -16px rgba(107, 74, 52, 0.6);
 }
 
 .knopf-leer {
@@ -233,7 +238,6 @@
 .band-clay .knopf-voll {
   background: var(--sand-50);
   color: var(--clay-600);
-  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.5);
 }
 
 .band-clay .knopf-voll:hover { background: #fff; color: var(--clay-600); }
@@ -358,10 +362,13 @@
   background: var(--ink-900);
   border-radius: 44px;
   padding: 10px;
-  box-shadow:
-    0 2px 0 rgba(255, 255, 255, 0.12) inset,
-    0 40px 80px -40px rgba(31, 26, 22, 0.55),
-    0 12px 30px -18px rgba(31, 26, 22, 0.4);
+  /*
+    Was hier steht, ist KEIN Schatten, sondern eine Lichtkante INNEN: die eine
+    helle Linie an der Oberkante, die den schwarzen Rahmen als Geraet lesbar
+    macht statt als schwarzes Rechteck. Die beiden geworfenen Schatten, die
+    frueher darunter standen, sind raus - siehe der Hinweis im Kopf der Datei.
+  */
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.12) inset;
 }
 
 .telefon-kippen {
@@ -437,7 +444,6 @@
   background: var(--sand-50);
   color: var(--ink-700);
   border: 1px solid var(--sand-200);
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
 }
 
 .blatt-rezept .blatt-marke { color: var(--ink-500); }
@@ -859,7 +865,6 @@
 .plan-voll {
   background: rgba(252, 250, 247, 0.12);
   border-color: rgba(252, 250, 247, 0.42);
-  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.55);
 }
 
 .plan h3 {
