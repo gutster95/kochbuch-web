@@ -9,7 +9,7 @@
 <title>Kochbuch — a reel becomes a recipe</title>
 <link rel="icon" href="../bilder/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../bilder/logo-180.png">
-<meta name="description" content="Kochbuch turns a TikTok or Instagram link into a recipe with ingredients and steps. Weekly plan, cook mode and shared cookbooks included.">
+<meta name="description" content="Kochbuch turns a TikTok or Instagram link into a recipe with ingredients and steps. One cookbook for two, a shared weekly plan, 15 recipes free, then €2.99 a month.">
 <meta name="theme-color" content="#FCFAF7">
 <link rel="stylesheet" href="../stil.css">
 <link rel="stylesheet" href="../start.css">
@@ -28,18 +28,20 @@
 <!--
   THESIS: This page shows the transformation itself - shared caption on the
   left, finished recipe on the right - instead of the wall of icon-title-text
-  cards every app landing page in this category ships.
+  cards every app landing page in this category ships. And from every scroll
+  position it leads to one place: the get-it block.
   OWN-WORLD: The app's palette (sand ground, ink depth, clay accent, sage as
   the second voice), Domine for headings only, system sans for text, 28px
   radii, warm offset shadows, drawn SVG icons at one stroke weight. Two
   saturated full-bleed bands break the light ground: the dark proof band and
-  the clay-gradient price band.
+  the clay-gradient get-it band.
   STORY: The visitor understands at a glance that a shared link becomes a clean
-  recipe; believes it because the transformation is shown rather than claimed;
-  puts the app on their list.
+  recipe; then sees the four reasons to want the app; believes them because
+  three are backed by real screenshots; gets it - knowing what it costs.
   FIRST VIEWPORT: On the left the line "A reel becomes a recipe" at full display
-  size, deck, two buttons and the honest status line; on the right the phone
-  with the real recipe list, slightly tilted.
+  size, deck, the get-it button, the price line and the honest status line; on
+  the right the phone with the real recipe list, slightly tilted. Plus, from the
+  first pixel and at every scroll position, the same button in the header.
   FORM: The opened cookbook spread - text left, object right - second of the
   derived structures. No seed key: Node is not installed on this machine, so
   concept-seed.mjs could not run.
@@ -54,16 +56,6 @@
       <rect x="3.5" y="5" width="17" height="15" rx="3"/>
       <path d="M3.5 10h17M8 3.5v3M16 3.5v3"/>
       <path d="M7.5 14h3M13.5 14h3M7.5 17h3"/>
-    </g>
-    <g id="i-herz" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19.5S4.5 15.2 4.5 9.8A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7.5 1.8c0 5.4-7.5 9.7-7.5 9.7"/>
-    </g>
-    <g id="i-teilen" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 15.5V4M12 4 8.2 7.8M12 4l3.8 3.8"/>
-      <path d="M5 13.5v4.8A1.7 1.7 0 0 0 6.7 20h10.6a1.7 1.7 0 0 0 1.7-1.7v-4.8"/>
-    </g>
-    <g id="i-lupe" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/>
     </g>
     <g id="i-pfeil-rechts" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4.5 12h14M13 6.5l5.5 5.5L13 17.5"/>
@@ -95,6 +87,26 @@
       <path d="M3 8h13M11.5 3.5 16 8l-4.5 4.5"/>
       <path d="M21 16H8M12.5 11.5 8 16l4.5 4.5"/>
     </g>
+    <!-- Von Hand eintragen: Stift auf Zeile. -->
+    <g id="i-stift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15.6 4.6a2 2 0 0 1 2.8 2.8L9.6 16.2l-3.7.9.9-3.7z"/>
+      <path d="M4.5 20.5h15"/>
+    </g>
+    <!--
+      Die beiden Store-Zeichen sind bewusst in DERSELBEN Strichstaerke gezeichnet
+      wie alle anderen Symbole der Seite und nicht die offiziellen Abzeichen von
+      Google und Apple: Solange es die Eintraege nicht gibt, waere ein
+      Original-Badge eine Behauptung.
+    -->
+    <g id="i-android" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.6 14.6a7.4 7.4 0 0 1 14.8 0z"/>
+      <path d="M7.6 7.2 6.2 4.9M16.4 7.2l1.4-2.3"/>
+      <path d="M9.4 11.2h.01M14.6 11.2h.01"/>
+    </g>
+    <g id="i-apfel" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 7.9c-1-.8-2.2-1.1-3.4-.7C7 7.7 6.2 9.2 6.2 11.1c0 3.3 2.3 7.7 4.1 7.7.8 0 1.1-.4 1.7-.4s.9.4 1.7.4c1.8 0 4.1-4.4 4.1-7.7 0-1.9-.8-3.4-2.4-3.9-1.2-.4-2.4-.1-3.4.7z"/>
+      <path d="M12 7.9V6.4a2.5 2.5 0 0 1 2.3-2.4"/>
+    </g>
   </defs>
 </svg>
 
@@ -106,13 +118,14 @@
     </a>
     <nav class="kopf-nav" aria-label="Sections">
       <a class="nur-breit" href="#verwandlung">How it works</a>
+      <a class="nur-breit" href="#staerken">Why</a>
       <a class="nur-breit" href="#funktionen">Features</a>
-      <a class="nur-breit" href="#preis">Price</a>
       <span class="sprachen">
         <a href="../home.html" hreflang="de">DE</a>
         <span class="teiler" aria-hidden="true">·</span>
         <span aria-current="true">EN</span>
       </span>
+      <a class="knopf knopf-voll knopf-kopf" href="#holen">Get it</a>
     </nav>
   </div>
 </header>
@@ -131,12 +144,15 @@
           to type out, nothing to scrub back.
         </p>
         <div class="knopf-reihe">
-          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20waiting%20list">
-            Keep me posted
+          <a class="knopf knopf-voll" href="#holen">
+            Get Kochbuch
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
           <a class="knopf knopf-leer" href="#verwandlung">See it first</a>
         </div>
+        <p class="held-preis">
+          <b>15 recipes on us</b>, and they never expire. After that €2.99&nbsp;a month.
+        </p>
         <p class="stand-zeile">
           <span class="punkt" aria-hidden="true"></span>
           The Android version is in preparation, the iPhone version is being built alongside it.
@@ -222,7 +238,57 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
+    </div>
+  </section>
 
+  <!-- ------------------------------------------------------------------ -->
+  <section class="band" id="staerken">
+    <div class="bahn">
+
+      <div class="staerken-kopf">
+        <p class="augenbraue">Why Kochbuch</p>
+        <h2>Anyone can collect recipes. Not this.</h2>
+      </div>
+
+      <div class="staerken-raster">
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
+          <h3>One cookbook for two</h3>
+          <p>
+            A six-character code links your collections. From then on you see both
+            cookbooks as one — and nobody types anything in twice.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalender"/></svg>
+          <h3>A weekly plan you share</h3>
+          <p>
+            What gets cooked this week lives in one place. And when you cannot agree,
+            the app rolls the week for you.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
+          <h3>It runs on your phone</h3>
+          <p>
+            If your device can do the parsing itself, not a word of the recipe leaves
+            the phone. Only otherwise does our server step in.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stift"/></svg>
+          <h3>No link needed either</h3>
+          <p>
+            Grandma's tray bake is on no reel. That one you type in by hand, with your
+            own photo — and afterwards it sits among all the others.
+          </p>
+        </article>
+
+      </div>
     </div>
   </section>
 
@@ -231,6 +297,32 @@ everything else in the video 👆 don't forget to save
     <div class="bahn">
 
       <div class="zug">
+        <div class="zug-text">
+          <h2>One code, and you cook from one book</h2>
+          <p class="gross">
+            Your invitation code sits in the settings. Whoever redeems it sees your
+            recipes from then on, and you see theirs. Each of you can only change your
+            own, and favourites stay private.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>The code lasts seven days and can be redeemed once.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>You can unlink at any time; nobody loses a recipe.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Recipes and weekly plan can be hidden per cookbook, separately.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild">
+          <div class="telefon">
+            <img class="schirm-bild" src="../bilder/app-kochbuecher.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="Cookbook settings: your own invitation code and one linked cookbook.">
+          </div>
+        </div>
+      </div>
+
+      <div class="zug zug-gedreht">
         <div class="zug-text">
           <h2>What gets cooked this week</h2>
           <p class="gross">
@@ -254,7 +346,7 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
-      <div class="zug zug-gedreht">
+      <div class="zug">
         <div class="zug-text">
           <h2>While you cook, the screen stays on</h2>
           <p class="gross">
@@ -278,36 +370,7 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
-      <div class="zug">
-        <div class="zug-text">
-          <h2>One cookbook, two people</h2>
-          <p class="gross">
-            A six-character code links two cookbooks. After that you both see both
-            collections and plan the same week. Each of you can only change your own
-            recipes, and favourites stay private.
-          </p>
-          <ul class="zug-punkte">
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>The code lasts seven days and can be redeemed once.</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>You can unlink at any time; nobody loses a recipe.</span></li>
-          </ul>
-        </div>
-        <div class="zug-bild">
-          <div class="telefon">
-            <img class="schirm-bild" src="../bilder/app-kochbuecher.webp"
-                 width="640" height="1436" loading="lazy" decoding="async"
-                 alt="Cookbook settings: your own invitation code and one linked cookbook.">
-          </div>
-        </div>
-      </div>
-
       <div class="leiste-details">
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
-          <span><b>Runs on the phone</b>
-          <span>If your device can do it itself, the text never leaves it.</span></span>
-        </div>
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
           <span><b>Six languages</b>
@@ -319,9 +382,9 @@ everything else in the video 👆 don't forget to save
           <span>13 categories are there; rename them and add your own.</span></span>
         </div>
         <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
-          <span><b>By hand as well</b>
-          <span>Grandma's recipe goes in without a link, with your own photo.</span></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-topf"/></svg>
+          <span><b>Search across everything</b>
+          <span>Titles, ingredients and steps, in the other person's recipes too.</span></span>
         </div>
       </div>
 
@@ -329,18 +392,55 @@ everything else in the video 👆 don't forget to save
   </section>
 
   <!-- ------------------------------------------------------------------ -->
-  <section class="band band-clay" id="preis">
-    <div class="bahn preis-raster">
+  <section class="band band-clay" id="holen">
+    <div class="bahn holen-raster">
 
-      <div>
-        <h2>The first 15 recipes are on us</h2>
+      <div class="holen-haupt">
+        <h2>Get Kochbuch on your phone</h2>
         <p class="gross" style="margin-top:var(--sp-xl)">
-          They don't expire, so you can save them up. After that you need a
-          subscription to keep pulling in recipes: every import costs us computing
-          time, and nobody else is paying for it.
+          The first 15 recipes are on us, and they don't expire. After that you need a
+          subscription to keep pulling in recipes: every import costs us computing time,
+          and nobody else is paying for it.
         </p>
 
+        <!--
+          Die beiden Zeilen sind noch KEINE Links - siehe ../home.html.
+        -->
+        <div class="store-liste">
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-android"/></svg>
+            <span class="store-text">
+              <span class="store-klein">For Android</span>
+              <span class="store-gross">Google Play</span>
+            </span>
+            <span class="store-status">soon</span>
+          </div>
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-apfel"/></svg>
+            <span class="store-text">
+              <span class="store-klein">For iPhone</span>
+              <span class="store-gross">App Store</span>
+            </span>
+            <span class="store-status">in the works</span>
+          </div>
+        </div>
+
+        <div class="knopf-reihe holen-knopf">
+          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20waiting%20list">
+            Tell me the moment it's out
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="holen-neben">
+
         <div class="tarife">
+          <div class="tarif">
+            <b>€0</b>
+            <span>the first 15 recipes, never expiring</span>
+          </div>
           <div class="tarif">
             <b>€2.99</b>
             <span>per month</span>
@@ -357,67 +457,20 @@ everything else in the video 👆 don't forget to save
           cancelled any time through the App Store or Google Play. The final price is the
           one shown in the store's purchase dialog.
         </p>
-      </div>
 
-      <div class="bleibt">
-        <h3>What stays without a subscription</h3>
-        <ul>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Every recipe already saved: read it, cook it, edit it.</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Weekly plan, cook mode, favourites and shared cookbooks.</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Your account, and the way to delete it again with two taps.</span></li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ------------------------------------------------------------------ -->
-  <section class="band band-eng" id="rechtliches">
-    <div class="bahn schluss-raster">
-
-      <div>
-        <h2>Privacy and legal</h2>
-        <p class="gross" style="margin-top:var(--sp-xl)">
-          Which data ends up where, what the subscription says and how to delete your
-          account. All readable here, without the app.
-        </p>
-      </div>
-
-      <div>
-        <div class="rechts-liste">
-          <a class="rechts-zeile" href="privacy/index.html">
-            <span>
-              <b>Privacy policy</b>
-              <span>What we process, who else sees it, and how long it stays.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="terms/index.html">
-            <span>
-              <b>Terms of use</b>
-              <span>Subscription, recipe content, shared cookbooks and the limits of it all.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="legal-notice/index.html">
-            <span>
-              <b>Legal notice</b>
-              <span>Who is behind the app and how to reach us.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="delete-account/index.html">
-            <span>
-              <b>Delete account</b>
-              <span>Two taps in the app, or here without the app at all.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
+        <div class="bleibt">
+          <h3>What stays without a subscription</h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Every recipe already saved: read it, cook it, edit it.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Weekly plan, cook mode, favourites and shared cookbooks.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Typing in recipes by hand, as many as you like.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Your account, and the way to delete it again with two taps.</span></li>
+          </ul>
         </div>
-
       </div>
 
     </div>
@@ -441,8 +494,9 @@ everything else in the video 👆 don't forget to save
       <div class="fuss-spalte">
         <b>The app</b>
         <a href="#verwandlung">How it works</a>
+        <a href="#staerken">Why Kochbuch</a>
         <a href="#funktionen">Features</a>
-        <a href="#preis">Price</a>
+        <a href="#holen">Price and download</a>
       </div>
       <div class="fuss-spalte">
         <b>Legal</b>

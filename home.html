@@ -9,16 +9,18 @@
 <title>Kochbuch — aus einem Reel wird ein Rezept</title>
 <link rel="icon" href="bilder/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="bilder/logo-180.png">
-<meta name="description" content="Teile ein Reel von TikTok oder Instagram, und Kochbuch macht ein Rezept daraus: Zutaten, Schritte, Bild. Mit Wochenplan, Kochmodus und einem Kochbuch, das zwei Leute teilen können.">
+<meta name="description" content="Teile ein Reel von TikTok oder Instagram, und Kochbuch macht ein Rezept daraus: Zutaten, Schritte, Bild. Ein Kochbuch für zwei, gemeinsamer Wochenplan, 15 Rezepte gratis, danach 2,99 € im Monat.">
 <meta name="theme-color" content="#FCFAF7">
 <link rel="stylesheet" href="stil.css">
 <link rel="stylesheet" href="start.css">
 <!--
   Die Startseite des Auftritts. Sie hat zwei Aufgaben, und die zweite ist die
-  wichtigere: Sie erklaert, was die App tut - und sie ist der Ort, an dem
-  Datenschutzerklaerung, Impressum, Nutzungsbedingungen und der Loeschweg
-  verlinkt sind. Google Play verlangt eine oeffentlich erreichbare URL fuer die
-  Datenschutzerklaerung und eine zweite fuer die Kontoloeschung ohne App.
+  wichtigere: Sie erklaert, was die App tut - und sie fuehrt zum Holen. Die
+  Rechtstexte sind seit dem Umbau NUR noch im Fuss verlinkt: Ein eigener
+  Abschnitt "Datenschutz und Rechtliches" mitten auf der Seite nahm den Platz
+  ein, an dem der Besucher die App holen sollte, und niemand sucht eine
+  Datenschutzerklaerung in der Seitenmitte. Play verlangt eine oeffentlich
+  erreichbare URL, keine prominente.
 
   Statisch, ohne Build-Schritt, fuer GitHub Pages. Alle Pfade sind RELATIV: Die
   Seite liegt unter /kochbuch-web/, absolute Pfade wie /stil.css zeigten dort
@@ -35,18 +37,22 @@
 <!--
   THESIS: Diese Seite zeigt die Verwandlung selbst - geteilte Caption links,
   fertiges Rezept rechts - statt die Kachelwand aus Symbol, Titel und Satz, die
-  jede App-Startseite dieser Kategorie ausliefert.
+  jede App-Startseite dieser Kategorie ausliefert. Und sie fuehrt von jeder
+  Scrollhoehe aus an eine Stelle: den Holen-Block.
   OWN-WORLD: Die Palette der App (Sand-Grund, Ink-Tiefe, Clay-Akzent, Sage als
   zweite Stimme), Domine ausschliesslich in Ueberschriften, System-Sans im
   Text, 28px-Radien, warme versetzte Schatten, gezeichnete SVG-Symbole in einer
   Strichstaerke. Zwei gesaettigte Vollflaechen brechen den hellen Grund: die
-  dunkle Beweis-Bahn und die Preisbahn im Clay-Verlauf.
+  dunkle Beweis-Bahn und die Holen-Bahn im Clay-Verlauf.
   STORY: Der Besucher versteht in einem Blick, dass ein geteilter Link ein
-  sauberes Rezept wird; er glaubt es, weil er die Umwandlung sieht statt sie
-  behauptet zu bekommen; er merkt sich die App vor.
+  sauberes Rezept wird; er sieht danach die vier Gruende, warum er die App will;
+  er glaubt sie, weil drei davon mit Bildschirmfotos belegt sind; er holt sie
+  sich - und weiss dabei, was sie kostet.
   FIRST VIEWPORT: Links die Zeile "Aus einem Reel wird ein Rezept" auf voller
-  Displaygroesse, Vorspann, zwei Knoepfe und die ehrliche Standzeile; rechts das
-  Telefon mit der echten Rezeptliste, leicht gekippt und angeschnitten.
+  Displaygroesse, Vorspann, der Holen-Knopf, die Preiszeile und die ehrliche
+  Standzeile; rechts das Telefon mit der echten Rezeptliste, leicht gekippt und
+  angeschnitten. Zusaetzlich im Kopf, ab dem ersten Pixel und auf jeder
+  Scrollhoehe: derselbe Holen-Knopf.
   FORM: Der aufgeschlagene Kochbuch-Doppelseite - links Text, rechts Objekt -
   Platz 2 der abgeleiteten Strukturen. Kein Seed-Key: auf diesem Rechner ist
   kein Node installiert, concept-seed.mjs konnte nicht laufen.
@@ -61,16 +67,6 @@
       <rect x="3.5" y="5" width="17" height="15" rx="3"/>
       <path d="M3.5 10h17M8 3.5v3M16 3.5v3"/>
       <path d="M7.5 14h3M13.5 14h3M7.5 17h3"/>
-    </g>
-    <g id="i-herz" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19.5S4.5 15.2 4.5 9.8A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7.5 1.8c0 5.4-7.5 9.7-7.5 9.7"/>
-    </g>
-    <g id="i-teilen" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 15.5V4M12 4 8.2 7.8M12 4l3.8 3.8"/>
-      <path d="M5 13.5v4.8A1.7 1.7 0 0 0 6.7 20h10.6a1.7 1.7 0 0 0 1.7-1.7v-4.8"/>
-    </g>
-    <g id="i-lupe" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/>
     </g>
     <g id="i-pfeil-rechts" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4.5 12h14M13 6.5l5.5 5.5L13 17.5"/>
@@ -102,6 +98,28 @@
       <path d="M3 8h13M11.5 3.5 16 8l-4.5 4.5"/>
       <path d="M21 16H8M12.5 11.5 8 16l4.5 4.5"/>
     </g>
+    <!-- Von Hand eintragen: Stift auf Zeile. -->
+    <g id="i-stift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15.6 4.6a2 2 0 0 1 2.8 2.8L9.6 16.2l-3.7.9.9-3.7z"/>
+      <path d="M4.5 20.5h15"/>
+    </g>
+    <!--
+      Die beiden Store-Zeichen sind bewusst in DERSELBEN Strichstaerke gezeichnet
+      wie alle anderen Symbole der Seite und nicht die offiziellen Abzeichen von
+      Google und Apple: Solange es die Eintraege nicht gibt, waere ein
+      Original-Badge eine Behauptung. Vor der Veroeffentlichung werden aus den
+      beiden Zeilen echte Links (siehe web/README.md) - dann gehoeren an ihre
+      Stelle die vorgeschriebenen Abzeichen der Stores.
+    -->
+    <g id="i-android" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.6 14.6a7.4 7.4 0 0 1 14.8 0z"/>
+      <path d="M7.6 7.2 6.2 4.9M16.4 7.2l1.4-2.3"/>
+      <path d="M9.4 11.2h.01M14.6 11.2h.01"/>
+    </g>
+    <g id="i-apfel" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 7.9c-1-.8-2.2-1.1-3.4-.7C7 7.7 6.2 9.2 6.2 11.1c0 3.3 2.3 7.7 4.1 7.7.8 0 1.1-.4 1.7-.4s.9.4 1.7.4c1.8 0 4.1-4.4 4.1-7.7 0-1.9-.8-3.4-2.4-3.9-1.2-.4-2.4-.1-3.4.7z"/>
+      <path d="M12 7.9V6.4a2.5 2.5 0 0 1 2.3-2.4"/>
+    </g>
   </defs>
 </svg>
 
@@ -113,13 +131,20 @@
     </a>
     <nav class="kopf-nav" aria-label="Seitenbereiche">
       <a class="nur-breit" href="#verwandlung">Wie es geht</a>
+      <a class="nur-breit" href="#staerken">Warum</a>
       <a class="nur-breit" href="#funktionen">Funktionen</a>
-      <a class="nur-breit" href="#preis">Preis</a>
       <span class="sprachen">
         <span aria-current="true">DE</span>
         <span class="teiler" aria-hidden="true">·</span>
         <a href="en/home.html" hreflang="en">EN</a>
       </span>
+      <!--
+        Der Knopf steht NUR auf der Startseite, obwohl der Kopf sonst auf jeder
+        Seite derselbe ist (stil.css): Eine Datenschutzerklaerung verkauft
+        nichts, und ein Holen-Knopf ueber einem Rechtstext sieht aus wie eine
+        Werbeeinblendung im Kleingedruckten.
+      -->
+      <a class="knopf knopf-voll knopf-kopf" href="#holen">Holen</a>
     </nav>
   </div>
 </header>
@@ -138,12 +163,20 @@
           abtippen, nichts zurückspulen.
         </p>
         <div class="knopf-reihe">
-          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20vormerken">
-            Vormerken
+          <a class="knopf knopf-voll" href="#holen">
+            Kochbuch holen
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
           </a>
           <a class="knopf knopf-leer" href="#verwandlung">Erst ansehen</a>
         </div>
+        <!--
+          Der Preis steht schon hier und nicht erst unten am Knopf: Wer ihn zum
+          ersten Mal an der Kasse liest, erlebt ihn als Falle - dieselbe
+          Begruendung wie im WelcomeOverlay der App.
+        -->
+        <p class="held-preis">
+          <b>15 Rezepte geschenkt</b>, ohne Verfall. Danach 2,99&nbsp;€ im Monat.
+        </p>
         <p class="stand-zeile">
           <span class="punkt" aria-hidden="true"></span>
           Android steht kurz vor dem Start, die iPhone-Fassung entsteht parallel.
@@ -245,7 +278,68 @@ alles weitere im Video 👆 speichern nicht vergessen
         </div>
       </div>
 
+    </div>
+  </section>
 
+  <!-- ------------------------------------------------------------------ -->
+  <!--
+    Die vier Gruende, und zwar in voller Groesse. Sie standen vorher als
+    Vierzeiler unter den Funktionen - eine Zeile Text neben einem 20px-Symbol,
+    ganz unten in einer hellen Bahn - und wurden dort ueberblaettert. Zwei der
+    frueheren vier sind ueberdies KEINE Gruende, sondern
+    Selbstverstaendlichkeiten (Kategorien, Favoriten) bzw. eine Fussnote (sechs
+    Sprachen); sie stehen jetzt als kleine Zeile hinter den Funktionen. An ihrer
+    Stelle stehen die beiden, die die App wirklich von einem Ordner voller
+    Screenshots unterscheiden: der geteilte Wochenplan und das verknuepfte
+    Kochbuch.
+  -->
+  <section class="band" id="staerken">
+    <div class="bahn">
+
+      <div class="staerken-kopf">
+        <p class="augenbraue">Warum Kochbuch</p>
+        <h2>Rezepte sammeln kann jeder. Das hier nicht.</h2>
+      </div>
+
+      <div class="staerken-raster">
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
+          <h3>Ein Kochbuch für zwei</h3>
+          <p>
+            Ein sechsstelliger Code verbindet eure Sammlungen. Ab da seht ihr beide
+            Kochbücher als eines — und niemand tippt etwas doppelt ein.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalender"/></svg>
+          <h3>Gemeinsamer Wochenplan</h3>
+          <p>
+            Was diese Woche auf den Tisch kommt, steht an einer Stelle. Und wenn ihr
+            euch nicht einigt, würfelt die App die Woche zusammen.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
+          <h3>Rechnet auf dem Handy</h3>
+          <p>
+            Kann dein Gerät die Auswertung selbst, verlässt kein Wort des Rezepts das
+            Telefon. Erst sonst springt unser Server ein.
+          </p>
+        </article>
+
+        <article class="staerke">
+          <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stift"/></svg>
+          <h3>Auch ganz ohne Link</h3>
+          <p>
+            Omas Blechkuchen steht auf keinem Reel. Den tippst du von Hand ein, mit
+            eigenem Foto — und er steht danach zwischen allen anderen.
+          </p>
+        </article>
+
+      </div>
     </div>
   </section>
 
@@ -253,7 +347,39 @@ alles weitere im Video 👆 speichern nicht vergessen
   <section class="band" id="funktionen">
     <div class="bahn">
 
+      <!--
+        Die Reihenfolge folgt den Gruenden darueber: zuerst der Beleg fuer den
+        wichtigsten (verknuepfte Kochbuecher), dann der Wochenplan, dann der
+        Kochmodus. Vorher stand das Verknuepfen an dritter und letzter Stelle -
+        also ausgerechnet der Punkt, den sonst niemand hat.
+      -->
       <div class="zug">
+        <div class="zug-text">
+          <h2>Ein Code, und ihr kocht aus einem Buch</h2>
+          <p class="gross">
+            In den Einstellungen steht dein Einladungscode. Wer ihn einlöst, sieht ab da
+            deine Rezepte, und du seine. Ändern darf jeder nur seine eigenen, und die
+            Favoriten bleiben privat.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Der Code gilt sieben Tage und lässt sich einmal einlösen.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Trennen geht jederzeit; niemand verliert dabei ein Rezept.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Rezepte und Wochenplan lassen sich je Kochbuch einzeln ausblenden.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild">
+          <div class="telefon">
+            <img class="schirm-bild" src="bilder/app-kochbuecher.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="Die Kochbuch-Verwaltung der App: der eigene Einladungscode und ein verknuepftes Kochbuch.">
+          </div>
+        </div>
+      </div>
+
+      <div class="zug zug-gedreht">
         <div class="zug-text">
           <h2>Was diese Woche auf den Tisch kommt</h2>
           <p class="gross">
@@ -277,13 +403,13 @@ alles weitere im Video 👆 speichern nicht vergessen
         </div>
       </div>
 
-      <div class="zug zug-gedreht">
+      <div class="zug">
         <div class="zug-text">
           <h2>Beim Kochen bleibt der Bildschirm an</h2>
           <p class="gross">
             Im Kochmodus füllt ein Schritt den Bildschirm, Zutaten hakst du beim Lesen
-            ab, und das Display schläft nicht ein. Legst du das Handy zwischendurch
-            weg, stehst du danach wieder an derselben Stelle.
+            ab, und das Display schläft nicht ein. Legst du das Handy zwischendurch weg,
+            stehst du danach wieder an derselben Stelle.
           </p>
           <ul class="zug-punkte">
             <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
@@ -301,36 +427,12 @@ alles weitere im Video 👆 speichern nicht vergessen
         </div>
       </div>
 
-      <div class="zug">
-        <div class="zug-text">
-          <h2>Ein Kochbuch zu zweit</h2>
-          <p class="gross">
-            Ein sechsstelliger Code verbindet zwei Kochbücher. Danach seht ihr beide
-            Sammlungen und plant dieselbe Woche. Ändern darf jeder nur seine eigenen
-            Rezepte, und die Favoriten bleiben privat.
-          </p>
-          <ul class="zug-punkte">
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Der Code gilt sieben Tage und lässt sich einmal einlösen.</span></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-              <span>Trennen geht jederzeit; niemand verliert dabei ein Rezept.</span></li>
-          </ul>
-        </div>
-        <div class="zug-bild">
-          <div class="telefon">
-            <img class="schirm-bild" src="bilder/app-kochbuecher.webp"
-                 width="640" height="1436" loading="lazy" decoding="async"
-                 alt="Die Kochbuch-Verwaltung der App: der eigene Einladungscode und ein verknuepftes Kochbuch.">
-          </div>
-        </div>
-      </div>
-
+      <!--
+        Was frueher als Alleinstellung gehandelt wurde und keine ist: Kategorien
+        und Favoriten hat jede Rezept-App, sechs Sprachen merkt nur, wer eine
+        davon spricht. Eine Zeile je Punkt, mehr braucht es nicht.
+      -->
       <div class="leiste-details">
-        <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
-          <span><b>Rechnet auf dem Handy</b>
-          <span>Kann dein Gerät es selbst, verlässt der Text es nicht.</span></span>
-        </div>
         <div class="detail">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sprache"/></svg>
           <span><b>Sechs Sprachen</b>
@@ -342,9 +444,9 @@ alles weitere im Video 👆 speichern nicht vergessen
           <span>13 Kategorien sind da; umbenennen und ergänzen kannst du sie.</span></span>
         </div>
         <div class="detail">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
-          <span><b>Auch von Hand</b>
-          <span>Omas Rezept kommt ohne Link hinein, mit eigenem Foto.</span></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-topf"/></svg>
+          <span><b>Suche über alles</b>
+          <span>Titel, Zutaten und Schritte, auch in den Rezepten des anderen.</span></span>
         </div>
       </div>
 
@@ -352,18 +454,67 @@ alles weitere im Video 👆 speichern nicht vergessen
   </section>
 
   <!-- ------------------------------------------------------------------ -->
-  <section class="band band-clay" id="preis">
-    <div class="bahn preis-raster">
+  <!--
+    Der Holen-Block. Er traegt den Preis mit, statt ihn in eine eigene Bahn zu
+    stellen: Wer sich entscheidet, entscheidet ueber beides zugleich - was es
+    kann und was es kostet. Eine getrennte Preisbahn ohne Knopf war eine Bahn,
+    an deren Ende der Besucher nichts tun konnte.
+  -->
+  <section class="band band-clay" id="holen">
+    <div class="bahn holen-raster">
 
-      <div>
-        <h2>Die ersten 15 Rezepte gehen aufs Haus</h2>
+      <div class="holen-haupt">
+        <h2>Kochbuch aufs Handy holen</h2>
         <p class="gross" style="margin-top:var(--sp-xl)">
-          Sie laufen nicht ab, du kannst sie dir aufheben. Wer danach weiter Rezepte
-          holt, braucht ein Abo: Jeder Import kostet uns Rechenzeit, und die zahlt
-          niemand sonst.
+          Die ersten 15 Rezepte gehen aufs Haus, und sie laufen nicht ab. Wer danach
+          weiter Rezepte holt, braucht ein Abo: Jeder Import kostet uns Rechenzeit, und
+          die zahlt niemand sonst.
         </p>
 
+        <!--
+          Die beiden Zeilen sind noch KEINE Links: Es gibt weder einen
+          Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere
+          fuehrt, ist schlimmer als ein ehrlicher Hinweis. Vor der
+          Veroeffentlichung wird aus jedem <div class="store-knopf"> ein <a> mit
+          der Store-Adresse und dem vorgeschriebenen Abzeichen (siehe
+          web/README.md, Abschnitt "Vor der Veroeffentlichung"). Der Knopf
+          darunter ist solange die einzige Handlung, die wirklich etwas tut.
+        -->
+        <div class="store-liste">
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-android"/></svg>
+            <span class="store-text">
+              <span class="store-klein">Für Android</span>
+              <span class="store-gross">Google Play</span>
+            </span>
+            <span class="store-status">in Kürze</span>
+          </div>
+          <div class="store-knopf">
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-apfel"/></svg>
+            <span class="store-text">
+              <span class="store-klein">Fürs iPhone</span>
+              <span class="store-gross">App Store</span>
+            </span>
+            <span class="store-status">in Arbeit</span>
+          </div>
+        </div>
+
+        <div class="knopf-reihe holen-knopf">
+          <a class="knopf knopf-voll" href="mailto:info@juicyslaedle.de?subject=Kochbuch%20vormerken">
+            Sag mir Bescheid, sobald es sie gibt
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="holen-neben">
+
         <div class="tarife">
+          <div class="tarif">
+            <b>0 €</b>
+            <span>die ersten 15 Rezepte, ohne Verfall</span>
+          </div>
           <div class="tarif">
             <b>2,99 €</b>
             <span>im Monat</span>
@@ -380,67 +531,20 @@ alles weitere im Video 👆 speichern nicht vergessen
           über den App Store bzw. Google Play kündbar. Der endgültige Preis steht im
           Kaufdialog des Stores.
         </p>
-      </div>
 
-      <div class="bleibt">
-        <h3>Was ohne Abo bleibt</h3>
-        <ul>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Alle Rezepte, die schon drin sind: lesen, kochen, bearbeiten.</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Wochenplan, Kochmodus, Favoriten und geteilte Kochbücher.</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
-            <span>Dein Konto, samt dem Knopf, mit dem du es wieder löschst.</span></li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ------------------------------------------------------------------ -->
-  <section class="band band-eng" id="rechtliches">
-    <div class="bahn schluss-raster">
-
-      <div>
-        <h2>Datenschutz und Rechtliches</h2>
-        <p class="gross" style="margin-top:var(--sp-xl)">
-          Welche Daten wo landen, was im Abo steht und wie du dein Konto wieder
-          löschst. Alles hier nachzulesen, auch ohne die App.
-        </p>
-      </div>
-
-      <div>
-        <div class="rechts-liste">
-          <a class="rechts-zeile" href="datenschutz/index.html">
-            <span>
-              <b>Datenschutzerklärung</b>
-              <span>Welche Daten wir verarbeiten, wer sie sonst noch sieht, wie lange sie bleiben.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="agb/index.html">
-            <span>
-              <b>Nutzungsbedingungen</b>
-              <span>Abo, Rezeptinhalte und was gilt, wenn ihr ein Kochbuch teilt.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="impressum/index.html">
-            <span>
-              <b>Impressum</b>
-              <span>Wer hinter der App steckt und wie du uns erreichst.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
-          <a class="rechts-zeile" href="konto-loeschen/index.html">
-            <span>
-              <b>Konto löschen</b>
-              <span>In der App mit zwei Tipps, oder hier ganz ohne App.</span>
-            </span>
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pfeil-rechts"/></svg>
-          </a>
+        <div class="bleibt">
+          <h3>Was ohne Abo bleibt</h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Alle Rezepte, die schon drin sind: lesen, kochen, bearbeiten.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Wochenplan, Kochmodus, Favoriten und geteilte Kochbücher.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Rezepte von Hand eintragen, so viele du willst.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Dein Konto, samt dem Knopf, mit dem du es wieder löschst.</span></li>
+          </ul>
         </div>
-
       </div>
 
     </div>
@@ -464,8 +568,9 @@ alles weitere im Video 👆 speichern nicht vergessen
       <div class="fuss-spalte">
         <b>Die App</b>
         <a href="#verwandlung">Wie es geht</a>
+        <a href="#staerken">Warum Kochbuch</a>
         <a href="#funktionen">Funktionen</a>
-        <a href="#preis">Preis</a>
+        <a href="#holen">Preis und Holen</a>
       </div>
       <div class="fuss-spalte">
         <b>Rechtliches</b>

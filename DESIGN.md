@@ -11,11 +11,34 @@ mit Emojis, Hashtags und Mengen mitten im Satz, rechts das fertige Rezept mit Gr
 Mengenspalte und nummerierten Schritten. Das ist der einzige Teil des Produkts, den keine
 andere App so hat, und er ist in einem Blick zu erfassen.
 
+**Und die Seite führt zum Holen.** Sie hatte bis zum 17.08.2026 genau eine Handlung, und
+die stand ganz oben im ersten Bild: Wer weiterlas, konnte danach nirgends mehr etwas tun.
+Jetzt trägt der Kopf auf jeder Scrollhöhe denselben Knopf, das erste Bild nennt den Preis,
+und die letzte Bahn ist der Holen-Block — Angebot und Preis in einer Fläche.
+
+**Die Bahn „Datenschutz und Rechtliches" ist dafür ersatzlos entfallen.** Sie stand
+zwischen Preis und Fuß und nahm den Platz ein, an dem der Besucher die App holen sollte.
+Die vier Seiten stehen weiterhin im Fuß jeder Seite, Kontolöschung eingeschlossen; Play
+verlangt eine öffentlich erreichbare URL, keine prominente.
+
+Der Aufbau ist damit: erstes Bild → die Verwandlung → **die vier Gründe** → drei Funktionen
+mit Gerät → Holen und Preis.
+
 Was bewusst **nicht** gebaut ist: die Wand aus sechs gleich großen Kacheln aus Symbol,
 Überschrift und zwei Zeilen Text. Sie ist der Normalfall dieser Kategorie (auch bei der
 Vorlage, an der wir uns orientiert haben), und sie gewichtet alles gleich — also nichts.
-Die Funktionen stehen stattdessen als drei ungleiche Züge mit je einem Gerät, und die vier
-kleineren Wahrheiten als eine einzige Zeile darunter.
+Die Funktionen stehen stattdessen als drei ungleiche Züge mit je einem Gerät.
+
+**Die vier Gründe sind die eine Ausnahme davon, und sie ist bewusst gesetzt.** Sie standen
+vorher als Vierzeiler ganz unten in der Funktionsbahn — 20px-Symbol, eine Zeile Text — und
+wurden dort überblättert. Zwei davon waren ohnehin keine Gründe: Kategorien und Favoriten
+hat jede Rezept-App, sechs Sprachen merkt nur, wer eine davon spricht. An ihre Stelle sind
+die beiden getreten, die sonst niemand hat: der geteilte Wochenplan und das **verknüpfte
+Kochbuch**. Vier gleiche Spalten, zentriert, ohne Karte, ohne Rahmen, ohne Ordnungsziffer —
+ein erster Anlauf hatte Kacheln mit Füllfarbe, Kreis hinter dem Symbol und einer großen
+„01" daneben und sah aus wie vier Behauptungen, die um Aufmerksamkeit rangen. Das Gewicht
+des wichtigsten Punktes kommt aus der **Reihenfolge**: Er steht vorn, und sein Beleg mit
+Bildschirmfoto folgt direkt darunter als erster Zug.
 
 ## Farbe
 
@@ -45,8 +68,13 @@ in der App (`ui/theme/Type.kt`). Bis zum 15.08.2026 stand hier Fraunces; gewechs
 in der App, und die Website zieht mit, weil sonst Store-Eintrag, Website und App nach drei
 Produkten aussehen. Domine deckt die wght-Achse nur von 400 bis 700 ab — die Serife steht
 überall auf 600, das reicht. Fließtext, Label und Zahlen stehen im System-Sans. Vier
-Größen reichen auch hier: `h1` bis 4,25rem (`clamp`), `h2` bis 2,85rem, `h3` 1,3rem,
+Größen reichen auch hier: `h1` bis 5,25rem (`clamp`), `h2` bis 2,5rem, `h3` 1,2rem,
 Fließtext 1rem mit einem größeren Vorspann bei 1,2rem.
+
+**Der Abstand zwischen den Ebenen war zu klein.** Bis zum 17.08.2026 standen sie auf
+68/45,6/20,8px, also 3,3 : 2,1 : 1. Eine `h2` auf zwei Dritteln der `h1` liest sich nicht
+als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sechs gleich laute
+Überschriften und keine Spitze. Jetzt 84/40/19,2px, also **4,4 : 2,1 : 1**.
 
 ## Bauteile
 
@@ -69,7 +97,18 @@ Fließtext 1rem mit einem größeren Vorspann bei 1,2rem.
   nicht zugestimmt hat). Wer die Bilder neu erzeugt, muss beides wieder ersetzen.
 - **`.blatt-roh` / `.blatt-rezept`** — die zwei Seiten der Verwandlung.
 - **`.zug`** — ein Funktionsabschnitt, jeder zweite gedreht (`.zug-gedreht`).
-- **`.rechts-zeile`** — die Pflichtlinks als Liste statt als Kachelwand.
+- **`.staerke`** — eine der vier Spalten der Gründe-Bahn: 44px-Symbol in Clay, Überschrift,
+  zwei Sätze, alles zentriert. Kein Hintergrund, kein Rand.
+- **`.knopf-kopf`** — der Holen-Knopf im Kopf. Er braucht **zwei** Klassen im Selektor
+  (`.kopf-nav .knopf-kopf`): `.kopf-nav a` in `stil.css` ist mit Element-Selektor
+  spezifischer als `.knopf-voll` und gewinnt trotz später geladener Datei. Mit einer Klasse
+  allein bekam der Knopf Farbe und Polsterung der Kopfzeilen-Anker (`4px 0`), und die
+  Schrift stand links und rechts über die Pille hinaus.
+- **`.store-knopf`** — die beiden Store-Zeilen im Holen-Block. Sie sehen aus wie Knöpfe und
+  sind bewusst **keine**: Solange es die Store-Einträge nicht gibt, führte jeder Link ins
+  Leere. Deshalb `<div>` statt `<a>`, kein `:hover`, und je ein Statuswort („in Kürze",
+  „in Arbeit"). Beim Start werden daraus Links mit den vorgeschriebenen Store-Abzeichen.
+- Die frühere **`.rechts-zeile`** (Pflichtlinks als Liste) ist mit der Rechtsbahn entfallen.
 
 ## Symbole
 

@@ -26,6 +26,21 @@ Es geht um Anschrift, Kontakt, Registereintrag, USt-IdNr., die zuständige Aufsi
 und das Datum. Die Supabase-Region ist bereits eingetragen (`eu-west-1`, Irland — also
 **kein** Drittlandtransfer, gegen die Projektliste geprüft).
 
+**Dazu kommen die beiden Store-Adressen.** Der Holen-Block der Startseite (`#holen`) trägt
+zwei Zeilen, die aussehen wie Knöpfe und bewusst **keine Links** sind — es gibt weder einen
+Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere führt, ist schlimmer als
+ein ehrlicher Hinweis. Sobald die Einträge stehen, wird aus jedem `<div class="store-knopf">`
+ein `<a href="…">`, das Statuswort („in Kürze" / „in Arbeit") fällt weg, und an die Stelle
+der selbst gezeichneten Symbole gehören die **vorgeschriebenen Abzeichen** von Google und
+Apple. In **beiden** Sprachfassungen (`home.html`, `en/home.html`). Zu finden mit:
+
+```powershell
+Select-String -Path web\home.html, web\en\home.html -Pattern 'store-knopf'
+```
+
+Der Vormerken-Knopf darunter (`mailto:`) ist solange die einzige Handlung des Blocks, die
+wirklich etwas tut; er fliegt zum Start ebenfalls raus.
+
 **Solange Platzhalter drinstehen, tragen alle Seiten `<meta name="robots" content="noindex">`.**
 Ein unvollständiges Impressum ist abmahnfähig, und wer es nicht findet, mahnt es nicht ab;
 Play und die App rufen die Seiten direkt auf und brauchen keine Indexierung. Die Zeile fliegt

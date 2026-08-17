@@ -70,7 +70,6 @@
 }
 
 .band { padding: var(--sp-5xl) 0; }
-.band-eng { padding: var(--sp-4xl) 0; }
 
 /* Die beiden gesaettigten Flaechen der Seite. */
 .band-dunkel {
@@ -99,32 +98,46 @@
   margin: 0;
 }
 
+/*
+  Die drei Groessen standen vorher auf 68 / 45.6 / 20.8px (Desktop) und damit
+  auf einem Verhaeltnis von 3,3 : 2,2 : 1. Das ist zu eng: Eine h2 auf zwei
+  Dritteln der h1 liest sich nicht als naechste Ebene, sondern als zweite
+  Hauptzeile - die Seite hatte damit sechs gleich laute Ueberschriften und
+  keine Spitze. Jetzt 84 / 40 / 19.2px, also 4,4 : 2,1 : 1.
+*/
 .start h1 {
   font-weight: 600;
-  font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.25rem);
+  font-size: clamp(2.6rem, 1.4rem + 5.2vw, 5.25rem);
   /*
     1.03 sass auf dem Desktop sauber, drueckte die Zeilen aber zusammen, sobald
     die Ueberschrift auf dem Telefon dreizeilig umbricht - dort steht sie bei
-    40px, und Oberlaenge und Unterlaenge kamen sich ins Gehege.
+    42px, und Oberlaenge und Unterlaenge kamen sich ins Gehege.
   */
-  line-height: 1.07;
-  letter-spacing: -0.025em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .start h2 {
   font-weight: 600;
-  font-size: clamp(1.85rem, 1.35rem + 2.1vw, 2.85rem);
-  line-height: 1.12;
+  font-size: clamp(1.7rem, 1.25rem + 1.9vw, 2.5rem);
+  line-height: 1.14;
   letter-spacing: -0.02em;
   scroll-margin-top: 88px;
 }
 
 .start h3 {
   font-weight: 600;
-  font-size: 1.3rem;
-  line-height: 1.25;
+  font-size: 1.2rem;
+  line-height: 1.3;
   letter-spacing: -0.01em;
 }
+
+/*
+  Die Bahnen sind selbst Sprungziele (#staerken, #funktionen, #holen), nicht nur
+  ihre Ueberschriften: Ohne eigenen Abstand verschwindet die erste Zeile hinter
+  dem klebenden Kopf.
+*/
+.start section[id] { scroll-margin-top: 76px; }
 
 .band-dunkel h2,
 .band-dunkel h3 { color: var(--auf-dunkel); }
@@ -218,6 +231,37 @@
 
 .knopf svg { display: block; }
 
+/*
+  Der Knopf im Kopf. Er ist kleiner als die Knoepfe im Inhalt, aber bewusst
+  gefuellt und nicht als vierter Anker geschrieben: Die Seite hatte oben gar
+  keine Handlung, nur drei Sprungmarken - wer nach dem dritten Abschnitt kaufen
+  wollte, musste bis ganz nach unten scrollen. Er bleibt auf schmalen
+  Bildschirmen stehen, waehrend die Anker (.nur-breit) wegfallen.
+*/
+/*
+  Zwei Klassen, und das ist Pflicht: `.kopf-nav a` in stil.css ist mit
+  Element-Selektor spezifischer als `.knopf-voll` und gewinnt trotz spaeterer
+  Datei. Mit einer Klasse allein bekam der Knopf die Farbe der Kopfzeilen-Anker
+  (dunkel auf Terracotta) UND deren Polsterung `4px 0` - die Schrift stand
+  daraufhin links und rechts ueber die Pille hinaus.
+*/
+.kopf-nav .knopf-kopf {
+  padding: 9px var(--sp-lg);
+  font-size: 0.92rem;
+  color: var(--sand-50);
+  border-bottom: 1px solid transparent;
+  flex: none;
+}
+
+/*
+  Und derselbe Grund noch einmal: `.kopf-nav a:hover` zoege sonst einen
+  Clay-Strich unter die Pille.
+*/
+.kopf-nav .knopf-kopf:hover {
+  color: var(--sand-50);
+  border-bottom-color: transparent;
+}
+
 /* --- Held ---------------------------------------------------------------- */
 
 .held-start {
@@ -243,9 +287,27 @@
 .held-text > * + * { margin-top: var(--sp-2xl); }
 /* Die Displayzeile traegt am meisten Gewicht und braucht entsprechend Luft. */
 .held-text h1 + * { margin-top: var(--sp-3xl); }
-.held-text .stand-zeile { margin-top: var(--sp-lg); }
+.held-text .held-preis { margin-top: var(--sp-xl); }
+.held-text .stand-zeile { margin-top: var(--sp-sm); }
 
 .held-text .gross { max-width: 30rem; }
+
+/*
+  Der Preis im ersten Bild. Er steht bewusst hier und nicht erst am Knopf ganz
+  unten: Wer nach drei Bahnen Begeisterung zum ersten Mal von einem Abo erfaehrt,
+  erlebt es als Falle - dieselbe Ueberlegung wie im WelcomeOverlay der App, wo
+  die 2,99 EUR vor dem ersten Import stehen und nicht erst an der Sperre.
+*/
+.held-preis {
+  font-size: 0.98rem;
+  color: var(--ink-700);
+}
+
+.held-preis b {
+  font-weight: 600;
+  color: var(--ink-900);
+  border-bottom: 2px solid var(--clay-100);
+}
 
 /* Die ehrliche Zeile unter den Knoepfen: kein Store-Abzeichen, das es nicht gibt. */
 .stand-zeile {
@@ -497,6 +559,87 @@
   .rezept-spalten { grid-template-columns: 1fr; gap: var(--sp-lg); }
 }
 
+/* --- Die vier Gruende ---------------------------------------------------- */
+/*
+  Diese Bahn ersetzt die frueheren vier Kleinzeilen unter den Funktionen. Sie
+  liegt VOR den Funktionen, nicht dahinter: Erst die Behauptung, dann der Beleg
+  mit Bildschirmfoto - andersherum stand der Grund erst da, nachdem der Besucher
+  sich schon entschieden hatte, weiterzublaettern.
+
+  Vier gleiche Spalten, zentriert, ohne Karte: kein Rahmen, keine Flaeche, keine
+  Ordnungsziffer. Ein erster Anlauf hatte Kacheln mit Rand, Fuellfarbe, Kreis
+  hinter dem Symbol und einer grossen "01" daneben - vier Behauptungen, die um
+  Aufmerksamkeit rangen und keine gewann. Hier traegt jede Spalte nur das
+  Symbol, eine Zeile und zwei Saetze; was heraussticht, ist der Inhalt.
+
+  Bewusst KEINE hervorgehobene erste Kachel mehr: Das verknuepfte Kochbuch ist
+  der wichtigste Punkt und bekommt sein Gewicht ueber die Reihenfolge - es steht
+  vorn, und der ausfuehrliche Beleg mit Bildschirmfoto folgt direkt darunter als
+  erster Zug.
+*/
+
+.staerken-kopf {
+  display: grid;
+  gap: var(--sp-md);
+  justify-items: center;
+  text-align: center;
+  max-width: 42rem;
+  margin: 0 auto var(--sp-4xl);
+}
+
+/*
+  Die kleine Zeile ueber der Ueberschrift. Sie ist der einzige Ort auf der
+  Seite, an dem Clay als Textfarbe steht - deshalb Clay600 und nicht Clay500:
+  Letzteres haelt auf Sand nur 4,25:1.
+*/
+.augenbraue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay-600);
+}
+
+.staerken-raster {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-3xl) var(--sp-2xl);
+}
+
+.staerke {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--sp-lg);
+  text-align: center;
+}
+
+/*
+  Das Symbol traegt die Bahn und steht deshalb doppelt so gross wie sonst auf
+  der Seite - ohne Kreis, ohne Flaeche dahinter. Die Strichstaerke bleibt 1.6
+  wie ueberall; auf 44px wirkt sie zeichnerisch statt fett.
+*/
+.staerke-zeichen { display: block; color: var(--clay-500); }
+
+.staerke h3 { color: var(--ink-900); }
+
+.staerke p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-500);
+  max-width: 20rem;
+}
+
+/*
+  Zwei Spalten statt vier, bevor die Zeilen auf zwei Woerter schrumpfen: Bei
+  vier Spalten unter 62rem stand in jeder Spalte noch etwa ein Drittel Wort je
+  Zeile.
+*/
+@media (max-width: 62rem) {
+  .staerken-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .staerken-kopf { margin-bottom: var(--sp-3xl); }
+}
+
 /* --- Die Funktionen ------------------------------------------------------ */
 
 .zug {
@@ -573,31 +716,107 @@
 .detail b { display: block; color: var(--ink-900); font-weight: 600; font-size: 0.98rem; }
 .detail span { font-size: 0.9rem; color: var(--ink-500); }
 
-/* --- Der Preis ----------------------------------------------------------- */
+/* --- Holen und Preis ----------------------------------------------------- */
+/*
+  Frueher zwei Dinge an zwei Orten: eine Preisbahn ohne Handlung und gar kein
+  Holen-Block. Wer am Ende der Preisbahn stand, konnte nichts tun; der einzige
+  Knopf der Seite stand ganz oben im ersten Bild. Jetzt tragen beide dieselbe
+  Bahn - Angebot und Preis in einem Blick.
 
-.preis-raster {
+  .preis-zahl und .preis-zusatz standen hier ohne einen einzigen Treffer im
+  HTML und sind mit dem Umbau entfallen.
+*/
+
+.holen-raster {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--sp-4xl);
   align-items: start;
 }
 
-.preis-zahl {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
-  font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
+/*
+  Tarife und Kleingedrucktes stehen rechts, nicht unter dem Knopf: Links das
+  Angebot und die Handlung, rechts die Zahlen - vorher trug die linke Spalte
+  beides, und die rechte endete auf halber Hoehe mit einer handbreiten leeren
+  Flaeche darunter.
+*/
+.holen-neben {
+  display: grid;
+  gap: var(--sp-xl);
+}
+
+/*
+  `min-width: 0` auf beiden Spalten, und das ist kein Zierrat: Ein Grid-Track
+  aus `1fr` hat als automatisches Minimum die MIN-CONTENT-Breite seines Inhalts.
+  Die Store-Kacheln (`auto-fit, minmax(15rem, 1fr)`) melden dort zwei Spuren zu
+  je 240px an - der Track wuchs damit auf 492px und schob die ganze Bahn auf
+  einem 390er-Telefon aus dem Bild (gemessen: scrollWidth 516 bei clientWidth
+  390). Sichtbar war davon nichts, weil `.start` `overflow-x: hidden` traegt;
+  die Seite liess sich nur seitlich schieben.
+*/
+.holen-haupt,
+.holen-neben { min-width: 0; }
+
+/*
+  Die beiden Store-Zeilen. Sie sehen aus wie Knoepfe und sind bewusst keine:
+  Solange es die Store-Eintraege nicht gibt, fuehrte jeder Link ins Leere. Der
+  cursor bleibt deshalb der normale, und ein :hover gibt es nicht - was sich
+  nicht bewegt, klickt auch niemand zweimal an. Beim Start werden daraus <a>
+  mit den offiziellen Abzeichen.
+*/
+.store-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--sp-md);
+  margin-top: var(--sp-2xl);
+  max-width: 34rem;
+}
+
+.store-knopf {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-md) var(--sp-lg);
+  border-radius: var(--r-xl);
+  background: rgba(252, 250, 247, 0.1);
+  border: 1px solid rgba(252, 250, 247, 0.24);
   color: var(--sand-50);
 }
 
-.preis-zusatz { font-size: 1.05rem; color: var(--auf-clay-leise); }
+/*
+  30px statt 26: Bei 26 waren Roboterkopf und Apfel auf dem Clay-Grund nicht mehr
+  auseinanderzuhalten - beide lasen sich als "runde Form mit Strich oben".
+*/
+.store-knopf svg { display: block; color: var(--sand-50); }
+
+.store-text { display: grid; line-height: 1.2; min-width: 0; }
+
+.store-klein { font-size: 0.76rem; color: var(--auf-clay-leise); }
+
+.store-gross {
+  font-family: "Domine", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.store-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(252, 250, 247, 0.35);
+  color: var(--auf-clay-leise);
+  white-space: nowrap;
+}
+
+.holen-knopf { margin-top: var(--sp-lg); }
 
 .tarife {
   display: grid;
   gap: var(--sp-md);
-  margin-top: var(--sp-xl);
-  max-width: 30rem;
 }
 
 /*
@@ -639,7 +858,6 @@
 }
 
 .preis-klein {
-  margin-top: var(--sp-lg);
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--auf-clay-leise);
@@ -670,55 +888,17 @@
 .bleibt svg { color: var(--clay-warm); margin-top: 3px; }
 
 @media (max-width: 62rem) {
-  .preis-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
+  .holen-raster { grid-template-columns: minmax(0, 1fr); gap: var(--sp-2xl); }
 }
 
-/* --- Rechtliches und Kontakt --------------------------------------------- */
-
-.schluss-raster {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: var(--sp-4xl);
-  align-items: start;
-}
-
-.rechts-liste { display: grid; }
-
-.rechts-zeile {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--sp-lg);
-  padding: var(--sp-lg) 0;
-  border-bottom: 1px solid var(--sand-200);
-  text-decoration: none;
-  color: var(--ink-700);
-}
-
-.rechts-zeile:first-child { border-top: 1px solid var(--sand-200); }
-
-.rechts-zeile b {
-  display: block;
-  font-family: "Domine", Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--ink-900);
-}
-
-.rechts-zeile span { font-size: 0.9rem; color: var(--ink-500); }
-
-.rechts-zeile svg { color: var(--ink-500); transition: transform 0.25s var(--kurve), color 0.2s ease; }
-.rechts-zeile:hover { color: var(--ink-700); }
-.rechts-zeile:hover b { color: var(--clay-600); }
-.rechts-zeile:hover svg { color: var(--clay-600); transform: translateX(4px); }
-
-
-
-
-
-@media (max-width: 62rem) {
-  .schluss-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
-}
+/*
+  Die Bahn "Datenschutz und Rechtliches" ist mit dem Umbau entfallen, und mit
+  ihr .schluss-raster und .rechts-zeile. Sie stand zwischen dem Preis und dem
+  Fuss und nahm damit genau den Platz ein, an dem der Besucher die App holen
+  sollte. Die vier Seiten sind weiterhin von jeder Seite aus erreichbar - im
+  Fuss, wo eine Datenschutzerklaerung gesucht wird. Play verlangt eine
+  oeffentlich erreichbare URL, keine prominente.
+*/
 
 /* --- Fuss ---------------------------------------------------------------- */
 /*
@@ -752,7 +932,7 @@
 @media (prefers-reduced-motion: reduce) {
   .laeuft .stufe,
   .laeuft.sichtbar .stufe { opacity: 1; transform: none; transition: none; }
-  .knopf, .rechts-zeile svg { transition: none; }
+  .knopf { transition: none; }
   .telefon-kippen { transform: none; }
 }
 
@@ -770,9 +950,27 @@
   .tarif > span:not(.tarif-sparen) { grid-column: 1 / -1; grid-row: 2; }
 
   .band { padding: var(--sp-3xl) 0; }
-  .band-eng { padding: var(--sp-2xl) 0; }
   .held-start { padding: var(--sp-2xl) 0 var(--sp-3xl); }
   .blatt { padding: var(--sp-lg); }
   .knopf { width: 100%; justify-content: center; }
   .knopf-reihe { gap: var(--sp-sm); }
+
+  /*
+    Ausgenommen der Knopf im Kopf: Auf voller Breite schoebe er die Marke aus der
+    Kopfzeile. Er ist der einzige Knopf, der neben etwas anderem steht.
+  */
+  .kopf-nav .knopf-kopf { width: auto; padding: 8px var(--sp-md); font-size: 0.88rem; }
+
+  /*
+    Erst hier eine Spalte, nicht schon bei 62rem: Zwei Spalten mit je zwei
+    Saetzen sind auf einem 390er-Telefon noch lesbar, und untereinander waere die
+    Bahn viermal so hoch.
+  */
+  .staerken-raster { grid-template-columns: 1fr; gap: var(--sp-2xl); }
+
+  /*
+    Zwei Store-Kacheln nebeneinander brauchen 492px - mehr, als ein Telefon hat.
+    Untereinander statt `auto-fit`: Die Regel hat dort nichts mehr zu rechnen.
+  */
+  .store-liste { grid-template-columns: minmax(0, 1fr); }
 }
