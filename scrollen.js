@@ -36,6 +36,38 @@
 (function () {
   'use strict';
 
+  /*
+    NEU LADEN FAENGT WIEDER OBEN AN. Browser merken sich die Scrollposition und
+    stellen sie beim Neuladen wieder her; auf einer Startseite ist das falsch -
+    wer neu laedt, will den Anfang sehen und nicht die Mitte der Preisbahn.
+
+    Zwei Einschraenkungen, und beide sind Absicht:
+
+    - Nur beim RELOAD (`navigation.type`), nicht beim Zurueck-Knopf. Wer von der
+      Datenschutzerklaerung zurueckkommt, soll wieder dort stehen, wo er weg ist;
+      `scrollRestoration = 'manual'` pauschal zu setzen naehme ihm das.
+    - Nur ohne Sprungziel in der Adresse. Steht dort `#holen`, ist die Position
+      gewollt, und der Browser springt selbst dorthin.
+
+    Beides zusammen: das Wiederherstellen abschalten UND einmal aktiv nach oben.
+    Die Datei laedt mit `defer`, laeuft also nach dem Parsen - der Browser kann
+    zu dem Zeitpunkt schon gescrollt haben.
+  */
+  var lauf = performance.getEntriesByType
+    ? performance.getEntriesByType('navigation')[0]
+    : null;
+
+  if ((!lauf || lauf.type === 'reload') && !location.hash) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    /*
+      Und noch einmal nach `load`: Manche Browser stellen die alte Position
+      erst her, wenn die Bilder da sind und die Seite ihre volle Hoehe hat -
+      also nach diesem Skript. Ein zweiter Griff kostet nichts.
+    */
+    addEventListener('load', function () { window.scrollTo(0, 0); });
+  }
+
   var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (ruhig.matches) return;
 

@@ -360,9 +360,22 @@
   Spalte waere die Alternative gewesen - nur steht in der zweiten Spalte nichts,
   was das Raster halten muesste: rechts liegt das Foto, und das haengt an der
   Bahn, nicht an der Spalte.
+
+  30rem waren zu wenig, und das sah man an der Displayzeile: Bei 84px Schrift
+  passen dort keine sieben Zeichen in eine Zeile, jedes zweite Wort bekam eine
+  eigene. Die freie Holzflaeche links im Foto reicht bis knapp vor das Telefon,
+  also rund 60 Prozent der Bahn - die Spalte hoerte deutlich davor auf und liess
+  den Platz ungenutzt.
+
+  38rem / 54 Prozent, und beide Werte haben einen Grund: Der Prozentwert haelt
+  Abstand zum Telefon (bei 1440px sind das 640px Text, das Geraet im Ausschnitt
+  beginnt bei rund 890px), die rem-Grenze deckelt die Zeilenlaenge auf breiten
+  Schirmen, wo 54 Prozent von 74rem sonst ueber 90 Zeichen je Fliesstextzeile
+  ergaeben. Wer hier weiter aufdreht, prueft beides: den Umbruch der Headline
+  UND den Abstand zum Telefon (1024, 1280, 1440, 1920px).
 */
-.held-text { max-width: min(30rem, 48%); }
-.held-text .gross { max-width: 28rem; }
+.held-text { max-width: min(38rem, 54%); }
+.held-text .gross { max-width: 34rem; }
 
 /*
   Der Preis im ersten Bild. Er steht bewusst hier und nicht erst am Knopf ganz

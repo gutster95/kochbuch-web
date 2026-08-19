@@ -409,9 +409,36 @@ dauert je nach Video eine Weile, deshalb steht nirgends eine Sekundenzahl.
 **Beide Sprachfassungen tragen dieselben Texte.** Wer einen Satz ändert, ändert ihn in
 `home.html` und `en/home.html`; ein Skript prüft das nicht.
 
+**Die Haupt-Headline ist am 19.08.2026 noch einmal ausgetauscht worden.** „Aus einem Reel
+wird ein Rezept" beschrieb nur den Mechanismus. „Kochen, was du gerade gesehen hast" trifft
+den Moment, in dem der Wunsch entsteht: Man sieht ein Video und will genau das jetzt kochen.
+Vier Richtungen standen zur Wahl (die sichere Variante mit derselben Verwandlungs-Metapher
+wie die dunkle Bahn, eine Verlust-Angst-Variante „Rezepte retten, bevor du sie vergisst",
+diese hier, und ein Social-Media-Seitenhieb „Dein Algorithmus kocht jetzt mit"); entschieden
+hat der Nutzer.
+
+**Die neue Zeile hat die Textspalte gesprengt, und das war ein Layoutfehler, kein
+Textfehler.** Bei 30rem Spaltenbreite brach sie in fünf Zeilen um, teils ein Wort je Zeile.
+Der erste Reflex war, den Text zu kürzen („Koch, was du gerade siehst"); der richtige Griff
+war die Spalte. Die freie Holzfläche links im Foto reicht bis knapp vor das Telefon, also
+rund 60 Prozent der Bahn, und die Spalte hörte weit davor auf.
+
+`.held-text` steht deshalb jetzt auf **`min(38rem, 54%)`** statt `min(30rem, 48%)`, der
+Vorspann auf 34rem statt 28rem. Beide Werte der Deckelung haben einen Grund: Der Prozentwert
+hält Abstand zum Telefon, die rem-Grenze deckelt die Zeilenlänge auf breiten Schirmen, wo
+54 Prozent von 74rem sonst über 90 Zeichen je Fließtextzeile ergäben. Die gewählte Headline
+steht damit überall in drei Zeilen (1024 bis 1920px gemessen), die englische Fassung „Cook
+what you just watched" in zwei.
+
+**Gemessen, nicht geschätzt:** Zwischen der rechten Kante der Textspalte und dem Telefon im
+Foto bleiben 109px bei 1904px Fensterbreite, 79px bei 1424px und 53px bei 1008px. Wer die
+Spalte weiter aufdreht, misst beides nach — den Umbruch der Headline **und** diesen Abstand.
+Das Skript dafür rechnet die Telefonposition aus dem `cover`-Beschnitt zurück (Original
+2560x1174, Gerät zwischen x=1450 und x=1900).
+
 Was **nicht** geändert wurde: die Überschriften, die schon eine Sache beim Namen nennen
-(„Aus einem Reel wird ein Rezept", „Beim Kochen bleibt der Bildschirm an", „Aus dieser
-Caption wird dieses Rezept"). Sie sind konkret, nicht klug.
+(„Beim Kochen bleibt der Bildschirm an", „Aus dieser Caption wird dieses Rezept"). Sie sind
+konkret, nicht klug.
 
 ## Barrierefreiheit
 
