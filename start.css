@@ -219,6 +219,15 @@
   text-decoration: none;
   line-height: 1;
   cursor: pointer;
+  /*
+    Der Ruhezustand traegt eine Verschiebung um NULL, und das ist kein
+    Versehen: Sie haelt den Knopf auf einer eigenen Ebene, sodass seine
+    Beschriftung beim Loslassen des Zeigers nicht neu gerastert wird. Ohne sie
+    zuckt die Schrift am Ende jedes Hovers - derselbe Grund wie bei den
+    Auftritten, siehe den Abschnitt "Bewegung".
+  */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
   transition: transform 0.25s var(--kurve), background-color 0.2s ease,
               border-color 0.2s ease;
 }
@@ -235,7 +244,7 @@
 .knopf-voll:hover {
   background: #8B3B20;
   color: var(--sand-50);
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
 }
 
 /*
@@ -250,7 +259,7 @@
   border-color: var(--sand-200);
 }
 
-.knopf-weiss:hover { background: #fff; color: var(--ink-900); transform: translateY(-2px); }
+.knopf-weiss:hover { background: #fff; color: var(--ink-900); transform: translate3d(0, -2px, 0); }
 
 .band-clay .knopf-voll {
   background: var(--sand-50);
@@ -259,7 +268,7 @@
 
 .band-clay .knopf-voll:hover { background: #fff; color: var(--clay-600); }
 
-.knopf svg { display: block; }
+.knopf svg { display: block; transform: translate3d(0, 0, 0); will-change: transform; }
 
 /*
   Der Knopf im Kopf. Er ist kleiner als die Knoepfe im Inhalt, aber bewusst
@@ -1237,14 +1246,15 @@
 */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes auftakt {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: none; }
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
   }
 
   .held-text > h1,
   .held-text > .gross,
   .held-text > .knopf-reihe {
     animation: auftakt 1.2s var(--kurve-auftritt) backwards;
+    will-change: transform, opacity;
   }
 
   .held-text > h1           { animation-delay: 200ms; }
@@ -1282,16 +1292,49 @@
   110ms je Takt, nicht 300: Drei Takte mit 300ms brauchen fast eine Sekunde,
   bis der letzte anfaengt, und so lange sieht niemand zu.
 */
+/*
+  `will-change` STEHT HIER DAUERHAFT, und das ist der Unterschied zwischen
+  sauber und ruckelnd am Ende jeder Bewegung.
+
+  Solange eine Verschiebung oder eine Deckkraft laeuft, zeichnet der Browser
+  das Stueck auf einer eigenen Ebene: Text bekommt dort Graustufen-Glaettung
+  und darf um Bruchteile eines Pixels versetzt liegen. Ist die Animation
+  vorbei, faellt die Ebene weg - der Text wird noch einmal neu gerastert, auf
+  ganze Geraetepixel und mit der Subpixel-Glaettung des normalen Textes. Genau
+  das ist der Ruck am Schluss, und er trifft ALLE Texte, nicht nur die
+  Ueberschriften; dort faellt er nur am meisten auf. Die Bahnen der Seite
+  stehen ueberdies auf krummen Positionen (gemessen: 894,31px), weil Hoehen und
+  Abstaende aus `clamp()` und `vw` kommen - der Sprung ist damit nicht nur eine
+  Frage der Glaettung, sondern auch der Rundung.
+
+  `will-change` haelt die Ebene ueber das Ende hinaus, und deshalb steht es im
+  GRUNDZUSTAND und nicht in der `.ist-da`-Regel: Wer es erst zum Auftritt
+  setzt, baut die Ebene mitten in der Bewegung auf und hat den Ruck nur an den
+  Anfang verschoben. Ein `translate3d(0, 0, 0)` als Endwert taete es nicht -
+  Chrome rechnet die Matrix zu einer 2D-Matrix zurueck (nachgemessen:
+  `matrix(1, 0, ...)`), und die Ebene entfaellt.
+
+  Der Preis ist Speicher auf der Grafikkarte, je Element eine Ebene. Bei den
+  rund zwanzig Textbloecken dieser Seite ist das vertretbar; wer die Regel auf
+  Listen mit vielen Eintraegen ausweitet, prueft das neu.
+*/
 .auftritt-an [data-auftritt] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translate3d(0, 24px, 0);
+  will-change: transform, opacity;
 }
 
 .auftritt-an [data-auftritt].ist-da,
 .auftritt-an .ist-da [data-auftritt] {
   opacity: 1;
-  transform: none;
-  transition: opacity 1s var(--kurve-auftritt), transform 1.1s var(--kurve-auftritt);
+  transform: translate3d(0, 0, 0);
+  /*
+    Beide Eigenschaften brauchen DIESELBE Dauer. Standen sie auf 1s und 1,1s,
+    lief die Verschiebung noch ein Zehntel weiter, nachdem der Text schon voll
+    dastand - auf einer ease-out-Kurve sind das die letzten Bruchteile eines
+    Pixels, also genau die Bewegung, die man als Nachzucken sieht.
+  */
+  transition: opacity 1s var(--kurve-auftritt), transform 1s var(--kurve-auftritt);
   transition-delay: calc(var(--i, 0) * 110ms);
 }
 
@@ -1314,10 +1357,10 @@
   nur auf; laufen beide gleich, liest sich die Bahn als eine Flaeche, die
   hochrutscht, statt als Text und Beleg dazu.
 */
-.auftritt-an .zug-bild[data-auftritt] { transform: translateY(28px) scale(0.96); }
+.auftritt-an .zug-bild[data-auftritt] { transform: translate3d(0, 28px, 0) scale(0.96); }
 
 .auftritt-an .zug-bild[data-auftritt].ist-da,
-.auftritt-an .ist-da .zug-bild[data-auftritt] { transform: none; }
+.auftritt-an .ist-da .zug-bild[data-auftritt] { transform: translate3d(0, 0, 0) scale(1); }
 
 /* 3. Die Verwandlung ------------------------------------------------------ */
 /*
@@ -1338,21 +1381,22 @@
 */
 .laeuft .blatt-roh {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translate3d(0, 20px, 0);
+  will-change: transform, opacity;
 }
 
 .laeuft.ist-da .blatt-roh {
   opacity: 1;
-  transform: none;
-  transition: opacity 1s var(--kurve-auftritt), transform 1.1s var(--kurve-auftritt);
+  transform: translate3d(0, 0, 0);
+  transition: opacity 1s var(--kurve-auftritt), transform 1s var(--kurve-auftritt);
 }
 
-.laeuft .pfeil { opacity: 0; }
-.laeuft .pfeil svg { transform: translateX(-10px); }
+.laeuft .pfeil { opacity: 0; will-change: opacity; }
+.laeuft .pfeil svg { transform: translate3d(-10px, 0, 0); will-change: transform; }
 
 /* Die beiden Haarstriche wachsen zum Pfeil hin, nicht von ihm weg. */
 .laeuft .pfeil::before,
-.laeuft .pfeil::after { transform: scaleX(0); }
+.laeuft .pfeil::after { transform: scale3d(0, 1, 1); }
 .laeuft .pfeil::before { transform-origin: right center; }
 .laeuft .pfeil::after  { transform-origin: left center; }
 
@@ -1362,25 +1406,26 @@
 }
 
 .laeuft.ist-da .pfeil svg {
-  transform: none;
-  transition: transform 0.9s var(--kurve-auftritt) 200ms;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.8s var(--kurve-auftritt) 200ms;
 }
 
 .laeuft.ist-da .pfeil::before,
 .laeuft.ist-da .pfeil::after {
-  transform: none;
+  transform: scale3d(1, 1, 1);
   transition: transform 0.8s var(--kurve-auftritt) 200ms;
 }
 
 .laeuft .stufe {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translate3d(0, 14px, 0);
+  will-change: transform, opacity;
 }
 
 .laeuft.ist-da .stufe {
   opacity: 1;
-  transform: none;
-  transition: opacity 0.85s var(--kurve-auftritt), transform 0.9s var(--kurve-auftritt);
+  transform: translate3d(0, 0, 0);
+  transition: opacity 0.85s var(--kurve-auftritt), transform 0.85s var(--kurve-auftritt);
   transition-delay: calc(420ms + var(--i, 0) * 95ms);
 }
 
@@ -1396,7 +1441,7 @@
 .knopf-voll svg { transition: transform 0.3s var(--kurve); }
 
 .knopf-voll:hover svg,
-.knopf-voll:focus-visible svg { transform: translateX(3px); }
+.knopf-voll:focus-visible svg { transform: translate3d(3px, 0, 0); }
 
 /*
   Der Rueckfall fuer alle, die Bewegung abbestellt haben. Das Skript setzt
@@ -1421,6 +1466,21 @@
 
   .knopf,
   .knopf-voll svg { transition: none; }
+
+  /*
+    Ohne Bewegung braucht auch niemand eine Ebene: `will-change` kostet dann
+    nur Speicher, ohne einen Ruck zu verhindern, den es gar nicht gibt.
+  */
+  .held-text > h1,
+  .held-text > .gross,
+  .held-text > .knopf-reihe,
+  .auftritt-an [data-auftritt],
+  .laeuft .blatt-roh,
+  .laeuft .pfeil,
+  .laeuft .pfeil svg,
+  .laeuft .stufe,
+  .knopf,
+  .knopf svg { will-change: auto; }
 }
 
 /* --- Ganz schmal --------------------------------------------------------- */

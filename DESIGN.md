@@ -217,6 +217,32 @@ mitgewachsen (24px statt 18).
 Grund, der sich beim Laden noch zurechtrückt, macht aus dem ruhigen Aufmacher eine Diashow.
 Mit ihr ging das `overflow: hidden`, das nur sie gebraucht hat.
 
+**`will-change` steht dauerhaft, und das ist der Unterschied zwischen sauber und ruckelnd.**
+Solange eine Verschiebung oder eine Deckkraft läuft, zeichnet der Browser das Stück auf einer
+eigenen Ebene: Text bekommt dort Graustufen-Glättung und darf um Bruchteile eines Pixels
+versetzt liegen. Ist die Animation vorbei, fällt die Ebene weg — der Text wird noch einmal neu
+gerastert, auf ganze Gerätepixel und mit der Subpixel-Glättung des normalen Textes. Das ist
+der **Ruck am Ende jeder Bewegung**, und er trifft alle Texte; bei den großen Überschriften
+fällt er nur am meisten auf. Die Bahnen stehen überdies auf krummen Positionen (gemessen:
+894,31px), weil Höhen und Abstände aus `clamp()` und `vw` kommen — es geht also nicht nur um
+Glättung, sondern auch um Rundung.
+
+Drei Dinge daran sind leicht falsch zu machen:
+
+- **Es gehört in den Grundzustand, nicht in die `.ist-da`-Regel.** Wer es erst zum Auftritt
+  setzt, baut die Ebene mitten in der Bewegung auf und hat den Ruck an den Anfang verschoben.
+- **`translate3d(0, 0, 0)` als Endwert tut es nicht.** Chrome rechnet die Matrix zu einer
+  2D-Matrix zurück (nachgemessen: `matrix(1, 0, …)`), und die Ebene entfällt wieder. Die
+  `translate3d`-Schreibweise steht trotzdem überall — sie schadet nicht und sagt, was gemeint
+  ist.
+- **Beide Eigenschaften brauchen dieselbe Dauer.** Standen sie auf 1 s und 1,1 s, lief die
+  Verschiebung noch ein Zehntel weiter, nachdem der Text schon voll dastand: die letzten
+  Bruchteile eines Pixels, also genau das, was man als Nachzucken sieht.
+
+Der Preis ist Grafikspeicher, je Element eine Ebene. Bei den rund zwanzig Textblöcken dieser
+Seite ist das vertretbar; bei `prefers-reduced-motion: reduce` wird es auf `auto`
+zurückgenommen — ohne Bewegung verhindert es keinen Ruck, den es gar nicht gibt.
+
 **Zwei Sicherungen, und beide sind wichtiger als der Effekt selbst:**
 
 - **Was JavaScript ausblendet, blendet auch JavaScript wieder ein.** Die Klasse
