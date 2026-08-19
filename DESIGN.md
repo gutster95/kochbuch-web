@@ -252,6 +252,26 @@ zerfiel in zwei Ereignisse. Daraus folgt die Regel für `--i`:
   (`.zug-bild`) kommen zusätzlich aus `scale(0.96)`, weil Text und Beleg sonst als eine
   hochrutschende Fläche lesen.
 
+**Was beim Laden schon angeschnitten ist, gehört zum Auftakt** (`.im-ersten-bild`, gesetzt
+vom Skript). Unter dem Foto steht auf jedem Fenster ein Stück der nächsten Bahn im Bild;
+wartete es auf den Beobachter, wäre es ein **leerer Streifen**, bis man ein gutes Stück
+gescrollt hat. Es läuft deshalb im ersten Bild mit — und zwar zuletzt, bei 1000 ms, hinter
+den Knöpfen (850 ms): Die Reihenfolge auf dem Schirm ist damit auch die der Bewegung.
+
+Gemessen wird mit **einem Drittel Fensterhöhe Vorlauf**, und das ist nicht großzügig,
+sondern nötig: Was man vom nächsten Block zuerst sieht, ist seine Polsterung — auf 900px
+Fensterhöhe fängt sein Inhalt erst rund 30px **unter** der Kante an. Ohne Vorlauf zählte er
+als „nicht im Bild", und der erste Zentimeter Scrollen zeigte wieder einen leeren Block.
+
+Zwei Dinge daran gehen leicht kaputt:
+
+- **`.ist-da` fällt erst zwei Bilder später.** Im selben Bild gesetzt, in dem `.auftritt-an`
+  den ausgeblendeten Grundzustand überhaupt erst einführt, sieht der Browser keinen Wechsel
+  und überspringt den Übergang — das Stück stünde hart da, statt mitzulaufen.
+- **Daneben steht ein Timer (120 ms), und der ist keine Zierde.** In einem Hintergrund-Tab
+  zeichnet der Browser keine Bilder, `requestAnimationFrame` kommt also nie — der
+  angeschnittene Block bliebe unsichtbar, bis der Tab nach vorn geholt wird.
+
 **Die Verwandlung bleibt die Ausnahme**: Ihr Kopf und ihr Block lösen einzeln aus. Der Block
 ist auf dem Telefon höher als das Fenster, und mit dem Kopf ausgelöst wäre seine Choreografie
 abgelaufen, bevor man das erste Blatt sieht.

@@ -1296,6 +1296,20 @@
 }
 
 /*
+  Die Bahn, die beim Laden schon angeschnitten im Bild steht, laeuft mit dem
+  ersten Bild los statt auf den Beobachter zu warten - sonst steht unter dem
+  Foto ein leerer Streifen, bis der Nutzer scrollt. Sie kommt ZULETZT: 1000ms,
+  also hinter den Knoepfen (850ms). Die Reihenfolge auf dem Schirm ist damit
+  auch die der Bewegung - Zeile, Vorspann, Knoepfe, und dann, was darunter
+  angeschnitten ist. Gesetzt wird die Klasse vom Skript, das dafuer misst; ein
+  fester Wert im HTML waere auf dem naechsten Fenster falsch.
+*/
+.auftritt-an [data-auftritt].ist-da.im-ersten-bild,
+.auftritt-an .ist-da.im-ersten-bild [data-auftritt] {
+  transition-delay: calc(1000ms + var(--i, 0) * 110ms);
+}
+
+/*
   Die Geraete kommen zusaetzlich einen Hauch naeher. Der Text daneben steigt
   nur auf; laufen beide gleich, liest sich die Bahn als eine Flaeche, die
   hochrutscht, statt als Text und Beleg dazu.

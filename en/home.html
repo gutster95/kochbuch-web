@@ -603,10 +603,35 @@ everything else in the video 👆 don't forget to save
     rootMargin: '0px 0px -12% 0px'
   });
 
+  var sofort = [];
+
+  /*
+    Was beim Laden schon ANGESCHNITTEN ist - oder knapp darunter liegt -,
+    gehoert zum Auftakt und nicht zum Scrollen. Unter dem Foto steht auf jedem
+    Fenster ein Stueck der naechsten Bahn im Bild; wartete sie auf den
+    Beobachter, waere sie ein leerer Streifen, und zwar so lange, bis sie zu
+    zwoelf Prozent im Bild steht. Sie laeuft deshalb im ersten Bild mit, nur
+    zeitversetzt dahinter (`.im-ersten-bild`).
+
+    Gemessen wird mit einem Drittel Fensterhoehe VORLAUF, und das ist der
+    Punkt: Was man vom naechsten Block zuerst sieht, ist seine Polsterung -
+    auf 900px Fensterhoehe faengt sein Inhalt erst rund 30px unter der Kante
+    an. Ohne Vorlauf zaehlte er als "nicht im Bild", und der erste Zentimeter
+    Scrollen zeigte wieder einen leeren Block.
+  */
+  function anmelden(el) {
+    if (el.getBoundingClientRect().top < innerHeight * 1.33) {
+      el.classList.add('im-ersten-bild');
+      sofort.push(el);
+    } else {
+      beobachter.observe(el);
+    }
+  }
+
   var block = document.getElementById('verwandlung-block');
   if (block) {
     block.classList.add('laeuft');
-    beobachter.observe(block);
+    anmelden(block);
   }
 
   /*
@@ -619,8 +644,27 @@ everything else in the video 👆 don't forget to save
     document.querySelectorAll(
       '[data-auftritt-gruppe], [data-auftritt]:not([data-auftritt-gruppe] *)'
     ),
-    function (el) { beobachter.observe(el); }
+    anmelden
   );
+
+  /*
+    Zwei Bilder warten, bevor `.ist-da` faellt: Im selben Bild gesetzt, in dem
+    `.auftritt-an` den ausgeblendeten Grundzustand ueberhaupt erst einfuehrt,
+    sieht der Browser keinen Wechsel und ueberspringt den Uebergang - das
+    Stueck stuende dann hart da, statt mitzulaufen.
+
+    Der Timer daneben ist die Sicherung, und er ist keine Zierde: In einem
+    Hintergrund-Tab zeichnet der Browser keine Bilder, `requestAnimationFrame`
+    kommt also nie - der angeschnittene Block bliebe unsichtbar, bis der Tab
+    nach vorn geholt wird. Zweimal gesetzt schadet nicht, `classList.add`
+    aendert beim zweiten Mal nichts.
+  */
+  function auftaktZeigen() {
+    for (var i = 0; i < sofort.length; i++) sofort[i].classList.add('ist-da');
+  }
+
+  requestAnimationFrame(function () { requestAnimationFrame(auftaktZeigen); });
+  setTimeout(auftaktZeigen, 120);
 })();
 </script>
 
