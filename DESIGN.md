@@ -185,17 +185,63 @@ einer Website sind sie Systemschrift und sehen auf jedem Gerät anders aus.
 
 ## Bewegung
 
-**Ein orchestrierter Moment, nicht Effekte an jedem Abschnitt:** Beim ersten
-Sichtbarwerden läuft das fertige Rezept Zeile für Zeile ein, in derselben Reihenfolge, in
-der die App es erzeugt (`--i` je Stufe, 65 ms Versatz, `cubic-bezier(0.16, 1, 0.3, 1)`).
+**Vier Regungen, und jede hat einen Anlass im Inhalt.** Die Seite stand bis zum
+19.08.2026 fast still — genau eine Animation (das einlaufende Rezept) und ein Rand am Kopf.
+Das war die richtige Haltung gegen Effekte an jedem Abschnitt, aber es war eine zu wenig:
+Zwischen zwei Bahnen passierte gar nichts, und die Seite las sich wie ein PDF, durch das man
+scrollt.
 
-Der Grundzustand ist **sichtbar**. Die Klasse `.laeuft`, die den Inhalt erst ausblendet,
-setzt das Skript selbst — ohne JavaScript, ohne `IntersectionObserver` und bei
-abbestellter Bewegung steht alles einfach da. Was ein fehlgeschlagenes Skript ausblendet,
-sieht niemand wieder.
+| Regung | Wo | Was |
+|---|---|---|
+| Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 16px auf (0/90/180 ms); das Foto fährt aus `scale(1.06)` zurück (1,6 s) |
+| Auftritt | jede Bahn | 18px aufsteigen und einblenden, gestaffelt über `--i` (80 ms je Schritt) |
+| Verwandlung | die dunkle Bahn | Caption → Pfeil → Rezeptzeilen, in dieser Reihenfolge |
+| Der Pfeil im Knopf | „Kochbuch holen" | schiebt bei Hover und Fokus 3px nach rechts |
 
-Dazu kommt genau eine zweite Regung: Der Kopf bekommt seinen Rand erst, wenn wirklich
-etwas darunter durchläuft.
+**Es bewegen sich ausschließlich `opacity` und `transform`.** Beide kann der Browser ohne
+neues Layout auf die Grafikkarte legen; eine Animation auf `height`, `top` oder `width`
+lässt die Seite bei jedem einzelnen Bild neu rechnen, und genau daran ruckelt eine
+Startseite auf einem mittleren Telefon. Eine Kurve für alles (`--kurve`), drei Dauern
+(0,5 / 0,6 / 0,7 s).
+
+**Zwei Sicherungen, und beide sind wichtiger als der Effekt selbst:**
+
+- **Was JavaScript ausblendet, blendet auch JavaScript wieder ein.** Die Klasse
+  `.auftritt-an` steht auf `<html>` und wird vom Skript gesetzt, erst nachdem feststeht,
+  dass es animieren darf. Ohne JS, ohne `IntersectionObserver` und bei abbestellter Bewegung
+  steht die ganze Seite einfach da — was ein fehlgeschlagenes Skript ausblendet, sieht
+  niemand wieder.
+- **Was CSS ausblendet, steht in `prefers-reduced-motion: no-preference`** und läuft über
+  `animation … backwards` statt über einen gesetzten Grundzustand. Der Auftakt im ersten Bild
+  braucht deshalb kein Skript: Er ist beim Laden ohnehin sichtbar, ein Beobachter hätte dort
+  nichts zu beobachten.
+
+**Ein Mechanismus für alle Bahnen, kein Sondereffekt je Abschnitt.** Im HTML steht
+`data-auftritt` (plus `--i` für die Reihenfolge innerhalb einer Gruppe), im CSS zwei Regeln,
+im Skript ein Beobachter. Wer eine Bahn ergänzt, hängt das Attribut daran und ist fertig; wer
+einen eigenen Effekt dafür schreibt, hat den zweiten Stil auf derselben Seite. Die Geräte
+(`.zug-bild`) sind die einzige Abweichung — sie kommen zusätzlich aus `scale(0.97)`, weil
+Text und Beleg sonst als eine hochrutschende Fläche lesen.
+
+**Der Beobachter arbeitet mit `rootMargin`, nicht mit `threshold`.** Ein Schwellwert in
+Prozent wartet bei einer Bahn, die höher ist als das Fenster, auf etwas, das nie eintritt;
+`0px 0px -12% 0px` löst aus, sobald ein Stück im Bild steht — unabhängig von der Höhe. (Der
+frühere `threshold: 0.25` galt nur dem Verwandlungsblock und ging deshalb gerade noch gut.)
+
+**Die Verwandlung ist der orchestrierte Moment und behält ihre eigene Reihenfolge.** Die
+220 ms Vorlauf vor der ersten Rezeptzeile sind der Punkt: Ohne sie liefen Pfeil und Rezept
+gleichzeitig, und die Bahn sagte „hier sind zwei Blätter" statt „aus dem einen wird das
+andere".
+
+**Der Pfeil selbst bekommt kein `transform`** — unter 62rem trägt er `rotate(90deg)`, und ein
+zweiter Wert an derselben Eigenschaft löscht die Drehung. Bewegt wird das SVG darin; hochkant
+zeigt sein Vorschub dadurch von selbst nach unten. Die beiden Haarstriche wachsen über
+`scaleX` **zum** Pfeil hin (`transform-origin` außen), nicht von ihm weg.
+
+**Nichts, was nicht anklickbar ist, reagiert auf den Zeiger.** Die einzige Hover-Regung sitzt
+am Pfeil im Holen-Knopf. Dieselbe Begründung wie bei `.store-knopf`: Was sich unter dem Zeiger
+bewegt, sieht aus, als könne man es anklicken — und die Store-Zeilen, die Tarifkarten und die
+Stimmen kann man nicht.
 
 ## Der Ton der Texte
 
@@ -302,6 +348,12 @@ Regel verschwindet.
   anderem Verhältnis brauchen deshalb auch eine neue Regel in `.schirm-bild`.
 - **Zwei Sprachfassungen.** `home.html` und `en/home.html` tragen denselben Aufbau
   wörtlich. Wer eine Sektion ändert, ändert beide — ein Skript prüft das nicht.
+  Das gilt seit dem 19.08.2026 auch für `data-auftritt` und `--i`: Eine Bahn, die nur in
+  einer Fassung das Attribut trägt, steht in der anderen ohne Auftritt da — und eine, die es
+  in beiden **nicht** trägt, fällt gar nicht auf.
+- **Eine Klasse für alles, was eintritt: `.ist-da`.** Sie hieß `.sichtbar` und galt nur dem
+  Verwandlungsblock. Der Beobachter setzt jetzt überall dieselbe; wer eine zweite einführt,
+  hat zwei Wege, die dasselbe tun, und beim nächsten Umbau bleibt einer davon liegen.
 - **Zwei Tarifkarten, ein Umschalter.** `.plan` / `.plan-voll` haben die frühere
   `.tarif`-Zeile abgelöst. Unter 34rem stehen sie untereinander: nebeneinander blieben je
   150 px, und der Preis brach dort zweizeilig um („2,99" über „€").

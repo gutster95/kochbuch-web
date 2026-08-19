@@ -1166,32 +1166,208 @@
   breitere Bahn der Startseite braucht.
 */
 
-/* --- Die eine Bewegung --------------------------------------------------- */
+/* --- Bewegung ------------------------------------------------------------ */
 /*
-  Ein orchestrierter Moment statt Effekten an jedem Abschnitt: Beim ersten
-  Sichtbarwerden der Verwandlung laufen die Zeilen des fertigen Rezepts von
-  oben nach unten ein - dieselbe Reihenfolge, in der die App sie erzeugt.
+  Vier Regungen, mehr nicht - und jede hat einen Anlass im Inhalt: der Auftakt
+  im ersten Bild, der Auftritt jeder Bahn beim Hereinscrollen, die Choreografie
+  der Verwandlung und der Pfeil im Holen-Knopf.
 
-  Der Grundzustand ist SICHTBAR. Die Klasse .laeuft setzt JS erst, wenn es
-  wirklich animieren darf; ohne JS, ohne IntersectionObserver und bei
-  abbestellter Bewegung steht der Inhalt einfach da.
+  Es bewegen sich AUSSCHLIESSLICH `opacity` und `transform`. Beide kann der
+  Browser ohne neues Layout auf die Grafikkarte legen; eine Animation auf
+  `height`, `top` oder `width` laesst die Seite bei jedem einzelnen Bild neu
+  rechnen, und genau daran ruckelt eine Startseite auf einem mittleren Telefon.
+
+  Eine Kurve fuer alles (--kurve), drei Dauern (0.5 / 0.6 / 0.7s). Wer eine
+  fuenfte Regung ergaenzen will, prueft zuerst, ob eine der vier sie schon
+  traegt: Effekte an jedem Abschnitt heben sich gegenseitig auf.
+
+  ZWEI SICHERUNGEN, und beide sind wichtiger als der Effekt:
+
+  1. Was JAVASCRIPT ausblendet, blendet auch JavaScript wieder ein. Die Klasse
+     `.auftritt-an` steht auf <html> und wird vom Skript selbst gesetzt, erst
+     nachdem feststeht, dass es animieren darf. Ohne JS, ohne
+     IntersectionObserver und bei abbestellter Bewegung steht die ganze Seite
+     einfach da - was ein fehlgeschlagenes Skript ausblendet, sieht niemand
+     wieder.
+  2. Was CSS ausblendet, steht in `prefers-reduced-motion: no-preference` und
+     laeuft ueber `animation ... backwards` statt ueber einen gesetzten
+     Grundzustand: Der Auftakt im ersten Bild braucht kein Skript, und wo die
+     Animation nicht laeuft, ist der Text sichtbar.
 */
+
+/* 1. Der Auftakt im ersten Bild ------------------------------------------- */
+/*
+  Ohne Beobachter und ohne Skript: Das erste Bild ist beim Laden immer
+  sichtbar, ein IntersectionObserver haette hier nichts zu beobachten. Die
+  Reihenfolge ist die Leserichtung - Zeile, Vorspann, Knoepfe.
+
+  Das Foto faehrt aus 1.06 auf 1 zurueck. `object-fit: cover` fuellt die Bahn
+  auf jeder Stufe vollstaendig, ein groesser gezeichnetes Bild zeigt nur einen
+  engeren Ausschnitt - Balken an den Kanten kann es dabei nicht geben. Die
+  Bewegung ist bewusst laenger als die des Textes: Sie soll unter ihm liegen,
+  nicht mit ihm um Aufmerksamkeit ringen.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes auftakt {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes kamera {
+    from { transform: scale(1.06); }
+    to   { transform: none; }
+  }
+
+  .held-text > h1,
+  .held-text > .gross,
+  .held-text > .knopf-reihe {
+    animation: auftakt 0.7s var(--kurve) backwards;
+  }
+
+  .held-text > .gross       { animation-delay: 90ms; }
+  .held-text > .knopf-reihe { animation-delay: 180ms; }
+
+  /*
+    `overflow: hidden` gehoert zur Kamerafahrt und steht deshalb hier: Ein um
+    6 Prozent groesser gezeichnetes Bild ragt waehrend der Fahrt ueber die
+    Kanten seiner Bahn - oben unter die Kopfzeile, unten in die naechste Bahn
+    hinein. Schmal, wo das Foto ein eigener Streifen ist (siehe die Regel bei
+    62rem), waere das ein wandernder Rand ueber dem ersten Absatz.
+  */
+  .held-start { overflow: hidden; }
+
+  .held-foto { animation: kamera 1.6s var(--kurve) backwards; }
+}
+
+/* 2. Der Auftritt der Bahnen ---------------------------------------------- */
+/*
+  EIN Mechanismus fuer die ganze Seite statt eines Sondereffekts je Abschnitt:
+  `data-auftritt` im HTML, `--i` fuer die Reihenfolge innerhalb einer Gruppe.
+  Wer eine Bahn ergaenzt, haengt das Attribut daran und ist fertig; wer einen
+  eigenen Effekt dafuer schreibt, hat den zweiten Stil der Seite.
+
+  18px, nicht 40: Der Weg soll die Zeile begleiten, nicht sie herbeifliegen
+  lassen. Und 80ms Versatz, nicht 200 - vier Spalten mit 200ms brauchen fast
+  eine Sekunde, bis die letzte steht, und so lange sieht niemand zu.
+*/
+.auftritt-an [data-auftritt] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.auftritt-an [data-auftritt].ist-da {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--kurve), transform 0.7s var(--kurve);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+/*
+  Die Geraete kommen zusaetzlich einen Hauch naeher. Der Text daneben steigt
+  nur auf; laufen beide gleich, liest sich die Bahn als eine Flaeche, die
+  hochrutscht, statt als Text und Beleg dazu.
+*/
+.auftritt-an .zug-bild[data-auftritt] { transform: translateY(22px) scale(0.97); }
+.auftritt-an .zug-bild[data-auftritt].ist-da { transform: none; }
+
+/* 3. Die Verwandlung ------------------------------------------------------ */
+/*
+  Der orchestrierte Moment der Seite, und der einzige Abschnitt mit einer
+  eigenen Reihenfolge: Erst liegt die geteilte Caption da (0ms), dann ziehen
+  die beiden Haarstriche den Pfeil heran (100ms) und schieben ihn nach rechts,
+  dann laeuft das fertige Rezept Zeile fuer Zeile ein (ab 220ms) - in
+  derselben Reihenfolge, in der die App es erzeugt.
+
+  Die 220ms Vorlauf der Stufen sind der Punkt: Ohne sie liefen Pfeil und
+  Rezept gleichzeitig, und damit sagte die Bahn "hier sind zwei Blaetter"
+  statt "aus dem einen wird das andere".
+
+  Der Pfeil selbst bekommt KEIN `transform` - unter 62rem traegt er
+  `rotate(90deg)`, und ein zweiter Wert an derselben Eigenschaft loescht die
+  Drehung. Bewegt wird stattdessen das SVG darin; hochkant zeigt sein Vorschub
+  dadurch von selbst nach unten.
+*/
+.laeuft .blatt-roh {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.laeuft.ist-da .blatt-roh {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--kurve), transform 0.7s var(--kurve);
+}
+
+.laeuft .pfeil { opacity: 0; }
+.laeuft .pfeil svg { transform: translateX(-8px); }
+
+/* Die beiden Haarstriche wachsen zum Pfeil hin, nicht von ihm weg. */
+.laeuft .pfeil::before,
+.laeuft .pfeil::after { transform: scaleX(0); }
+.laeuft .pfeil::before { transform-origin: right center; }
+.laeuft .pfeil::after  { transform-origin: left center; }
+
+.laeuft.ist-da .pfeil {
+  opacity: 1;
+  transition: opacity 0.5s var(--kurve) 100ms;
+}
+
+.laeuft.ist-da .pfeil svg {
+  transform: none;
+  transition: transform 0.6s var(--kurve) 100ms;
+}
+
+.laeuft.ist-da .pfeil::before,
+.laeuft.ist-da .pfeil::after {
+  transform: none;
+  transition: transform 0.5s var(--kurve) 100ms;
+}
+
 .laeuft .stufe {
   opacity: 0;
   transform: translateY(10px);
 }
 
-.laeuft.sichtbar .stufe {
+.laeuft.ist-da .stufe {
   opacity: 1;
   transform: none;
   transition: opacity 0.55s var(--kurve), transform 0.6s var(--kurve);
-  transition-delay: calc(var(--i, 0) * 65ms);
+  transition-delay: calc(220ms + var(--i, 0) * 65ms);
 }
 
+/* 4. Der Pfeil im Knopf --------------------------------------------------- */
+/*
+  Die einzige Regung auf Zuruf, und sie sitzt am einzigen Knopf der Seite, der
+  ein Symbol traegt. Bewusst NICHT an den Store-Zeilen und nicht an den
+  Karten: Was sich unter dem Zeiger bewegt, sieht aus, als koenne man es
+  anklicken - und die Store-Zeilen kann man nicht (siehe .store-knopf).
+*/
+.knopf-voll svg { transition: transform 0.25s var(--kurve); }
+
+.knopf-voll:hover svg,
+.knopf-voll:focus-visible svg { transform: translateX(3px); }
+
+/*
+  Der Rueckfall fuer alle, die Bewegung abbestellt haben. Das Skript setzt
+  `.auftritt-an` und `.laeuft` in diesem Fall gar nicht erst - die Regeln hier
+  sind die zweite Reihe, falls die Klassen doch einmal von woanders kommen.
+*/
 @media (prefers-reduced-motion: reduce) {
+  .auftritt-an [data-auftritt],
+  .auftritt-an [data-auftritt].ist-da,
+  .auftritt-an .zug-bild[data-auftritt],
+  .laeuft .blatt-roh,
+  .laeuft .pfeil,
   .laeuft .stufe,
-  .laeuft.sichtbar .stufe { opacity: 1; transform: none; transition: none; }
-  .knopf { transition: none; }
+  .laeuft.ist-da .blatt-roh,
+  .laeuft.ist-da .stufe { opacity: 1; transform: none; transition: none; }
+
+  .laeuft .pfeil svg,
+  .laeuft .pfeil::before,
+  .laeuft .pfeil::after { transform: none; transition: none; }
+
+  .knopf,
+  .knopf-voll svg { transition: none; }
 }
 
 /* --- Ganz schmal --------------------------------------------------------- */
