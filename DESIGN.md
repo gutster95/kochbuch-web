@@ -367,28 +367,51 @@ Stimmen kann man nicht.
 
 ## Der Ton der Texte
 
-**Kein Satz endet mit einer Pointe, nur weil er sonst zu Ende wäre.** Die erste Fassung
-trug in 685 Wörtern **13 Gedankenstrich-Einschübe** — fast jeder Absatz war nach demselben
-Muster gebaut: Aussage, Gedankenstrich, Zuspitzung. Einzeln liest sich das gut, dreizehnmal
-hintereinander klingt es nach einer Maschine, die gelernt hat, wie Cleverness aussieht.
-Jetzt sind es zwei, und beide sitzen dort, wo ein Gedankenstrich hingehört (Seitentitel und
-Preisangabe).
+**Die Seite verkauft eine App, also redet sie wie ein Mensch, der sie benutzt hat.** Am
+19.08.2026 sind alle Texte neu geschrieben worden: konkreter, wärmer, ohne die Bauteile, an
+denen man einen Textgenerator erkennt. Maßstab waren Zinssers Regeln (kurze Wörter, aktive
+Verben, benannter Sprecher, keine Dekoration) plus eine Liste von Mustern, die er nie
+gesehen hat.
 
-Drei Regeln, die daraus folgen und beim Weiterschreiben gelten:
+**Der teuerste Fund war die Antithese.** Die Bahn der vier Gründe hieß „Rezepte sammeln kann
+jeder. Das hier nicht." Der erste Satz steht dort nur, damit der zweite ihn widerlegen kann —
+er trägt keine einzige Information über die App. Jetzt heißt die Zeile „Für zwei, die
+zusammen kochen" und sagt in fünf Wörtern, für wen das Ding gebaut ist. Dieselbe Prüfung
+gilt jedem neuen Satz: **Streiche den ersten von zwei Sätzen. Bleibt der Sinn stehen, war der
+erste Gerüst.**
 
-- **Kein Dreiklang als Schluss.** „Kein Abtippen, kein Zurückspulen, kein
-  Screenshot-Friedhof" nennt zwei echte Vorteile und ein Wortspiel. Geblieben sind die
-  zwei echten.
-- **Keine Überschrift, die erst entschlüsselt werden will.** „Das Kleingedruckte, groß
-  genug" heißt jetzt „Datenschutz und Rechtliches". Wer diese Zeile sucht, sucht das Wort,
-  nicht den Einfall.
-- **Konkret schlägt allgemein.** „übersetzt, was fremdsprachig ist" → „übersetzt, was auf
-  Englisch oder Italienisch dasteht". „wenn niemand entscheiden will" → „wenn ihr euch
-  nicht einigen könnt".
+Sieben Muster, die auf dieser Seite nicht mehr vorkommen sollen:
+
+| Muster | Beispiel von hier | Warum es weg ist |
+|---|---|---|
+| Antithese | „Rezepte sammeln kann jeder. Das hier nicht." | Der erste Satz informiert nicht, er baut nur auf |
+| Balanciertes Satzpaar | zwei gleich lange Sätze mit getauschtem Subjekt | Klingt nach Slogan, sagt eine Sache zweimal |
+| Selbst beantwortete Frage | „Keine Lust zu entscheiden? Dann würfelt die App." | Wurde zu „Wollt ihr nicht entscheiden, würfelt die App." |
+| Dreiklang als Schluss | „Kein Abtippen, kein Zurückspulen, kein Screenshot-Friedhof" | Zwei echte Vorteile und ein Wortspiel |
+| Gedankenstrich-Einschub | 13 Stück in der ersten Fassung, jetzt einer | Aussage, Strich, Zuspitzung — dreizehnmal ist es eine Masche |
+| Statuswort statt Verb | „macht das Kochen zum Erlebnis" | Man kann es nicht filmen. Was tut die App? |
+| Ansagen statt sagen | „Drei Gründe, warum …" gefolgt von den Gründen | Die Ansage streichen und mit dem Inhalt anfangen |
+
+**Werblich heißt konkret, nicht blumig.** Kein Adjektiv verkauft so gut wie eine Szene, die
+der Leser kennt: „Montag Pasta, Mittwoch Curry", „auch wenn deine Hände voll Mehl sind",
+„Omas Blechkuchen steht auf keinem Reel", „der Screenshot, den du sowieso nie wiederfindest".
+Alle vier stehen anstelle von Sätzen, die dasselbe allgemein sagten.
+
+**Weniger Technik, dieselbe Wahrheit.** „Kann dein Gerät die Auswertung selbst, verlässt kein
+Wort des Rezepts das Telefon" heißt jetzt „Schafft dein Handy die Auswertung selbst, passiert
+sie dort und sonst nirgends". Was die App tut, ist unverändert — nur steht jetzt der Nutzen
+vorn und die Technik dahinter. **Nichts davon darf ein Versprechen aufblasen:** Der Import
+dauert je nach Video eine Weile, deshalb steht nirgends eine Sekundenzahl.
+
+**Der Knopf sagt, was danach passiert.** „Jetzt entdecken" ist eine Floskel und wurde zu
+„Zeig mir ein Beispiel" — dorthin springt er nämlich.
+
+**Beide Sprachfassungen tragen dieselben Texte.** Wer einen Satz ändert, ändert ihn in
+`home.html` und `en/home.html`; ein Skript prüft das nicht.
 
 Was **nicht** geändert wurde: die Überschriften, die schon eine Sache beim Namen nennen
-(„Aus einem Reel wird ein Rezept", „Beim Kochen bleibt der Bildschirm an", „Die ersten 15
-Rezepte gehen aufs Haus"). Sie sind konkret, nicht klug.
+(„Aus einem Reel wird ein Rezept", „Beim Kochen bleibt der Bildschirm an", „Aus dieser
+Caption wird dieses Rezept"). Sie sind konkret, nicht klug.
 
 ## Barrierefreiheit
 
