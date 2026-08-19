@@ -193,16 +193,29 @@ scrollt.
 
 | Regung | Wo | Was |
 |---|---|---|
-| Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 16px auf (0/90/180 ms); das Foto fährt aus `scale(1.06)` zurück (1,6 s) |
-| Auftritt | jede Bahn | 18px aufsteigen und einblenden, gestaffelt über `--i` (80 ms je Schritt) |
-| Verwandlung | die dunkle Bahn | Caption → Pfeil → Rezeptzeilen, in dieser Reihenfolge |
+| Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 20px auf (1,2 s; 0/150/300 ms) |
+| Auftritt | jede Bahn | 24px aufsteigen und einblenden (1,0/1,1 s), gestaffelt über `--i` (110 ms je Schritt) |
+| Verwandlung | die dunkle Bahn | Caption (0 ms) → Pfeil (200 ms) → Rezeptzeilen (ab 420 ms, 95 ms je Zeile) |
 | Der Pfeil im Knopf | „Kochbuch holen" | schiebt bei Hover und Fokus 3px nach rechts |
 
 **Es bewegen sich ausschließlich `opacity` und `transform`.** Beide kann der Browser ohne
 neues Layout auf die Grafikkarte legen; eine Animation auf `height`, `top` oder `width`
 lässt die Seite bei jedem einzelnen Bild neu rechnen, und genau daran ruckelt eine
-Startseite auf einem mittleren Telefon. Eine Kurve für alles (`--kurve`), drei Dauern
-(0,5 / 0,6 / 0,7 s).
+Startseite auf einem mittleren Telefon.
+
+**Zwei Kurven, und der Unterschied ist der Grund für die zweite.** `--kurve` (expo) hat nach
+einem Sechstel der Zeit schon die halbe Strecke hinter sich. Für einen Knopf unter dem Zeiger
+ist das richtig — er soll auf den Griff sofort antworten. Ein ganzer Absatz, der so
+hereinkommt, ist im selben Moment fast da und danach nur noch am Auslaufen: Er schnappt,
+statt zu gleiten. Alles, was von selbst hereinkommt, läuft deshalb auf `--kurve-auftritt`
+(ease-out-cubic) und rund eine Sekunde statt einer halben. Die Länge allein macht es nicht —
+ein kurzer Weg über eine lange Zeit sieht nicht ruhig aus, sondern zäh; deshalb sind die Wege
+mitgewachsen (24px statt 18).
+
+**Das Headerfoto bewegt sich nicht.** Hier lag eine Kamerafahrt (`scale(1.06)` auf 1 über
+1,6 s), und sie ist wieder raus: Das Foto **ist** das erste Bild, nicht seine Verzierung — ein
+Grund, der sich beim Laden noch zurechtrückt, macht aus dem ruhigen Aufmacher eine Diashow.
+Mit ihr ging das `overflow: hidden`, das nur sie gebraucht hat.
 
 **Zwei Sicherungen, und beide sind wichtiger als der Effekt selbst:**
 

@@ -45,8 +45,19 @@
   --sp-4xl: 72px;
   --sp-5xl: 112px;
 
-  /* Eine Kurve fuer die ganze Seite: schnell los, weich aus. */
+  /*
+    Zwei Kurven, und der Unterschied ist Absicht. `--kurve` geht schnell los
+    und laeuft weich aus (expo): das Richtige fuer alles, was unter dem Zeiger
+    passiert - ein Knopf soll auf den Griff sofort antworten.
+
+    `--kurve-auftritt` ist die gleichmaessigere (ease-out-cubic) und traegt
+    alles, was von selbst hereinkommt. Auf der Expo-Kurve hat ein Absatz nach
+    einem Sechstel der Zeit schon die Haelfte des Weges hinter sich - er ist
+    damit fast sofort da und danach nur noch am Auslaufen. Das liest sich als
+    Schnappen, nicht als Gleiten.
+  */
   --kurve: cubic-bezier(0.16, 1, 0.3, 1);
+  --kurve-auftritt: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 /*
@@ -1177,9 +1188,17 @@
   `height`, `top` oder `width` laesst die Seite bei jedem einzelnen Bild neu
   rechnen, und genau daran ruckelt eine Startseite auf einem mittleren Telefon.
 
-  Eine Kurve fuer alles (--kurve), drei Dauern (0.5 / 0.6 / 0.7s). Wer eine
-  fuenfte Regung ergaenzen will, prueft zuerst, ob eine der vier sie schon
-  traegt: Effekte an jedem Abschnitt heben sich gegenseitig auf.
+  ZWEI KURVEN, und der Unterschied ist der Grund fuer die zweite: `--kurve`
+  (expo, 0.16/1/0.3/1) hat nach einem Sechstel der Zeit schon die Haelfte des
+  Weges hinter sich. Fuer einen Knopf unter dem Zeiger ist das richtig - er
+  soll auf den Griff sofort antworten. Ein ganzer Absatz, der so hereinkommt,
+  ist im selben Moment fast da und danach nur noch am Auslaufen: Er schnappt,
+  statt zu gleiten. Die Auftritte laufen deshalb auf `--kurve-auftritt`
+  (0.33/1/0.68/1) und in laengeren Dauern - rund eine Sekunde statt einer
+  halben.
+
+  Wer eine fuenfte Regung ergaenzen will, prueft zuerst, ob eine der vier sie
+  schon traegt: Effekte an jedem Abschnitt heben sich gegenseitig auf.
 
   ZWEI SICHERUNGEN, und beide sind wichtiger als der Effekt:
 
@@ -1201,42 +1220,27 @@
   sichtbar, ein IntersectionObserver haette hier nichts zu beobachten. Die
   Reihenfolge ist die Leserichtung - Zeile, Vorspann, Knoepfe.
 
-  Das Foto faehrt aus 1.06 auf 1 zurueck. `object-fit: cover` fuellt die Bahn
-  auf jeder Stufe vollstaendig, ein groesser gezeichnetes Bild zeigt nur einen
-  engeren Ausschnitt - Balken an den Kanten kann es dabei nicht geben. Die
-  Bewegung ist bewusst laenger als die des Textes: Sie soll unter ihm liegen,
-  nicht mit ihm um Aufmerksamkeit ringen.
+  DAS FOTO BEWEGT SICH NICHT. Hier lag eine Kamerafahrt (`scale(1.06)` auf 1
+  ueber 1,6s), und sie ist wieder raus: Das Foto IST das erste Bild, nicht
+  seine Verzierung - ein Grund, der sich beim Laden noch zurechtrueckt, macht
+  aus dem ruhigen Aufmacher eine Diashow. Mit ihr ging das `overflow: hidden`,
+  das nur sie gebraucht hat: Ein groesser gezeichnetes Bild ragte waehrend der
+  Fahrt ueber die Kanten seiner Bahn.
 */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes auftakt {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: none; }
-  }
-
-  @keyframes kamera {
-    from { transform: scale(1.06); }
-    to   { transform: none; }
   }
 
   .held-text > h1,
   .held-text > .gross,
   .held-text > .knopf-reihe {
-    animation: auftakt 0.7s var(--kurve) backwards;
+    animation: auftakt 1.2s var(--kurve-auftritt) backwards;
   }
 
-  .held-text > .gross       { animation-delay: 90ms; }
-  .held-text > .knopf-reihe { animation-delay: 180ms; }
-
-  /*
-    `overflow: hidden` gehoert zur Kamerafahrt und steht deshalb hier: Ein um
-    6 Prozent groesser gezeichnetes Bild ragt waehrend der Fahrt ueber die
-    Kanten seiner Bahn - oben unter die Kopfzeile, unten in die naechste Bahn
-    hinein. Schmal, wo das Foto ein eigener Streifen ist (siehe die Regel bei
-    62rem), waere das ein wandernder Rand ueber dem ersten Absatz.
-  */
-  .held-start { overflow: hidden; }
-
-  .held-foto { animation: kamera 1.6s var(--kurve) backwards; }
+  .held-text > .gross       { animation-delay: 150ms; }
+  .held-text > .knopf-reihe { animation-delay: 300ms; }
 }
 
 /* 2. Der Auftritt der Bahnen ---------------------------------------------- */
@@ -1246,20 +1250,23 @@
   Wer eine Bahn ergaenzt, haengt das Attribut daran und ist fertig; wer einen
   eigenen Effekt dafuer schreibt, hat den zweiten Stil der Seite.
 
-  18px, nicht 40: Der Weg soll die Zeile begleiten, nicht sie herbeifliegen
-  lassen. Und 80ms Versatz, nicht 200 - vier Spalten mit 200ms brauchen fast
-  eine Sekunde, bis die letzte steht, und so lange sieht niemand zu.
+  24px, nicht 60: Der Weg soll die Zeile begleiten, nicht sie herbeifliegen
+  lassen. Er ist zugleich der Grund, warum die Dauer allein es nicht macht -
+  ein kurzer Weg ueber eine lange Zeit sieht nicht ruhig aus, sondern zaeh.
+
+  110ms Versatz, nicht 300: Vier Spalten mit 300ms brauchen ueber zwei
+  Sekunden, bis die letzte steht, und so lange sieht niemand zu.
 */
 .auftritt-an [data-auftritt] {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(24px);
 }
 
 .auftritt-an [data-auftritt].ist-da {
   opacity: 1;
   transform: none;
-  transition: opacity 0.6s var(--kurve), transform 0.7s var(--kurve);
-  transition-delay: calc(var(--i, 0) * 80ms);
+  transition: opacity 1s var(--kurve-auftritt), transform 1.1s var(--kurve-auftritt);
+  transition-delay: calc(var(--i, 0) * 110ms);
 }
 
 /*
@@ -1267,20 +1274,20 @@
   nur auf; laufen beide gleich, liest sich die Bahn als eine Flaeche, die
   hochrutscht, statt als Text und Beleg dazu.
 */
-.auftritt-an .zug-bild[data-auftritt] { transform: translateY(22px) scale(0.97); }
+.auftritt-an .zug-bild[data-auftritt] { transform: translateY(28px) scale(0.96); }
 .auftritt-an .zug-bild[data-auftritt].ist-da { transform: none; }
 
 /* 3. Die Verwandlung ------------------------------------------------------ */
 /*
   Der orchestrierte Moment der Seite, und der einzige Abschnitt mit einer
   eigenen Reihenfolge: Erst liegt die geteilte Caption da (0ms), dann ziehen
-  die beiden Haarstriche den Pfeil heran (100ms) und schieben ihn nach rechts,
-  dann laeuft das fertige Rezept Zeile fuer Zeile ein (ab 220ms) - in
+  die beiden Haarstriche den Pfeil heran (200ms) und schieben ihn nach rechts,
+  dann laeuft das fertige Rezept Zeile fuer Zeile ein (ab 420ms) - in
   derselben Reihenfolge, in der die App es erzeugt.
 
-  Die 220ms Vorlauf der Stufen sind der Punkt: Ohne sie liefen Pfeil und
-  Rezept gleichzeitig, und damit sagte die Bahn "hier sind zwei Blaetter"
-  statt "aus dem einen wird das andere".
+  Der Vorlauf der Stufen ist der Punkt: Ohne ihn liefen Pfeil und Rezept
+  gleichzeitig, und damit sagte die Bahn "hier sind zwei Blaetter" statt "aus
+  dem einen wird das andere".
 
   Der Pfeil selbst bekommt KEIN `transform` - unter 62rem traegt er
   `rotate(90deg)`, und ein zweiter Wert an derselben Eigenschaft loescht die
@@ -1289,17 +1296,17 @@
 */
 .laeuft .blatt-roh {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(20px);
 }
 
 .laeuft.ist-da .blatt-roh {
   opacity: 1;
   transform: none;
-  transition: opacity 0.6s var(--kurve), transform 0.7s var(--kurve);
+  transition: opacity 1s var(--kurve-auftritt), transform 1.1s var(--kurve-auftritt);
 }
 
 .laeuft .pfeil { opacity: 0; }
-.laeuft .pfeil svg { transform: translateX(-8px); }
+.laeuft .pfeil svg { transform: translateX(-10px); }
 
 /* Die beiden Haarstriche wachsen zum Pfeil hin, nicht von ihm weg. */
 .laeuft .pfeil::before,
@@ -1309,40 +1316,42 @@
 
 .laeuft.ist-da .pfeil {
   opacity: 1;
-  transition: opacity 0.5s var(--kurve) 100ms;
+  transition: opacity 0.8s var(--kurve-auftritt) 200ms;
 }
 
 .laeuft.ist-da .pfeil svg {
   transform: none;
-  transition: transform 0.6s var(--kurve) 100ms;
+  transition: transform 0.9s var(--kurve-auftritt) 200ms;
 }
 
 .laeuft.ist-da .pfeil::before,
 .laeuft.ist-da .pfeil::after {
   transform: none;
-  transition: transform 0.5s var(--kurve) 100ms;
+  transition: transform 0.8s var(--kurve-auftritt) 200ms;
 }
 
 .laeuft .stufe {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(14px);
 }
 
 .laeuft.ist-da .stufe {
   opacity: 1;
   transform: none;
-  transition: opacity 0.55s var(--kurve), transform 0.6s var(--kurve);
-  transition-delay: calc(220ms + var(--i, 0) * 65ms);
+  transition: opacity 0.85s var(--kurve-auftritt), transform 0.9s var(--kurve-auftritt);
+  transition-delay: calc(420ms + var(--i, 0) * 95ms);
 }
 
 /* 4. Der Pfeil im Knopf --------------------------------------------------- */
 /*
-  Die einzige Regung auf Zuruf, und sie sitzt am einzigen Knopf der Seite, der
-  ein Symbol traegt. Bewusst NICHT an den Store-Zeilen und nicht an den
-  Karten: Was sich unter dem Zeiger bewegt, sieht aus, als koenne man es
-  anklicken - und die Store-Zeilen kann man nicht (siehe .store-knopf).
+  Die einzige Regung auf Zuruf, und die einzige, die weiterhin auf `--kurve`
+  laeuft: Was unter dem Zeiger passiert, darf nicht nachlaufen. Sie sitzt am
+  einzigen Knopf der Seite, der ein Symbol traegt - bewusst NICHT an den
+  Store-Zeilen und nicht an den Karten: Was sich unter dem Zeiger bewegt,
+  sieht aus, als koenne man es anklicken, und die Store-Zeilen kann man nicht
+  (siehe .store-knopf).
 */
-.knopf-voll svg { transition: transform 0.25s var(--kurve); }
+.knopf-voll svg { transition: transform 0.3s var(--kurve); }
 
 .knopf-voll:hover svg,
 .knopf-voll:focus-visible svg { transform: translateX(3px); }
