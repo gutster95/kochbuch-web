@@ -141,6 +141,13 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   Ersetzt hat das Paar zwei Dinge, die dieselbe Frage zweimal und keines davon vergleichend
   beantworteten: drei Preiszeilen untereinander (`.tarif`) und einen Kasten „Was ohne Abo
   bleibt“ (`.bleibt`).
+- **Der Preis trägt „inkl. MwSt." in seiner eigenen Zeile.** Darunter stand ein Absatz
+  Kleingedrucktes (`.preis-klein`: Steuer, automatische Verlängerung, Kündigung, „der
+  endgültige Preis steht im Kaufdialog"); er ist auf Wunsch entfallen. Die PAngV verlangt
+  bei Werbung mit Preisen gegenüber Verbrauchern den **Gesamtpreis einschließlich
+  Umsatzsteuer** — deshalb steht die Angabe jetzt direkt an der Zahl und nicht weiter unten.
+  Der Vertrag kommt ohnehin nicht hier zustande, sondern im Store; die Angaben zu Laufzeit
+  und Kündigung macht der Kaufdialog.
 - **`.takt-schalter`** — monatlich oder jährlich, ein Paar Radio-Knöpfe plus `:has()` und
   **kein JavaScript**. Beide Preise stehen im HTML, einer wird ausgeblendet. Ein Preis, den
   erst ein Skript einsetzt, ist bei abgeschaltetem JavaScript ein leeres Feld.
@@ -150,19 +157,31 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   Eingaben sind nur optisch verborgen (`opacity: 0`, **nicht** `display: none`) — Letzteres
   nähme sie aus der Tabreihenfolge, und der Umschalter wäre mit der Tastatur nicht mehr zu
   bedienen.
-- **`.store-knopf`** — die beiden Store-Zeilen im Holen-Block. Sie sehen aus wie Knöpfe und
-  sind bewusst **keine**: Solange es die Store-Einträge nicht gibt, führte jeder Link ins
-  Leere. Deshalb `<div>` statt `<a>`, kein `:hover`, und je ein Statuswort („in Kürze",
-  „in Arbeit"). Beim Start werden daraus Links mit den vorgeschriebenen Store-Abzeichen.
+- **`.store-badge`** — die beiden **offiziellen Abzeichen** von Google und Apple im
+  Holen-Block, unverändert aus deren Markenportalen (Herkunft in `web/README.md`). Vorher
+  standen hier selbst gezeichnete Zeilen aus Symbol, Wort und Statuswort; richtig, solange es
+  die Einträge nicht gibt, aber ein Eigenbau bleibt ein Eigenbau.
+
+  Sie sind weiterhin **keine Links**, und deshalb steht neben jedem, woran es gerade ist
+  („in Kürze", „in Arbeit"): Beide Richtlinien setzen voraus, dass das Abzeichen auf den
+  Store-Eintrag zeigt — ohne Statuswort behauptet es Verfügbarkeit. Beim Start wird aus
+  jedem `<div>` ein `<a href="…">`, und die Statuswörter fallen weg.
+
+  **44px Höhe für beide, und das ist gerechnet.** Die beiden Play-Dateien sind auf ihre
+  sichtbare Fläche zugeschnitten — die deutsche trug nur oben und unten Rand, die englische
+  ringsum, bei gleicher CSS-Höhe wären die Sprachfassungen verschieden groß gewesen. Der von
+  Google verlangte Freiraum (ein Viertel der Abzeichenhöhe, bei Apple ein Zehntel) ist damit
+  Aufgabe des Layouts und steckt im Steg von 16px.
 - **`.stimme`** — drei Bewertungen als letzte Bahn vor dem Fuß, auf `--sand-100` statt auf
   dem Sand50 der Seite: Zwei helle Bahnen hintereinander (Funktionen, Stimmen) wären sonst
   eine einzige lange Fläche. Die Sterne sind **gefüllt** (`i-stern-voll`), nicht die offene
   Kontur — ein Umriss-Stern liest sich als „nicht vergeben“.
 
-  **Die Sätze darin sind erfunden** und tragen deshalb denselben roten Hinweis wie die
-  offenen Angaben im Impressum. Erfundene Bewertungen sind irreführende Werbung
-  (§ 5b Abs. 3 UWG); der Hinweis bleibt, bis echte Stimmen dastehen oder die Bahn wieder
-  verschwindet.
+  **Die Sätze darin sind erfunden.** Über ihnen stand dafür derselbe rote Hinweis wie bei
+  den offenen Angaben im Impressum; er ist auf Wunsch entfallen, die Sache dahinter nicht:
+  Erfundene Bewertungen sind irreführende Werbung (§ 5b Abs. 3 UWG). Vor der
+  Veröffentlichung durch echte Stimmen ersetzen oder die Bahn entfernen — was daran hängt,
+  steht jetzt nur noch als Kommentar im HTML und in `web/README.md`.
 - Die frühere **`.rechts-zeile`** (Pflichtlinks als Liste) ist mit der Rechtsbahn entfallen.
 - Die frühere **`.leiste-details`** ist es auch: vier, zuletzt drei Kleinzeilen unter den
   Funktionen — sechs Sprachen, Kategorien und Favoriten, Suche über alles. Das sind
@@ -342,7 +361,7 @@ jedes einzelne Bild dieser hier, und die Seite bliebe kleben. Bewusst **nicht** 
 einen `TypeError`, statt ihn zu überlesen. Die **Sprungmarken** laufen weiterhin über das CSS.
 
 **Nichts, was nicht anklickbar ist, reagiert auf den Zeiger.** Die einzige Hover-Regung sitzt
-am Pfeil im Holen-Knopf. Dieselbe Begründung wie bei `.store-knopf`: Was sich unter dem Zeiger
+am Pfeil im Holen-Knopf. Dieselbe Begründung wie bei den Store-Abzeichen: Was sich unter dem Zeiger
 bewegt, sieht aus, als könne man es anklicken — und die Store-Zeilen, die Tarifkarten und die
 Stimmen kann man nicht.
 

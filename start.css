@@ -881,49 +881,42 @@
 .plan-paar { min-width: 0; }
 
 /*
-  Die beiden Store-Zeilen. Sie sehen aus wie Knoepfe und sind bewusst keine:
-  Solange es die Store-Eintraege nicht gibt, fuehrte jeder Link ins Leere. Der
-  cursor bleibt deshalb der normale, und ein :hover gibt es nicht - was sich
-  nicht bewegt, klickt auch niemand zweimal an. Beim Start werden daraus <a>
-  mit den offiziellen Abzeichen.
-*/
-/*
+  Die offiziellen Abzeichen von Google und Apple. Vorher standen hier zwei
+  selbst gezeichnete Zeilen aus Symbol, Wort und Statuswort - richtig, solange
+  es die Store-Eintraege nicht gibt, aber ein Eigenbau bleibt ein Eigenbau.
+  Jetzt sind es die Originaldateien aus den Markenportalen der beiden.
+
+  Sie sind weiterhin KEINE Links, und deshalb steht neben jedem Abzeichen, woran
+  es gerade ist: Beide Richtlinien setzen voraus, dass das Abzeichen auf den
+  Eintrag zeigt - ohne Statuswort behauptet es Verfuegbarkeit.
+
+  44px Hoehe fuer beide, und das ist gerechnet: Die Play-Dateien sind auf ihre
+  sichtbare Flaeche zugeschnitten (die eine trug ringsum Rand, die andere nur
+  oben und unten - bei gleicher CSS-Hoehe waeren die Sprachfassungen
+  verschieden gross gewesen). Der von Google verlangte Freiraum ist damit
+  Aufgabe des Layouts: Er betraegt ein Viertel der Abzeichenhoehe, bei Apple
+  ein Zehntel - beides deckt der Steg von 16px.
+
   Untereinander, nicht nebeneinander: In der halben Bahn blieben je 150px, und
-  "Google Play" brach dort auf zwei Zeilen um, "App Store" auf drei.
+  die beiden Abzeichen brauchen mit ihren Statuswoertern das Doppelte.
 */
 .store-liste {
   display: grid;
-  gap: var(--sp-md);
+  gap: var(--sp-lg);
   margin-top: var(--sp-2xl);
-  max-width: 21rem;
+  justify-items: start;
 }
 
-.store-knopf {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+.store-badge {
+  display: flex;
   align-items: center;
   gap: var(--sp-md);
-  padding: var(--sp-md) var(--sp-lg);
-  border-radius: var(--r-xl);
-  background: rgba(252, 250, 247, 0.1);
-  border: 1px solid rgba(252, 250, 247, 0.24);
-  color: var(--sand-50);
 }
 
-/*
-  30px statt 26: Bei 26 waren Roboterkopf und Apfel auf dem Clay-Grund nicht
-  mehr auseinanderzuhalten - beide lasen sich als "runde Form mit Strich oben".
-*/
-.store-knopf svg { display: block; color: var(--sand-50); }
-
-.store-text { display: grid; line-height: 1.2; min-width: 0; }
-
-.store-klein { font-size: 0.76rem; color: var(--auf-clay-leise); }
-
-.store-gross {
-  font-family: "Domine", Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
+.store-badge img {
+  display: block;
+  height: 44px;
+  width: auto;
 }
 
 .store-status {
@@ -936,15 +929,6 @@
   border: 1px solid rgba(252, 250, 247, 0.35);
   color: var(--auf-clay-leise);
   white-space: nowrap;
-}
-
-.preis-klein {
-  margin-top: var(--sp-2xl);
-  font-size: 0.85rem;
-  line-height: 1.55;
-  color: var(--auf-clay-leise);
-  /* Ohne Deckel lief die Zeile ueber die volle Spalte: rund 95 Zeichen. */
-  max-width: 34rem;
 }
 
 /* --- Die zwei Tarife ------------------------------------------------------ */
@@ -1115,19 +1099,11 @@
   Seite - zwei helle Bahnen hintereinander (Funktionen, Stimmen) waeren sonst
   eine einzige lange Flaeche.
 
-  Die Saetze darin sind PLATZHALTER und tragen darum einen roten Hinweis; siehe
-  den Kommentar im HTML. Wer sie gegen echte tauscht, nimmt ihn weg.
+  Die Saetze darin sind ERFUNDEN. Der sichtbare Hinweis darueber ist auf Wunsch
+  entfallen; was daran haengt, steht im Kommentar im HTML.
 */
 
 .band-sand { background: var(--sand-100); }
-
-.stimmen-hinweis {
-  max-width: 44rem;
-  margin: 0 auto var(--sp-2xl);
-  text-align: center;
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
 
 .stimmen-raster {
   display: grid;
@@ -1435,8 +1411,8 @@
   laeuft: Was unter dem Zeiger passiert, darf nicht nachlaufen. Sie sitzt am
   einzigen Knopf der Seite, der ein Symbol traegt - bewusst NICHT an den
   Store-Zeilen und nicht an den Karten: Was sich unter dem Zeiger bewegt,
-  sieht aus, als koenne man es anklicken, und die Store-Zeilen kann man nicht
-  (siehe .store-knopf).
+  sieht aus, als koenne man es anklicken, und die Store-Abzeichen kann man
+  nicht (siehe .store-liste).
 */
 .knopf-voll svg { transition: transform 0.3s var(--kurve); }
 

@@ -27,26 +27,44 @@ und das Datum. Die Supabase-Region ist bereits eingetragen (`eu-west-1`, Irland 
 **kein** Drittlandtransfer, gegen die Projektliste geprüft).
 
 **Dazu kommen die beiden Store-Adressen.** Der Holen-Block der Startseite (`#holen`) trägt
-zwei Zeilen, die aussehen wie Knöpfe und bewusst **keine Links** sind — es gibt weder einen
-Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere führt, ist schlimmer als
-ein ehrlicher Hinweis. Sobald die Einträge stehen, wird aus jedem `<div class="store-knopf">`
-ein `<a href="…">`, das Statuswort („in Kürze" / „in Arbeit") fällt weg, und an die Stelle
-der selbst gezeichneten Symbole gehören die **vorgeschriebenen Abzeichen** von Google und
-Apple. In **beiden** Sprachfassungen (`home.html`, `en/home.html`). Zu finden mit:
+die **offiziellen Abzeichen** von Google und Apple, aber bewusst **keine Links** — es gibt
+weder einen Play-Eintrag noch einen im App Store. Neben jedem Abzeichen steht deshalb ein
+Statuswort („in Kürze" / „in Arbeit"): Beide Markenrichtlinien setzen voraus, dass das
+Abzeichen auf den Store-Eintrag **zeigt**, und ohne diesen Zusatz behauptet es
+Verfügbarkeit. Sobald die Einträge stehen, wird aus jedem `<div class="store-badge">` ein
+`<a href="…">` und das Statuswort fällt weg. In **beiden** Sprachfassungen
+(`home.html`, `en/home.html`). Zu finden mit:
 
 ```powershell
-Select-String -Path web\home.html, web\en\home.html -Pattern 'store-knopf'
+Select-String -Path web\home.html, web\en\home.html -Pattern 'store-badge'
 ```
+
+**Woher die Abzeichen kommen und was an ihnen nicht verändert werden darf:**
+
+| Datei | Quelle |
+|---|---|
+| `bilder/badge-google-play-de.png`, `-en.png` | `play.google.com/intl/<sprache>/badges/static/images/badges/<sprache>_badge_web_generic.png` |
+| `bilder/badge-app-store-de.svg`, `-en.svg` | `toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/<de-de\|en-us>` |
+
+Beide sind **Marken ihrer Anbieter**, nicht unsere Gestaltung: nicht einfärben, nicht
+verzerren, nicht nachzeichnen, nicht in eigene Rahmen setzen. Verändert wurde nur der
+**transparente Rand** der beiden Play-Dateien — sie trugen unterschiedlich viel davon (die
+deutsche nur oben und unten, die englische ringsum) und hätten bei gleicher CSS-Höhe
+verschieden groß gestanden. Der von Google verlangte Freiraum kommt jetzt aus dem Layout
+(Steg 16px bei 44px Abzeichenhöhe, also mehr als das geforderte Viertel; Apple verlangt ein
+Zehntel).
 
 Bis dahin hat der Block **keine** Handlung, und das ist Absicht: Ein Vormerken-Knopf stand
 dort kurz und ist wieder raus — er sammelte Adressen für einen Verteiler, den es nicht gibt.
 
 **Und die Stimmen auf der Startseite sind erfunden.** Die Bahn `#stimmen` trägt drei
-Zitate, die es so nie gegeben hat; sie stehen als Beispiel, bis es echte gibt. Über ihnen
-liegt derselbe rote Hinweis wie im Impressum, und er muss dort liegen bleiben, bis die
-Sätze echt sind: **Erfundene Bewertungen sind irreführende Werbung** (§ 5b Abs. 3 UWG,
-seit 2022 ausdrücklich geregelt). Entweder echte Stimmen einsetzen — mit der Zustimmung
-der Leute, deren Namen darunter stehen — oder die ganze Bahn entfernen.
+Zitate, die es so nie gegeben hat; sie stehen als Beispiel, bis es echte gibt. Über ihnen lag
+derselbe rote Hinweis wie im Impressum — er ist auf Wunsch entfernt worden, **die Pflicht
+dahinter nicht**: Erfundene Bewertungen sind irreführende Werbung (§ 5b Abs. 3 UWG, seit
+2022 ausdrücklich geregelt). Entweder echte Stimmen einsetzen — mit der Zustimmung der
+Leute, deren Namen darunter stehen — oder die ganze Bahn entfernen. Seit der Hinweis weg
+ist, steht das nur noch hier und als Kommentar im HTML; **`class="todo"` findet diese Stelle
+nicht mehr.**
 
 **Solange Platzhalter drinstehen, tragen alle Seiten `<meta name="robots" content="noindex">`.**
 Ein unvollständiges Impressum ist abmahnfähig, und wer es nicht findet, mahnt es nicht ab;
@@ -74,6 +92,7 @@ schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1)
 bilder/logo.svg         das App-Logo, zugleich Favicon
 bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
 bilder/app-*.webp       die vier Screenshots der Startseite
+bilder/badge-*.png/svg  die offiziellen Store-Abzeichen (Marken von Google und Apple)
 ```
 
 **`scrollen.js` ist die einzige Datei, die alle Seiten teilen und keine braucht.** Sie

@@ -99,23 +99,6 @@
       <path d="M15.6 4.6a2 2 0 0 1 2.8 2.8L9.6 16.2l-3.7.9.9-3.7z"/>
       <path d="M4.5 20.5h15"/>
     </g>
-    <!--
-      Die beiden Store-Zeichen sind bewusst in DERSELBEN Strichstaerke gezeichnet
-      wie alle anderen Symbole der Seite und nicht die offiziellen Abzeichen von
-      Google und Apple: Solange es die Eintraege nicht gibt, waere ein
-      Original-Badge eine Behauptung. Vor der Veroeffentlichung werden aus den
-      beiden Zeilen echte Links (siehe web/README.md) - dann gehoeren an ihre
-      Stelle die vorgeschriebenen Abzeichen der Stores.
-    -->
-    <g id="i-android" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4.6 14.6a7.4 7.4 0 0 1 14.8 0z"/>
-      <path d="M7.6 7.2 6.2 4.9M16.4 7.2l1.4-2.3"/>
-      <path d="M9.4 11.2h.01M14.6 11.2h.01"/>
-    </g>
-    <g id="i-apfel" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 7.9c-1-.8-2.2-1.1-3.4-.7C7 7.7 6.2 9.2 6.2 11.1c0 3.3 2.3 7.7 4.1 7.7.8 0 1.1-.4 1.7-.4s.9.4 1.7.4c1.8 0 4.1-4.4 4.1-7.7 0-1.9-.8-3.4-2.4-3.9-1.2-.4-2.4-.1-3.4.7z"/>
-      <path d="M12 7.9V6.4a2.5 2.5 0 0 1 2.3-2.4"/>
-    </g>
   </defs>
 </svg>
 
@@ -271,37 +254,32 @@
         </p>
 
         <!--
-          Die beiden Zeilen sind noch KEINE Links: Es gibt weder einen
-          Play-Eintrag noch einen im App Store, und ein Knopf, der ins Leere
-          fuehrt, ist schlimmer als ein ehrlicher Hinweis. Vor der
-          Veroeffentlichung wird aus jedem store-knopf ein <a> mit der
-          Store-Adresse und dem vorgeschriebenen Abzeichen (siehe
-          web/README.md, Abschnitt "Vor der Veroeffentlichung").
+          Die offiziellen Abzeichen von Google und Apple, unveraendert aus deren
+          Markenportalen (Herkunft und Regeln: web/README.md). Sie sind
+          weiterhin KEINE Links: Die Store-Eintraege gibt es noch nicht, und
+          beide Richtlinien verlangen, dass das Abzeichen auf den Eintrag
+          zeigt. Deshalb steht neben jedem, woran es gerade ist - ohne diesen
+          Zusatz behauptet ein Abzeichen Verfuegbarkeit.
+
+          Die Masse am <img> sind die der Datei; die Anzeigehoehe steht in
+          start.css. Die beiden Play-Dateien sind auf ihre sichtbare Flaeche
+          zugeschnitten, damit sie neben dem Apple-Abzeichen gleich gross
+          stehen - der von Google verlangte Freiraum kommt aus dem Layout.
         -->
         <div class="store-liste">
-          <div class="store-knopf">
-            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-android"/></svg>
-            <span class="store-text">
-              <span class="store-klein">Für Android</span>
-              <span class="store-gross">Google Play</span>
-            </span>
+          <div class="store-badge">
+            <img src="bilder/badge-google-play-de.png"
+                 width="646" height="192" loading="lazy" decoding="async"
+                 alt="Jetzt bei Google Play">
             <span class="store-status">in Kürze</span>
           </div>
-          <div class="store-knopf">
-            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-apfel"/></svg>
-            <span class="store-text">
-              <span class="store-klein">Fürs iPhone</span>
-              <span class="store-gross">App Store</span>
-            </span>
+          <div class="store-badge">
+            <img src="bilder/badge-app-store-de.svg"
+                 width="120" height="40" loading="lazy" decoding="async"
+                 alt="Laden im App Store">
             <span class="store-status">in Arbeit</span>
           </div>
         </div>
-
-        <p class="preis-klein">
-          Alle Preise inkl. MwSt. Das Abo verlängert sich automatisch und ist jederzeit
-          über den App Store bzw. Google Play kündbar. Der endgültige Preis steht im
-          Kaufdialog des Stores.
-        </p>
       </div>
 
       <!--
@@ -338,7 +316,7 @@
 
           <p class="plan-preis">
             <b class="nur-monat">2,99 €</b><b class="nur-jahr">29,99 €</b>
-            <span class="nur-monat">im Monat</span><span class="nur-jahr">im Jahr</span>
+            <span class="nur-monat">im Monat, inkl. MwSt.</span><span class="nur-jahr">im Jahr, inkl. MwSt.</span>
           </p>
           <p class="plan-satz nur-monat">Monatlich abgerechnet, jederzeit kündbar.</p>
           <p class="plan-satz nur-jahr">Das sind 2,50 € im Monat. Jederzeit kündbar.</p>
@@ -535,14 +513,12 @@ alles weitere im Video 👆 speichern nicht vergessen
       </div>
 
       <!--
-        Die Saetze sind ERFUNDEN und stehen nur, bis es echte gibt. Der rote
-        Hinweis darueber ist Absicht - derselbe Mechanismus wie bei den offenen
-        Angaben im Impressum: Ein dezenter Platzhalter ueberlebt jede Durchsicht,
-        und diese hier duerfen die Veroeffentlichung nicht ueberleben. Erfundene
-        Bewertungen sind irrefuehrende Werbung (Paragraf 5b Absatz 3 UWG).
+        ACHTUNG: Die Saetze sind ERFUNDEN. Der sichtbare rote Hinweis darueber
+        ist auf Wunsch entfallen; die Sache selbst bleibt: Erfundene
+        Bewertungen sind irrefuehrende Werbung (Paragraf 5b Absatz 3 UWG). Vor
+        der Veroeffentlichung durch echte Stimmen ersetzen oder die ganze Bahn
+        entfernen.
       -->
-      <p class="stimmen-hinweis"><span class="todo">PLATZHALTER — erfundene Stimmen. Vor der Veröffentlichung durch echte ersetzen oder die ganze Bahn entfernen: Erfundene Bewertungen sind irreführende Werbung (§ 5b Abs. 3 UWG).</span></p>
-
       <div class="stimmen-raster">
         <figure class="stimme" data-auftritt>
           <div class="sterne" role="img" aria-label="5 von 5 Sternen"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
