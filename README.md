@@ -67,6 +67,7 @@ impressum/              Impressum               en/legal-notice/
 konto-loeschen/         Löschweg ohne App       en/delete-account/
 stil.css                Tokens, Schrift und die Rechtsseiten
 start.css               nur die Startseite
+scrollen.js             weiches Scrollen mit dem Mausrad, auf jeder Seite
 DESIGN.md               was auf der Startseite warum so gebaut ist
 schrift/domine.ttf      die Schrift der App
 schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1)
@@ -74,6 +75,13 @@ bilder/logo.svg         das App-Logo, zugleich Favicon
 bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
 bilder/app-*.webp       die vier Screenshots der Startseite
 ```
+
+**`scrollen.js` ist die einzige Datei, die alle Seiten teilen und keine braucht.** Sie
+laesst das Mausrad weich auslaufen; ohne sie scrollt die Seite wie jede andere. Eingebunden
+ist sie auf den zehn Inhaltsseiten, **nicht** auf den beiden Bestaetigungsseiten: Die sind
+zwei Saetze lang, es gibt dort nichts zu scrollen — und sie sind die Landung nach dem
+Aktivierungslink, die so wenig wie moeglich laden soll. Was sie im Einzelnen tut und welche
+vier Faelle sie ausnimmt, steht in ihrem Kopf und in `DESIGN.md`.
 
 **Das Logo ist eine Datei fuer alles** (`bilder/logo.svg`): Marke im Kopf und Fuss jeder
 Seite und zugleich `rel="icon"`. Seine Geometrie ist woertlich aus

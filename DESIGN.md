@@ -193,8 +193,8 @@ scrollt.
 
 | Regung | Wo | Was |
 |---|---|---|
-| Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 20px auf (1,2 s; 0/150/300 ms) |
-| Auftritt | jede Bahn | 24px aufsteigen und einblenden (1,0/1,1 s), gestaffelt über `--i` (110 ms je Schritt) |
+| Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 20px auf (1,2 s; **200 / 650 / 850 ms**) |
+| Auftritt | jede Bahn | 24px aufsteigen und einblenden (1,0/1,1 s), ausgelöst je **Gruppe** |
 | Verwandlung | die dunkle Bahn | Caption (0 ms) → Pfeil (200 ms) → Rezeptzeilen (ab 420 ms, 95 ms je Zeile) |
 | Der Pfeil im Knopf | „Kochbuch holen" | schiebt bei Hover und Fokus 3px nach rechts |
 
@@ -229,12 +229,32 @@ Mit ihr ging das `overflow: hidden`, das nur sie gebraucht hat.
   braucht deshalb kein Skript: Er ist beim Laden ohnehin sichtbar, ein Beobachter hätte dort
   nichts zu beobachten.
 
+**Der Auftakt beginnt bei 200 ms, und die Zeile bekommt den Vortritt.** Bei 0 läuft er in
+den Bildaufbau hinein und ist halb vorbei, bevor jemand hinsieht. Danach steht die Zeile
+450 ms **allein**, ehe der Vorspann nachkommt; die Knöpfe folgen ihm nach 200 ms, denn sie
+gehören zu ihm und nicht zur Zeile. Bei 150 ms Versatz lief alles praktisch gemeinsam — und
+ein Auftakt, bei dem alles gleichzeitig kommt, ist keiner.
+
 **Ein Mechanismus für alle Bahnen, kein Sondereffekt je Abschnitt.** Im HTML steht
-`data-auftritt` (plus `--i` für die Reihenfolge innerhalb einer Gruppe), im CSS zwei Regeln,
-im Skript ein Beobachter. Wer eine Bahn ergänzt, hängt das Attribut daran und ist fertig; wer
-einen eigenen Effekt dafür schreibt, hat den zweiten Stil auf derselben Seite. Die Geräte
-(`.zug-bild`) sind die einzige Abweichung — sie kommen zusätzlich aus `scale(0.97)`, weil
-Text und Beleg sonst als eine hochrutschende Fläche lesen.
+`data-auftritt-gruppe` am Container und `data-auftritt` an dem, was sich bewegt; im CSS zwei
+Regeln, im Skript ein Beobachter. Wer eine Bahn ergänzt, hängt die Attribute daran und ist
+fertig; wer einen eigenen Effekt dafür schreibt, hat den zweiten Stil auf derselben Seite.
+
+**Ausgelöst wird die Gruppe, nicht das Einzelteil.** Vorher hing jedes Teil an einem eigenen
+Beobachter, und damit entschied seine Höhe im Fenster über den Zeitpunkt: Der Kopf einer Bahn
+stand fertig da, während die Spalten darunter noch gar nicht angefangen hatten — die Bahn
+zerfiel in zwei Ereignisse. Daraus folgt die Regel für `--i`:
+
+- **Kopf über Inhalt** (Gründe, Stimmen): zeitgleich, also überall `--i:0`. Eine Überschrift,
+  die vor ihrem Block kommt, liest sich als eigene Bahn.
+- **Spalten nebeneinander** (Text | Gerät, Angebot | Tarife): ein Takt Versatz. Sie stehen
+  ohnehin zusammen im Blick, und der Versatz sagt, was zuerst gelesen werden will. Die Geräte
+  (`.zug-bild`) kommen zusätzlich aus `scale(0.96)`, weil Text und Beleg sonst als eine
+  hochrutschende Fläche lesen.
+
+**Die Verwandlung bleibt die Ausnahme**: Ihr Kopf und ihr Block lösen einzeln aus. Der Block
+ist auf dem Telefon höher als das Fenster, und mit dem Kopf ausgelöst wäre seine Choreografie
+abgelaufen, bevor man das erste Blatt sieht.
 
 **Der Beobachter arbeitet mit `rootMargin`, nicht mit `threshold`.** Ein Schwellwert in
 Prozent wartet bei einer Bahn, die höher ist als das Fenster, auf etwas, das nie eintritt;
@@ -250,6 +270,30 @@ andere".
 zweiter Wert an derselben Eigenschaft löscht die Drehung. Bewegt wird das SVG darin; hochkant
 zeigt sein Vorschub dadurch von selbst nach unten. Die beiden Haarstriche wachsen über
 `scaleX` **zum** Pfeil hin (`transform-origin` außen), nicht von ihm weg.
+
+**Weiches Scrollen mit dem Mausrad, auf jeder Seite** (`web/scrollen.js`, eingebunden auf
+allen zehn Inhaltsseiten). Ein Radschritt setzt nicht die Position, sondern ein **Ziel**; jedes
+Bild danach legt die Seite 14 % des Restwegs zurück, und mehrere Schritte addieren sich auf
+dasselbe Ziel, statt sich zu überholen. Ohne Bibliothek — eine Scroll-Bibliothek wäre die
+erste Abhängigkeit des Auftritts überhaupt.
+
+Vier Riegel, und jeder steht für einen Fall, in dem Übernehmen falsch wäre:
+
+- **`prefers-reduced-motion`** — das Rad ist die Eingabe, mit der am häufigsten navigiert
+  wird; sie umzubauen ist genau die Art Bewegung, gegen die die Einstellung steht.
+- **Trackpads bleiben unberührt.** Sie liefern viele kleine Schritte und bringen ihre eigene
+  Trägheit mit; beides übereinander fühlt sich schwammig an. Erkannt am Betrag (ab 40 px je
+  Rastung ist es ein Rad).
+- **Eigene Scrollbereiche behalten ihr Rad.** Ein `preventDefault` am Fenster nimmt es sonst
+  jedem Kasten mit `overflow: auto` weg.
+- **Tastatur, Sprungmarke, Scrollbalken übernehmen sofort** — sonst zöge das laufende Ziel die
+  Seite gegen die Tastatur zurück.
+
+Für die Dauer der Fahrt steht `scroll-behavior` am Wurzelelement auf `auto` und danach wieder
+auf seinem alten Wert: Das `smooth` aus `stil.css` legte sonst seine eigene weiche Fahrt über
+jedes einzelne Bild dieser hier, und die Seite bliebe kleben. Bewusst **nicht** über
+`behavior: 'instant'` im Aufruf — ein Browser, der diesen jungen Wert nicht kennt, wirft dort
+einen `TypeError`, statt ihn zu überlesen. Die **Sprungmarken** laufen weiterhin über das CSS.
 
 **Nichts, was nicht anklickbar ist, reagiert auf den Zeiger.** Die einzige Hover-Regung sitzt
 am Pfeil im Holen-Knopf. Dieselbe Begründung wie bei `.store-knopf`: Was sich unter dem Zeiger

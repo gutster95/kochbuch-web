@@ -13,6 +13,9 @@
 <meta name="theme-color" content="#FCFAF7">
 <link rel="stylesheet" href="../stil.css">
 <link rel="stylesheet" href="../start.css">
+<!-- Weiches Scrollen mit dem Mausrad. Zugabe: Ohne die Datei scrollt die
+     Seite wie jede andere - siehe den Kopf von scrollen.js. -->
+<script src="../scrollen.js" defer></script>
 <!--
   Englische Fassung der Startseite. Die deutschen Fassungen sind die
   verbindlichen - siehe den Hinweis am Fuss der Rechtsseiten.
@@ -171,7 +174,7 @@
 
   <!-- ------------------------------------------------------------------ -->
   <section class="band" id="staerken">
-    <div class="bahn">
+    <div class="bahn" data-auftritt-gruppe>
 
       <div class="staerken-kopf" data-auftritt>
         <p class="augenbraue">Why Kochbuch</p>
@@ -180,7 +183,7 @@
 
       <div class="staerken-raster">
 
-        <article class="staerke" data-auftritt style="--i:1">
+        <article class="staerke" data-auftritt>
           <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-personen"/></svg>
           <h3>One cookbook for two</h3>
           <p>
@@ -189,7 +192,7 @@
           </p>
         </article>
 
-        <article class="staerke" data-auftritt style="--i:2">
+        <article class="staerke" data-auftritt>
           <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalender"/></svg>
           <h3>A weekly plan you share</h3>
           <p>
@@ -198,7 +201,7 @@
           </p>
         </article>
 
-        <article class="staerke" data-auftritt style="--i:3">
+        <article class="staerke" data-auftritt>
           <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chip"/></svg>
           <h3>It runs on your phone</h3>
           <p>
@@ -207,7 +210,7 @@
           </p>
         </article>
 
-        <article class="staerke" data-auftritt style="--i:4">
+        <article class="staerke" data-auftritt>
           <svg class="staerke-zeichen" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stift"/></svg>
           <h3>No link needed either</h3>
           <p>
@@ -222,7 +225,7 @@
 
   <!-- ------------------------------------------------------------------ -->
   <section class="band band-clay" id="holen">
-    <div class="bahn holen-raster">
+    <div class="bahn holen-raster" data-auftritt-gruppe>
 
       <div class="holen-haupt" data-auftritt>
         <h2>What Kochbuch costs</h2>
@@ -288,7 +291,7 @@
           </ul>
         </article>
 
-        <article class="plan plan-voll" data-auftritt style="--i:2">
+        <article class="plan plan-voll" data-auftritt style="--i:1">
           <div class="takt-schalter">
             <input class="takt-eingabe" type="radio" name="takt" id="takt-monat" checked>
             <label for="takt-monat">Monthly</label>
@@ -402,7 +405,7 @@ everything else in the video 👆 don't forget to save
   <section class="band" id="funktionen">
     <div class="bahn">
 
-      <div class="zug">
+      <div class="zug" data-auftritt-gruppe>
         <div class="zug-text" data-auftritt>
           <h2>One code, and you cook from one book</h2>
           <p class="gross">
@@ -428,7 +431,7 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
-      <div class="zug zug-gedreht">
+      <div class="zug zug-gedreht" data-auftritt-gruppe>
         <div class="zug-text" data-auftritt>
           <h2>What gets cooked this week</h2>
           <p class="gross">
@@ -452,7 +455,7 @@ everything else in the video 👆 don't forget to save
         </div>
       </div>
 
-      <div class="zug">
+      <div class="zug" data-auftritt-gruppe>
         <div class="zug-text" data-auftritt>
           <h2>While you cook, the screen stays on</h2>
           <p class="gross">
@@ -482,7 +485,7 @@ everything else in the video 👆 don't forget to save
 
   <!-- ------------------------------------------------------------------ -->
   <section class="band band-sand" id="stimmen">
-    <div class="bahn">
+    <div class="bahn" data-auftritt-gruppe>
 
       <div class="staerken-kopf" data-auftritt>
         <p class="augenbraue">Voices</p>
@@ -499,17 +502,17 @@ everything else in the video 👆 don't forget to save
       <p class="stimmen-hinweis"><span class="todo">PLACEHOLDER — invented quotes. Replace with real ones before launch, or remove the whole band: made-up reviews are misleading advertising (§ 5b (3) UWG).</span></p>
 
       <div class="stimmen-raster">
-        <figure class="stimme" data-auftritt style="--i:1">
+        <figure class="stimme" data-auftritt>
           <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
           <blockquote>Great vibe, just works. I share the reel and the recipe is there before the kettle boils.</blockquote>
           <figcaption>Lena M.</figcaption>
         </figure>
-        <figure class="stimme" data-auftritt style="--i:2">
+        <figure class="stimme" data-auftritt>
           <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
           <blockquote>Top app. We plan the week together, and when we cannot agree it just rolls the dice.</blockquote>
           <figcaption>Jonas and Pia</figcaption>
         </figure>
-        <figure class="stimme" data-auftritt style="--i:3">
+        <figure class="stimme" data-auftritt>
           <div class="sterne" role="img" aria-label="5 out of 5 stars"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stern-voll"/></svg></div>
           <blockquote>Finally no more three hundred screenshots in my camera roll that I never find again.</blockquote>
           <figcaption>Sarah K.</figcaption>
@@ -606,8 +609,16 @@ everything else in the video 👆 don't forget to save
     beobachter.observe(block);
   }
 
+  /*
+    Beobachtet wird die GRUPPE - und nur dort, wo es keine gibt, das Einzelteil
+    (`:not([data-auftritt-gruppe] *)`). Mit einem Beobachter je Teil entschied
+    dessen Hoehe im Fenster ueber den Zeitpunkt: Der Kopf einer Bahn stand
+    fertig da, waehrend die Spalten darunter noch nicht angefangen hatten.
+  */
   Array.prototype.forEach.call(
-    document.querySelectorAll('[data-auftritt]'),
+    document.querySelectorAll(
+      '[data-auftritt-gruppe], [data-auftritt]:not([data-auftritt-gruppe] *)'
+    ),
     function (el) { beobachter.observe(el); }
   );
 })();

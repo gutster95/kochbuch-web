@@ -1220,6 +1220,14 @@
   sichtbar, ein IntersectionObserver haette hier nichts zu beobachten. Die
   Reihenfolge ist die Leserichtung - Zeile, Vorspann, Knoepfe.
 
+  DREI ZEITEN, und keine davon ist rund: 200ms Vorlauf, damit die Seite erst
+  steht, bevor etwas losgeht (bei 0 laeuft der Auftakt in den Bildaufbau
+  hinein und ist halb vorbei, bevor jemand hinsieht). Dann die Zeile ALLEIN -
+  450ms, bis der Vorspann nachkommt, und das ist der eigentliche Punkt: Bei
+  150ms lief alles praktisch gemeinsam, und ein Auftakt, bei dem alles
+  gleichzeitig kommt, ist keiner. Die Knoepfe folgen dem Vorspann nach 200ms;
+  sie gehoeren zu ihm, nicht zur Zeile.
+
   DAS FOTO BEWEGT SICH NICHT. Hier lag eine Kamerafahrt (`scale(1.06)` auf 1
   ueber 1,6s), und sie ist wieder raus: Das Foto IST das erste Bild, nicht
   seine Verzierung - ein Grund, der sich beim Laden noch zurechtrueckt, macht
@@ -1239,8 +1247,9 @@
     animation: auftakt 1.2s var(--kurve-auftritt) backwards;
   }
 
-  .held-text > .gross       { animation-delay: 150ms; }
-  .held-text > .knopf-reihe { animation-delay: 300ms; }
+  .held-text > h1           { animation-delay: 200ms; }
+  .held-text > .gross       { animation-delay: 650ms; }
+  .held-text > .knopf-reihe { animation-delay: 850ms; }
 }
 
 /* 2. Der Auftritt der Bahnen ---------------------------------------------- */
@@ -1254,15 +1263,32 @@
   lassen. Er ist zugleich der Grund, warum die Dauer allein es nicht macht -
   ein kurzer Weg ueber eine lange Zeit sieht nicht ruhig aus, sondern zaeh.
 
-  110ms Versatz, nicht 300: Vier Spalten mit 300ms brauchen ueber zwei
-  Sekunden, bis die letzte steht, und so lange sieht niemand zu.
+  AUSGELOEST WIRD DIE GRUPPE, NICHT DAS EINZELTEIL. `data-auftritt-gruppe`
+  steht am Container, `data-auftritt` an dem, was sich bewegt; beobachtet wird
+  nur der Container. Vorher hing jedes Teil an einem eigenen Beobachter, und
+  damit entschied seine Hoehe im Fenster ueber den Zeitpunkt: Der Kopf einer
+  Bahn stand fertig da, waehrend die Spalten darunter noch gar nicht angefangen
+  hatten - die Bahn zerfiel in zwei Ereignisse. Ueber die Gruppe faengt sie als
+  eine an.
+
+  Daraus folgt die Regel fuer `--i`:
+
+  - Kopf UEBER Inhalt (Gruende, Stimmen): zeitgleich, also ueberall --i:0. Eine
+    Ueberschrift, die vor ihrem Block kommt, liest sich als eigene Bahn.
+  - Spalten NEBENEINANDER (Text | Geraet, Angebot | Tarife): ein Takt Versatz.
+    Sie stehen ohnehin nebeneinander im Blick, und der Versatz sagt, was zuerst
+    gelesen werden will.
+
+  110ms je Takt, nicht 300: Drei Takte mit 300ms brauchen fast eine Sekunde,
+  bis der letzte anfaengt, und so lange sieht niemand zu.
 */
 .auftritt-an [data-auftritt] {
   opacity: 0;
   transform: translateY(24px);
 }
 
-.auftritt-an [data-auftritt].ist-da {
+.auftritt-an [data-auftritt].ist-da,
+.auftritt-an .ist-da [data-auftritt] {
   opacity: 1;
   transform: none;
   transition: opacity 1s var(--kurve-auftritt), transform 1.1s var(--kurve-auftritt);
@@ -1275,7 +1301,9 @@
   hochrutscht, statt als Text und Beleg dazu.
 */
 .auftritt-an .zug-bild[data-auftritt] { transform: translateY(28px) scale(0.96); }
-.auftritt-an .zug-bild[data-auftritt].ist-da { transform: none; }
+
+.auftritt-an .zug-bild[data-auftritt].ist-da,
+.auftritt-an .ist-da .zug-bild[data-auftritt] { transform: none; }
 
 /* 3. Die Verwandlung ------------------------------------------------------ */
 /*
@@ -1364,7 +1392,9 @@
 @media (prefers-reduced-motion: reduce) {
   .auftritt-an [data-auftritt],
   .auftritt-an [data-auftritt].ist-da,
+  .auftritt-an .ist-da [data-auftritt],
   .auftritt-an .zug-bild[data-auftritt],
+  .auftritt-an .ist-da .zug-bild[data-auftritt],
   .laeuft .blatt-roh,
   .laeuft .pfeil,
   .laeuft .stufe,
