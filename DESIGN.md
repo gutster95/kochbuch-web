@@ -215,7 +215,7 @@ scrollt.
 | Auftakt | erstes Bild | Zeile, Vorspann, Knöpfe steigen 20px auf (1,2 s; **200 / 650 / 850 ms**) |
 | Auftritt | jede Bahn | 24px aufsteigen und einblenden (1,0/1,1 s), ausgelöst je **Gruppe** |
 | Verwandlung | die dunkle Bahn | Caption (0 ms) → Pfeil (200 ms) → Rezeptzeilen (ab 420 ms, 95 ms je Zeile) |
-| Der Pfeil im Knopf | „Kochbuch holen" | schiebt bei Hover und Fokus 3px nach rechts |
+| Der Pfeil im Knopf | „Reel Gusto downloaden" | schiebt bei Hover und Fokus 3px nach rechts |
 
 **Es bewegen sich ausschließlich `opacity` und `transform`.** Beide kann der Browser ohne
 neues Layout auf die Grafikkarte legen; eine Animation auf `height`, `top` oder `width`
