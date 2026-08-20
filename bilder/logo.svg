@@ -1,25 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-label="Reel Gusto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 96 96" role="img" aria-label="Reel Gusto">
   <!--
     Das App-Logo: Teller von oben - ein Ring mit Punkt in der Mitte, auf dem
     Terracotta-Verlauf der App. Die Geometrie ist woertlich aus
     app/src/main/res/drawable/ic_launcher_foreground.xml uebernommen, damit
     Website, Android-Icon und iOS-Icon dasselbe Zeichen tragen.
 
+    **Der viewBox ist 96, nicht 108 - das ist der Kern.** Das Zeichen selbst
+    steht weiter im 108er-Raster (Ring um 54,52 mit Aussenradius 28), gezeigt
+    werden aber nur die mittleren 96 davon. Der Teller fuellt damit 58,3 % der
+    Kachel und trifft das iOS-Icon, das gemessen bei 57,8 % liegt.
+
+    Warum das ueberhaupt festgelegt werden musste: Dasselbe Zeichen stand in
+    DREI verschiedenen Groessen im Projekt. Bei vollem 108er-Rahmen (bis
+    20.08.2026 hier und im Favicon) sind es 51,9 %; das Android-Icon zeigt
+    dagegen nur die mittleren 72 seiner Flaeche und kam damit auf 77,8 %. Wer
+    hier etwas aendert, zieht ic_launcher_foreground.xml, die iOS-PNGs unter
+    iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/ und die beiden PNGs
+    daneben (logo-180.png, logo-mail.png) mit - sonst laufen sie wieder
+    auseinander.
+
     Der Ring sitzt zwei Einheiten hoeher als der Punkt (52 gegen 54). Das ist so
     gewollt: Der tiefer sitzende Spiegel gibt dem Teller Tiefe. Nicht
     "korrigieren" - beim Portieren nach iOS war genau das der erste Griff, und
     das Ergebnis war flacher.
 
+    Der Verlauf spannt von Ecke zu Ecke des SICHTBAREN Bereichs (6,6 bis
+    102,102), nicht des alten 108er-Rahmens: Sonst faehrt der Farbverlauf am
+    Rand nicht ganz aus und die Kachel wirkt flauer als das App-Icon.
+
     Weiss und nicht Sand50 wie sonst im Theme: Auf dem Terracotta traegt reines
     Weiss den Kontrast, den ein Zeichen in Faviconsgroesse braucht.
   -->
   <defs>
-    <linearGradient id="logo-verlauf" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logo-verlauf" x1="6" y1="6" x2="102" y2="102" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#C05A31"/>
       <stop offset="1" stop-color="#9E4526"/>
     </linearGradient>
   </defs>
-  <rect width="108" height="108" rx="24" fill="url(#logo-verlauf)"/>
+  <rect x="6" y="6" width="96" height="96" rx="21.5" fill="url(#logo-verlauf)"/>
   <circle cx="54" cy="52" r="24" fill="none" stroke="#FFFFFF" stroke-width="8"/>
   <circle cx="54" cy="54" r="14" fill="#FFFFFF"/>
 </svg>
