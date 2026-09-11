@@ -397,11 +397,13 @@ der Leser kennt: „Montag Pasta, Mittwoch Curry", „auch wenn deine Hände vol
 „Omas Blechkuchen steht auf keinem Reel", „der Screenshot, den du sowieso nie wiederfindest".
 Alle vier stehen anstelle von Sätzen, die dasselbe allgemein sagten.
 
-**Weniger Technik, dieselbe Wahrheit.** „Kann dein Gerät die Auswertung selbst, verlässt kein
-Wort des Rezepts das Telefon" heißt jetzt „Schafft dein Handy die Auswertung selbst, passiert
-sie dort und sonst nirgends". Was die App tut, ist unverändert — nur steht jetzt der Nutzen
-vorn und die Technik dahinter. **Nichts davon darf ein Versprechen aufblasen:** Der Import
-dauert je nach Video eine Weile, deshalb steht nirgends eine Sekundenzahl.
+**Weniger Technik, dieselbe Wahrheit.** Die Karte „Bleibt auf deinem Handy" (Auswertung auf
+dem Gerät, sonst der Server) ist am 11.09.2026 mit der Technik dahinter gefallen — die
+Aufbereitung läuft seitdem für alle in der Cloud, und ein Versprechen, das die App nicht
+mehr hält, hat auf der Seite nichts verloren. An ihrer Stelle steht „Aus vier werden zwei",
+die Portionsumrechnung: eine Szene, die jeder kennt, mit zwei Zahlen, die die App wirklich
+liefert. **Nichts davon darf ein Versprechen aufblasen:** Der Import dauert je nach Video
+eine Weile, deshalb steht nirgends eine Sekundenzahl.
 
 **Der Knopf sagt, was danach passiert.** „Jetzt entdecken" ist eine Floskel und wurde zu
 „Zeig mir ein Beispiel" — dorthin springt er nämlich.

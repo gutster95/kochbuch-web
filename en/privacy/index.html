@@ -60,7 +60,7 @@
         <li><a href="#retention">Retention</a></li>
         <li><a href="#shared">Shared cookbooks</a></li>
         <li><a href="#thirdparty">Third-party content from TikTok and Instagram</a></li>
-        <li><a href="#ondevice">What stays on your device</a></li>
+        <li><a href="#ondevice">The language model and what stays on your device</a></li>
         <li><a href="#rights">Your rights</a></li>
         <li><a href="#website">This website</a></li>
         <li><a href="#changes">Changes</a></li>
@@ -184,7 +184,7 @@
           </tr>
           <tr>
             <td><strong>Google</strong><br>Google Ireland Ltd. / Google LLC (USA)</td>
-            <td>Language model turning text into cooking steps — only on devices without one of their own</td>
+            <td>Language model (Gemini) that writes out title, ingredients and cooking steps from the text and translates foreign-language recipes</td>
             <td>the post text or transcript, with no account reference</td>
           </tr>
           <tr>
@@ -214,11 +214,12 @@
 
     <div class="hinweis">
       <p>
-        <strong>What reaches the language model.</strong> Preparing a recipe runs primarily
-        <em>on your device</em> (see <a href="#ondevice">section 9</a>). Only if your device
-        has no model of its own does the text go to Google. For that we deliberately use the
-        paid tier, under which Google is <strong>not permitted to train</strong> its models
-        on the submitted content.
+        <strong>What reaches the language model.</strong> The text of the post — and the
+        transcript, if one was produced — goes through our server to Google's language model
+        Gemini (see <a href="#ondevice">section 9</a>). <em>Nothing</em> that points to you
+        travels with it: no account, no address, no identifier. We deliberately use the paid
+        tier, under which Google is <strong>not permitted to train</strong> its models on the
+        submitted content.
       </p>
     </div>
 
@@ -286,18 +287,17 @@
       it and block the source from future imports.
     </p>
 
-    <h2 id="ondevice">9. What stays on your device</h2>
-    <p>Two things you would normally expect in the cloud run <strong>locally</strong> here:</p>
-    <ul>
-      <li>
-        <strong>Preparation by the language model</strong>, where your device provides one
-        (Gemini Nano on newer Android devices, Apple Intelligence on iPhones). Google is
-        asked only when that is missing.
-      </li>
-      <li><strong>Translation</strong> of foreign-language recipes into your device language.</li>
-    </ul>
+    <h2 id="ondevice">9. The language model and what stays on your device</h2>
     <p>
-      Your device also holds a copy of your recipes so the app starts without waiting. It is
+      <strong>Preparation runs in the cloud.</strong> From the text of a post, a language
+      model writes out title, ingredients and cooking steps and, where needed, translates
+      them into your device language. For that the text goes through our server to Google's
+      Gemini — with no account reference and no identifier, just the text itself (see
+      <a href="#recipients">section 4</a>). The same happens when you choose
+      <em>Re-analyse</em> in the app; that works at most three times a day per recipe.
+    </p>
+    <p>
+      Your device holds a copy of your recipes so the app starts without waiting. It is
       erased when you sign out.
     </p>
 
