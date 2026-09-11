@@ -33,10 +33,10 @@ Statuswort („in Kürze" / „in Arbeit"): Beide Markenrichtlinien setzen vorau
 Abzeichen auf den Store-Eintrag **zeigt**, und ohne diesen Zusatz behauptet es
 Verfügbarkeit. Sobald die Einträge stehen, wird aus jedem `<div class="store-badge">` ein
 `<a href="…">` und das Statuswort fällt weg. In **beiden** Sprachfassungen
-(`home.html`, `en/home.html`). Zu finden mit:
+(`index.html`, `en/index.html`). Zu finden mit:
 
 ```powershell
-Select-String -Path web\home.html, web\en\home.html -Pattern 'store-badge'
+Select-String -Path web\index.html, web\en\index.html -Pattern 'store-badge'
 ```
 
 **Woher die Abzeichen kommen und was an ihnen nicht verändert werden darf:**
@@ -78,7 +78,7 @@ Generator.
 ```
 index.html              Bestätigungsseite  <- die Wurzel, siehe unten
 confirmed/              dieselbe Seite noch einmal
-home.html               Startseite (de)         en/home.html
+index.html              Startseite (de)         en/index.html
 datenschutz/            Datenschutzerklärung    en/privacy/
 agb/                    Nutzungsbedingungen     en/terms/
 impressum/              Impressum               en/legal-notice/
@@ -134,16 +134,12 @@ Die Gestaltungsentscheidungen der Startseite stehen in `DESIGN.md`, nicht hier: 
 Bahnen, Gerätedarstellung, die eine Bewegung und die Stellen, an denen sie still
 kaputtgeht.
 
-**Die Wurzel ist die Bestätigungsseite und nicht die Startseite** — das sieht falsch aus,
-ist aber Absicht: Supabases Site URL zeigt auf `https://gutster95.github.io/kochbuch-web/`,
-und ein Aktivierungslink, der auf einer Werbeseite landet, ist für den Nutzer ein Fehler.
-Die Startseite liegt deshalb unter `home.html`.
-
-**So wird daraus die übliche Ordnung:** Site URL im Supabase-Dashboard (Authentication →
-URL Configuration) auf `…/kochbuch-web/confirmed/` umstellen — die Seite liegt dort bereits
-—, danach `home.html` nach `index.html` verschieben und die `../home.html`-Verweise in den
-Rechtsseiten auf `../index.html` zurückdrehen. Erst umstellen, dann verschieben, sonst
-klafft dazwischen ein Loch.
+**Die Wurzel ist die Startseite** (`index.html`, `en/index.html`) — seit dem 11.09.2026,
+mit der eigenen Domain. Vorher lag dort die Bestätigungsseite, weil Supabases Site URL auf
+die Wurzel zeigte und ein Aktivierungslink nicht auf einer Werbeseite landen darf. Jetzt
+zeigt die Site URL auf `https://reelgusto.de/confirmed/`; die Bestätigungsseite liegt nur
+noch dort. Die Seiten verweisen aufeinander als Verzeichnis (`../`, `../en/`), nicht als
+Datei — so bleibt der Aufbau auch, wenn eine Seite einmal umzieht.
 
 **Deutsch und Englisch, nicht alle sechs Sprachen der App.** Bei Rechtstexten wäre das
 unverhältnismäßig, und die deutsche Fassung ist die verbindliche, solange der Anbieter in
@@ -199,13 +195,13 @@ Screenshots ohne Browser-Werkzeug gehen auch mit dem installierten Chrome:
 ```powershell
 & "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu `
   --hide-scrollbars --virtual-time-budget=5000 --window-size=1440,3200 `
-  --screenshot=desktop.png "http://localhost:8000/home.html"
+  --screenshot=desktop.png "http://localhost:8000/"
 ```
 
 **Für die Handybreite taugt `--window-size=390,…` nicht** — das Fenster hat unter Windows
 eine Mindestbreite, und der Screenshot beschneidet dann eine breiter gerenderte Seite. Das
 sieht wie ein Überlauf aus, der keiner ist. Verlässlich ist eine Hilfsseite, die
-`home.html` in einem `<iframe width=390>` lädt, und ein Screenshot davon.
+`index.html` in einem `<iframe width=390>` lädt, und ein Screenshot davon.
 
 Interne Links lassen sich ohne Server prüfen — das Skript dafür steht in der
 Commit-Historie zu diesem Ordner.

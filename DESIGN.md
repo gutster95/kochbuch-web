@@ -1,6 +1,6 @@
 # Die Gestaltung der Startseite
 
-Beschreibt, was in `start.css` und `home.html` **tatsächlich gebaut** ist — nicht, was
+Beschreibt, was in `start.css` und `index.html` **tatsächlich gebaut** ist — nicht, was
 einmal geplant war. Für die Rechtsseiten gilt weiterhin `stil.css`; die beiden Welten
 teilen sich nur die Tokens.
 
@@ -407,7 +407,7 @@ dauert je nach Video eine Weile, deshalb steht nirgends eine Sekundenzahl.
 „Zeig mir ein Beispiel" — dorthin springt er nämlich.
 
 **Beide Sprachfassungen tragen dieselben Texte.** Wer einen Satz ändert, ändert ihn in
-`home.html` und `en/home.html`; ein Skript prüft das nicht.
+`index.html` und `en/index.html`; ein Skript prüft das nicht.
 
 **Die Haupt-Headline ist am 19.08.2026 noch einmal ausgetauscht worden.** „Aus einem Reel
 wird ein Rezept" beschrieb nur den Mechanismus. „Kochen, was du gerade gesehen hast" trifft
@@ -518,7 +518,7 @@ Regel verschwindet.
   Rahmen richtet sich danach. Ein `aspect-ratio` am `.telefon` wäre falsch: Das Polster von
   10 px zählt mit, das Bild säße dann leicht verzerrt darin. Screenshots von einem Gerät mit
   anderem Verhältnis brauchen deshalb auch eine neue Regel in `.schirm-bild`.
-- **Zwei Sprachfassungen.** `home.html` und `en/home.html` tragen denselben Aufbau
+- **Zwei Sprachfassungen.** `index.html` und `en/index.html` tragen denselben Aufbau
   wörtlich. Wer eine Sektion ändert, ändert beide — ein Skript prüft das nicht.
   Das gilt seit dem 19.08.2026 auch für `data-auftritt` und `--i`: Eine Bahn, die nur in
   einer Fassung das Attribut trägt, steht in der anderen ohne Auftritt da — und eine, die es
