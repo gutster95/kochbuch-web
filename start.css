@@ -30,8 +30,8 @@
     ClayGradientStart/Mid/End und tragen in der App die Verlaufskarte des
     Abo-Screens; hier tragen sie die Preisflaeche.
   */
-  --clay-tief: #8E3A1E;
-  --clay-warm: #E9A06A;
+  --clay-tief: #7A2F1A;
+  --clay-warm: #E8A176;
 
   /*
     Text auf dunklem Grund wird NICHT grau. Ink900 ist ein warmer Ton, und ein
@@ -242,7 +242,7 @@
 }
 
 .knopf-voll:hover {
-  background: #8B3B20;
+  background: var(--clay-tief);
   color: var(--sand-50);
   transform: translate3d(0, -2px, 0);
 }
@@ -251,15 +251,15 @@
   Der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem Grund -
   auf dem alten Sandverlauf ging das, auf der Holzplatte des Fotos nicht: Die
   Maserung lief mitten durch die Schrift, und der Knopf sah aus wie ein Rahmen
-  um nichts. Jetzt volle Flaeche in Sand50.
+  um nichts. Jetzt volle Flaeche in Sand100 - Weiss, wie die Karten der App.
 */
 .knopf-weiss {
-  background: var(--sand-50);
+  background: var(--sand-100);
   color: var(--ink-900);
   border-color: var(--sand-200);
 }
 
-.knopf-weiss:hover { background: #fff; color: var(--ink-900); transform: translate3d(0, -2px, 0); }
+.knopf-weiss:hover { background: var(--sand-50); color: var(--ink-900); transform: translate3d(0, -2px, 0); }
 
 .band-clay .knopf-voll {
   background: var(--sand-50);
@@ -318,7 +318,7 @@
   align-items: center;
   min-height: clamp(28rem, 42vw, 40rem);
   padding: var(--sp-4xl) 0;
-  background: var(--sand-50);
+  background: var(--sand-100);
 }
 
 /*
@@ -472,7 +472,7 @@
   aspect-ratio: 1080 / 2424;
   object-fit: cover;
   border-radius: 35px;
-  background: var(--sand-50);
+  background: var(--sand-100);
 }
 
 /* --- Die Verwandlung ----------------------------------------------------- */
@@ -555,9 +555,9 @@
 */
 .roh-text .hash { color: #9C8C7E; }
 
-/* Rechts: das fertige Rezept, in der Flaeche der App. */
+/* Rechts: das fertige Rezept, in der Flaeche der App - seit 15.09.2026 Weiss. */
 .blatt-rezept {
-  background: var(--sand-50);
+  background: var(--sand-100);
   color: var(--ink-700);
   border: 1px solid var(--sand-200);
 }
@@ -1068,7 +1068,7 @@
 }
 
 .takt-eingabe:checked + label {
-  background: var(--sand-50);
+  background: var(--sand-100);
   color: var(--clay-600);
 }
 
@@ -1116,7 +1116,7 @@
   entfallen; was daran haengt, steht im Kommentar im HTML.
 */
 
-.band-sand { background: var(--sand-100); }
+.band-sand { background: var(--sand-50); }
 
 .stimmen-raster {
   display: grid;
@@ -1131,7 +1131,7 @@
   margin: 0;
   padding: var(--sp-xl);
   border-radius: var(--r-xxl);
-  background: var(--sand-50);
+  background: var(--sand-100);
   border: 1px solid var(--sand-200);
 }
 

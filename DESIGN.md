@@ -56,7 +56,7 @@ sähe aus wie ein Rechtstext mit Bildern. Deshalb tragen zwei Bahnen die volle S
 |---|---|---|
 | Held, Funktionen, Schluss | `--sand-50`, im Held zwei sehr weiche Farbkreise aus `--clay-100` und `--sage-100` | `--ink-900` / `--ink-700` |
 | Die Verwandlung | `--ink-900`, ganzflächig | `#F3EBE2`, sekundär `#C4B2A4` |
-| Der Preis | Verlauf `--clay-600` → `#8E3A1E` → `#6F2712` | `--sand-50`, sekundär `#FADFCF` |
+| Der Preis | Verlauf `--clay-600` → `#7A2F1A` → `#6F2712` | `--sand-50`, sekundär `#FADFCF` |
 | Fuß | `--ink-900` | wie die Verwandlungsbahn |
 
 **Sekundärtext auf farbigem Grund ist nie grau**, sondern aus dem Ton der Fläche gezogen.

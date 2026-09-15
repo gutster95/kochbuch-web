@@ -37,22 +37,34 @@
 }
 
 :root {
-  /* 60 % neutrale Basis */
-  --sand-50:  #FCFAF7;
-  --sand-100: #F6F1EA;
-  --sand-200: #EBE3D8;
+  /*
+    60 % neutrale Basis - die Werte und ihre ROLLEN aus Color.kt (Stand 15.09.2026):
+    --sand-100 ist der Grund und die Karte (Weiss), --sand-50 die Schrift auf
+    Terracotta und die ruhige Zwischenstufe (Creme). Bis dahin war es umgekehrt,
+    Sand50 der Grund - die App ist am 15.09. auf Weiss gegangen, weil ein getoenter
+    Grund auf dem Geraet nicht warm wirkte, sondern schmutzig. --sand-400 ist der
+    Umriss mit Bedeutung (3,1:1 auf Weiss), --sand-200 die leise Trennlinie.
+  */
+  --sand-50:  #F9F2E9;
+  --sand-100: #FFFFFF;
+  --sand-200: #E9DDD0;
+  --sand-400: #A88C78;
 
-  /* 30 % Text und Struktur */
-  --ink-900:  #1F1A16;
-  --ink-700:  #4A423B;
-  --ink-500:  #7C726A;
+  /* 30 % Text und Struktur - dunkles Rotbraun, kein neutrales Grau */
+  --ink-900:  #2A1A13;
+  --ink-700:  #4A3227;
+  --ink-500:  #7A6154;
 
-  /* 10 % Akzent */
-  --clay-500: #C05A31;
-  --clay-600: #9E4526;
-  --clay-100: #FBE7DD;
-  --sage-500: #5E7355;
-  --sage-100: #E6EDE1;
+  /*
+    10 % Akzent. Clay500 ist eine Stufe tiefer als das fruehere #C05A31: Das hielt
+    gegen die helle Schrift nur 3,98:1, dieser Ton 4,75:1 gegen Creme und 5,3:1
+    gegen Weiss. Wer ihn verschiebt, rechnet das Paar nach.
+  */
+  --clay-500: #B54A2E;
+  --clay-600: #8F3A20;
+  --clay-100: #FBEADF;
+  --sage-500: #4E7343;
+  --sage-100: #E6EFE2;
   /*
     ShadowTint aus Color.kt hat hier KEINE Entsprechung mehr: Der Auftritt wirft
     keine Schatten. Karten trennt ihr Rand, Bahnen trennt ihre Flaeche. Der
@@ -93,7 +105,7 @@
 body {
   margin: 0;
   min-height: 100svh;
-  background: var(--sand-50);
+  background: var(--sand-100);
   color: var(--ink-700);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
@@ -116,7 +128,7 @@ body {
   top: 0;
   z-index: 50;
   border-bottom: 1px solid transparent;
-  background: color-mix(in srgb, var(--sand-50) 92%, transparent);
+  background: color-mix(in srgb, var(--sand-100) 92%, transparent);
   backdrop-filter: blur(12px);
   transition: border-color 0.3s ease;
 }
@@ -140,7 +152,7 @@ body {
   font-weight: 600;
 }
 
-.sprung:focus-visible { left: 0; outline-color: var(--clay-warm, #E9A06A); }
+.sprung:focus-visible { left: 0; outline-color: var(--clay-warm, #E8A176); }
 
 /*
   Der Fokusring steht HIER und nicht in start.css: Er gehoert zu jeder Seite,
@@ -348,7 +360,7 @@ body {
   text-decoration: none;
 }
 
-.fuss-spalte a:hover { color: #E9A06A; }
+.fuss-spalte a:hover { color: #E8A176; }
 
 /*
   Die Seite, auf der man gerade steht, ist im Fuss hervorgehoben. `aria-current`
@@ -368,11 +380,11 @@ body {
 }
 
 /* Clay600 haelt auf Ink900 nur 2,7:1 - dort braucht der Ring den warmen Ton. */
-.seitenfuss :focus-visible { outline-color: #E9A06A; }
+.seitenfuss :focus-visible { outline-color: #E8A176; }
 
 .seitenfuss .sprachen,
 .seitenfuss .sprachen a { color: #C4B2A4; }
-.seitenfuss .sprachen a:hover { color: #E9A06A; }
+.seitenfuss .sprachen a:hover { color: #E8A176; }
 .seitenfuss .sprachen [aria-current="true"] { color: #F3EBE2; }
 
 @media (max-width: 62rem) {
