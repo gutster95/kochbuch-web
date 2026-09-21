@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["395XMN7656.de.reelgustoapp.app"],
+        "components": [
+          {
+            "/": "/r/*",
+            "comment": "Geteilte Rezepte - alles andere auf reelgusto.de bleibt im Browser"
+          }
+        ]
+      }
+    ]
+  }
+}
