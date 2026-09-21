@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reel Gusto</title>
+<link rel="icon" href="../bilder/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../bilder/logo-180.png">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../stil.css">
+<!--
+  Die Landung eines geteilten Rezept-Links: https://reelgusto.de/r/?c=<code>
+  (Migration 026, Edge Function `share`).
+
+  DIESE SEITE SIEHT NUR, WER DIE APP NICHT HAT. Auf einem Android-Geraet mit
+  installierter App faengt der App Link den Tipp ab und oeffnet die App direkt -
+  vorausgesetzt, /.well-known/assetlinks.json traegt den Fingerabdruck der
+  jeweiligen Signatur. Fehlt er, landet jeder hier, und zwar ohne Fehlermeldung.
+
+  WARUM DER CODE ALS QUERY-PARAMETER STEHT und nicht als Pfad (/r/<code>):
+  GitHub Pages liefert statische Dateien aus. Fuer einen Pfad ohne Datei gaebe es
+  einen 404 - die Landingpage traefe genau die, fuer die sie gedacht ist, nie.
+
+  Der Code wird hier bewusst NICHT aufgeloest: Das Rezept dahinter
+  liegt in einem privaten Bucket, und eine Vorschau im Browser waere eine
+  oeffentliche Zugaenglichmachung fremder Instagram-Bilder (§ 19a UrhG,
+  docs/recht.md). Wer das Rezept sehen will, braucht die App.
+
+  Wie die Bestaetigungsseite ohne Kopf und Fuss (`body class="mittig"`): Das ist
+  das Ende eines Vorgangs, kein Ort zum Weiterlesen.
+-->
+</head>
+<body class="mittig">
+  <main class="karte">
+    <p class="marke"><img class="marke-logo" src="../bilder/logo.svg" width="24" height="24" alt="">Reel Gusto</p>
+
+    <!--
+      Auslieferungszustand ist ENGLISCH - dieselbe Regel wie im Ressourcenordner
+      `values/` der App: Englisch ist der Rueckfall fuer jede Sprache, die wir
+      nicht kennen. Wer mit abgeschaltetem JavaScript kommt, sieht genau das.
+    -->
+    <h1 id="titel">A recipe for you</h1>
+    <p id="text">Someone shared a recipe with you. Open this link on a phone with Reel Gusto installed and it lands in your cookbook.</p>
+  </main>
+
+<script>
+  var TEXTE = {
+    de: ["Ein Rezept für dich", "Jemand hat ein Rezept mit dir geteilt. Öffne diesen Link auf einem Handy mit Reel Gusto — dann landet es in deinem Kochbuch."],
+    en: ["A recipe for you", "Someone shared a recipe with you. Open this link on a phone with Reel Gusto installed and it lands in your cookbook."],
+    fr: ["Une recette pour toi", "Quelqu’un a partagé une recette avec toi. Ouvre ce lien sur un téléphone équipé de Reel Gusto et elle arrivera dans ton livre de cuisine."],
+    es: ["Una receta para ti", "Alguien ha compartido una receta contigo. Abre este enlace en un móvil con Reel Gusto y aparecerá en tu libro de cocina."],
+    it: ["Una ricetta per te", "Qualcuno ha condiviso una ricetta con te. Apri questo link su un telefono con Reel Gusto e finirà nel tuo ricettario."],
+    pl: ["Przepis dla Ciebie", "Ktoś udostępnił Ci przepis. Otwórz ten link na telefonie z Reel Gusto, a trafi do Twojej książki kucharskiej."]
+  };
+
+  // Nur der Sprachteil zaehlt: "de-AT" und "de-CH" sind hier dasselbe wie "de".
+  var wunsch = navigator.languages && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || "en"];
+
+  var treffer = "en";
+  for (var i = 0; i < wunsch.length; i++) {
+    var kurz = String(wunsch[i]).slice(0, 2).toLowerCase();
+    if (TEXTE[kurz]) { treffer = kurz; break; }
+  }
+
+  document.documentElement.lang = treffer;
+  document.getElementById("titel").textContent = TEXTE[treffer][0];
+  document.getElementById("text").textContent = TEXTE[treffer][1];
+
+  // Der Code aus `?c=` wird bewusst NICHT angezeigt. Er nuetzt hier niemandem -
+  // wer die App nicht hat, kann mit zehn Zeichen nichts anfangen -, und alles,
+  // was aus der Adresszeile ungeprueft ins Dokument wandert, ist eine
+  // XSS-Flaeche fuer nichts.
+</script>
+</body>
+</html>

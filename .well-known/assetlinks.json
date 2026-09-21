@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.reelgusto.app",
+      "sha256_cert_fingerprints": [
+        "88:6E:F5:A9:3C:CA:D3:DE:6A:38:93:D0:AE:CB:CE:E7:55:27:FF:A9:81:1F:07:28:58:AB:D7:26:76:10:66:16"
+      ]
+    }
+  }
+]
