@@ -12,6 +12,101 @@ Statische Seiten, kein Build-Schritt, veröffentlicht über GitHub Pages unter
 3. **Der Löschweg ohne App** (`konto-loeschen/`) — Google Play verlangt das seit 2023 für
    jede App, in der sich ein Konto anlegen lässt.
 
+## Der App Link für geteilte Rezepte
+
+Seit Migration 026 gibt es `r/index.html` — die Landung eines geteilten Rezept-Links
+(`https://reelgusto.de/r/?c=<code>`). Sie sieht nur, **wer die App nicht hat**: Auf einem
+Android-Gerät mit installierter App fängt der App Link den Tipp ab.
+
+Dazu gehören zwei Dateien, die leicht übersehen werden, weil sie mit einem Punkt beginnen:
+
+- **`.well-known/assetlinks.json`** — Android holt sie beim Installieren und sucht darin
+  die Signatur der App. Sie muss die SHA-**256**-Fingerabdrücke **aller** Signaturen
+  tragen: Debug je Entwicklungsrechner, Upload-Key und Googles App signing key. Fehlt
+  einer, landet der Link auf dieser Seite statt in der App — **ohne Fehlermeldung**. Das
+  Feld ist ein Array, mehrere Einträge nebeneinander sind der Normalfall. (In
+  `docs/google-login-einrichten.md` stehen nur SHA-**1**-Werte; die braucht der
+  Google-Login, hier helfen sie nicht.)
+
+  Stand 21.09.2026 stehen fünf Einträge drin: `45:2B…` ist Googles App signing key (vom
+  Pixel 9 mit der Store-Fassung abgelesen — **der** Eintrag, ohne den ein Store-Nutzer
+  nie in der App landet), `76:71…` der Upload-Key aus dem Windows-Keystore, `4B:BF…`
+  der Debug-Schlüssel des Windows-Rechners, `C6:68…` und `88:6E…` kamen vom Mac.
+
+  Eigener Debug-Schlüssel:
+
+  ```
+  keytool -list -v -keystore ~/.android/debug.keystore -storepass android | grep SHA256
+  ```
+
+  **Die Store-Signatur steht in der Play Console — der Menüpfad dorthin ist aber ein
+  bewegliches Ziel.** „Release → Setup → App Integrity" stimmt seit dem Umbau 2026 nicht
+  mehr; gesucht wird heute eher unter *Protected with Play → Play Store protection →
+  Manage Play app signing* (Stand 21.09.2026, aus einer Fremdquelle — Googles eigene
+  Hilfe nennt noch den alten Pfad). Dort stehen **zwei** Blöcke: *App signing key
+  certificate* (Googles Schlüssel — der zählt für eine Installation aus dem Store) und
+  *Upload key certificate* (für eine direkt per `adb` installierte Release-APK).
+
+  **Verlässlicher als jede Console-Navigation ist das Gerät selbst.** Die Zeile
+  `Signatures:` aus
+
+  ```
+  adb shell pm get-app-links de.reelgusto.app
+  ```
+
+  nennt genau den Fingerabdruck, den Android für die dort installierte Fassung erwartet -
+  unabhängig davon, wie die Play Console ihre Menüs gerade nennt. Dieselbe Ausgabe zeigt
+  darunter, ob die Zuordnung greift (`verified`).
+
+  **Ohne Gerät prüft man die Datei bei Google selbst:**
+
+  ```
+  curl "https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https%3A%2F%2Freelgusto.de&relation=delegate_permission%2Fcommon.handle_all_urls"
+  ```
+
+  Das ist derselbe Dienst, den Android benutzt. Kommen die Fingerabdrücke sauber zurück,
+  sind Syntax und Auslieferung in Ordnung (geprüft 21.09.2026). Er antwortet mit
+  `maxAge: 3600s` — **eine Änderung an der Datei sieht ein Gerät also bis zu eine Stunde
+  lang nicht**, was eine Fehlersuche leicht in die falsche Richtung schickt.
+
+  **Und das Gerät merkt sich ein Scheitern noch hartnäckiger:** Nachdem die Datei bei
+  Google schon alle Fingerabdrücke zeigte, blieb das Pixel 9 auch nach mehrfachem
+  `pm verify-app-links --re-verify` bei `1024` (= fehlgeschlagen), ohne eine Zeile im
+  Logcat. Für das Testgerät hilft nur die Freigabe von Hand — dasselbe, was der Nutzer
+  unter „Standardmäßig öffnen“ tut:
+
+  ```
+  adb shell pm set-app-links --package de.reelgusto.app 2 reelgusto.de
+  ```
+
+  Neue Installationen prüfen frisch und kommen mit der korrigierten Datei durch
+  (21.09.2026).
+
+- **`.well-known/apple-app-site-association`** — dasselbe für iOS, **ohne Dateiendung**
+  (Apple verlangt genau diesen Namen). Enthält die AppID
+  `395XMN7656.de.reelgustoapp.app` und beschränkt sich auf den Pfad `/r/*`: Startseite,
+  Rechtstexte und die Bestätigungsseite gehören weiterhin in den Browser.
+
+  **GitHub Pages liefert sie als `application/octet-stream` aus**, obwohl Apples Doku
+  `application/json` verlangt — und es funktioniert trotzdem: iOS holt die Datei nicht
+  selbst, sondern über Apples CDN, und das ist beim Content-Type nicht streng. Geprüft
+  am 21.09.2026 mit
+
+  ```
+  curl https://app-site-association.cdn-apple.com/a/v1/reelgusto.de
+  ```
+
+  Das ist auch der Weg, um eine Änderung zu kontrollieren: Das CDN cached, die eigene
+  Datei kann also längst neu sein, während iOS noch die alte sieht.
+
+- **`.nojekyll`** — **Pflicht.** GitHub Pages fährt Jekyll, und Jekyll unterschlägt jeden
+  Ordner mit führendem Punkt. Ohne diese Datei liefert `/.well-known/assetlinks.json`
+  einen 404 und die Verifikation scheitert lautlos.
+
+Nach dem Rollout prüfen: `https://reelgusto.de/.well-known/assetlinks.json` muss im
+Browser JSON liefern, und auf dem Gerät muss
+`adb shell pm get-app-links de.reelgusto.app` „verified" zeigen.
+
 ## Vor der Veröffentlichung: die Platzhalter füllen
 
 Alles, was noch fehlt, ist im Quelltext als `<span class="todo">` markiert und wird auf der
@@ -87,8 +182,9 @@ stil.css                Tokens, Schrift und die Rechtsseiten
 start.css               nur die Startseite
 scrollen.js             weiches Scrollen mit dem Mausrad, auf jeder Seite
 DESIGN.md               was auf der Startseite warum so gebaut ist
-schrift/domine.ttf      die Schrift der App
-schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1)
+schrift/nunito.woff2    Ueberschriften und Titel, Subset aus der App
+schrift/inter.woff2     Fliesstext, Labels und Zahlen, Subset aus der App
+schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1, fuer beide)
 bilder/logo.svg         das App-Logo, zugleich Favicon
 bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
 bilder/app-*.webp       die vier Screenshots der Startseite
@@ -156,11 +252,27 @@ IP-Adresse jedes Besuchers ohne Einwilligung an Google — der Fall, den das LG 
 entschieden hat (Az. 3 O 17493/20) und der seitdem massenhaft abgemahnt wird. Auf einer
 **Datenschutzerklärung** wäre das besonders schlecht.
 
-Die Schriftdatei ist deshalb eine Kopie aus der App
-(`shared/src/commonMain/composeResources/font/domine_variable.ttf`) und liegt unter
-`schrift/`. Wer die Schrift der App wechselt, kopiert sie hier mit. Ein `woff2`-Subset wäre
-kleiner (die Variable-TTF ist 360 KB), braucht aber `fonttools` samt `brotli` — eine
-Optimierung, keine Voraussetzung.
+Unter `schrift/` liegen deshalb **woff2-Subsets der beiden Variable Fonts aus der App**
+(`nunito.woff2`, `inter.woff2`) — Nunito trägt Überschriften und Titel, Inter den
+Fließtext, genau wie `ui/theme/Type.kt`. Erzeugt von `tools/web_schrift_subset.py`, das
+Ergebnis ist eingecheckt; das Skript läuft nur, wenn die Schrift der App wechselt.
+
+Bis zum 10.10.2026 lag hier **Domine** als nackte 360-KB-TTF, und darunter trug die Seite
+schlicht die System-Sans des Geräts — also weder dieselbe Überschriftenschrift wie die App
+noch überhaupt eine entschiedene für den Text. Die Subsets wiegen zusammen **120 KB** und
+tragen trotzdem zwei Schriften statt einer; die damalige Notiz („ein woff2-Subset wäre
+kleiner, ist aber eine Optimierung, keine Voraussetzung") gilt nicht mehr: Zwei volle
+Variable-TTFs wären 1,1 MB gewesen.
+
+**Zwei Dinge müssen beim Wechsel zusammenpassen**, und keines davon meldet sich von selbst:
+
+- **Die `font-weight`-Spanne in `stil.css` und der Achsenbeschnitt im Skript.** Das Skript
+  schneidet Nunito auf 500–700 und Inter auf 400–600. Eine weiter angegebene Achse lässt
+  den Browser Gewichte versprechen, die die Datei nicht mehr hat; eine enger angegebene
+  lässt ihn selbst fälschen.
+- **Kein Gewicht über 600 im Fließtext.** Vier kleine Labels der Startseite standen auf 700
+  (`.schritte .nr`, `.store-status`, `.plan-liste b`, `.takt-sparen`) und stehen jetzt auf
+  600 — die Rolle, die die App dafür hat (`labelLarge`). Über 600 geht nur Nunito.
 
 ## Die Gestaltung kommt aus der App
 

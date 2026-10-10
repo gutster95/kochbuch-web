@@ -14,6 +14,14 @@
 
   Kein Build-Schritt, keine Abhaengigkeit, keine Anfrage nach draussen.
 
+  KEINE GEWICHTE UEBER 600 IM FLIESSTEXT. Inter liegt hier als woff2-Subset mit
+  einer wght-Achse von 400 bis 600 (tools/web_schrift_subset.py) - genau die
+  zwei Gewichte, die auch die App kennt (ui/theme/Type.kt: bodyFamily()). Vier
+  kleine Labels standen auf 700 und haetten den Browser synthetisch faelschen
+  lassen: .schritte .nr, .store-status, .plan-liste b, .takt-sparen. Sie stehen
+  jetzt auf 600 - die Rolle, die die App dafuer hat (labelLarge). Ueber 600 geht
+  nur Nunito, und Nunito traegt ausschliesslich Ueberschriften und Titel.
+
   KEINE SCHLAGSCHATTEN. Die Seite hatte welche - unter den Knoepfen, unter dem
   Telefon, unter der Rezeptkarte, unter der Premium-Karte - und sie sahen nach
   Bauteilen aus, die ueber dem Grund schweben, statt nach einer Flaeche.
@@ -27,11 +35,15 @@
 :root {
   /*
     Die gesaettigten Enden derselben Achse. Sie stehen in Color.kt als
-    ClayGradientStart/Mid/End und tragen in der App die Verlaufskarte des
+    ClayGradientStart/End und tragen in der App die Verlaufskarte des
     Abo-Screens; hier tragen sie die Preisflaeche.
+
+    Beide am 10.10.2026 mit der Palette nachgezogen (#7A2F1A -> #642514 und
+    #E8A176 -> #E9AA98). ClayGradientMid braucht hier keinen eigenen Token mehr:
+    Er IST --clay-500.
   */
-  --clay-tief: #7A2F1A;
-  --clay-warm: #E8A176;
+  --clay-tief: #642514;
+  --clay-warm: #E9AA98;
 
   /*
     Text auf dunklem Grund wird NICHT grau. Ink900 ist ein warmer Ton, und ein
@@ -106,11 +118,16 @@
 
 .band-clay {
   /*
-    Von unten dunkel nach oben warm: Der Preis steht oben in 3rem, die
-    Fliesstextzeilen darunter stehen auf dem dunkleren Ende. Flaches Clay500
-    kaeme bei 16px Text auf 4,4:1 und damit unter die Schwelle.
+    Von oben warm nach unten dunkel - dieselbe Achse wie die Verlaufskarte des
+    Abo-Screens in der App (`verticalGradient(Clay500, ClayGradientStart)`).
+
+    Bis zum 10.10.2026 fing sie erst bei Clay600 an und endete auf einem
+    Literal (#6F2712), weil das flache Clay500 von damals (#B54A2E) mit
+    16px-Text nur 4,4:1 hielt. Dieser Grund ist weg: Das tiefere #A7482E traegt
+    --sand-50 mit 5,24:1, das dunkelste Ende mit 10,41:1. Damit stehen hier drei
+    echte Tokens und kein gerundeter Zwischenwert mehr.
   */
-  background: linear-gradient(160deg, var(--clay-600) 0%, var(--clay-tief) 62%, #6F2712 100%);
+  background: linear-gradient(160deg, var(--clay-500) 0%, var(--clay-600) 55%, var(--clay-tief) 100%);
   color: var(--sand-50);
 }
 
@@ -119,7 +136,7 @@
 .start h1,
 .start h2,
 .start h3 {
-  font-family: "Domine", Georgia, serif;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
   color: var(--ink-900);
   text-wrap: balance;
   margin: 0;
@@ -233,16 +250,20 @@
 }
 
 /*
-  Clay600 statt Clay500: Weisse Schrift auf Clay500 kommt auf 4,4:1 und liegt
-  damit unter 4,5:1 fuer Text dieser Groesse. Clay600 haelt 6,3:1.
+  **Jetzt Clay500, der Markenton** - und das ist der sichtbarste Gewinn der
+  Palette vom 10.10.2026. Hier stand Clay600, weil die helle Schrift auf dem
+  alten #B54A2E nur 4,4:1 hielt und damit unter der Schwelle lag: Der wichtigste
+  Knopf der Startseite trug deshalb nicht die Farbe des Produkts, sondern eine
+  Notloesung. Das tiefere #A7482E haelt 5,24:1, genau wie der Kochen-Knopf in
+  der App - der Knopf hier und der Knopf dort sind endlich derselbe Ton.
 */
 .knopf-voll {
-  background: var(--clay-600);
+  background: var(--clay-500);
   color: var(--sand-50);
 }
 
 .knopf-voll:hover {
-  background: var(--clay-tief);
+  background: var(--clay-600);
   color: var(--sand-50);
   transform: translate3d(0, -2px, 0);
 }
@@ -251,15 +272,21 @@
   Der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem Grund -
   auf dem alten Sandverlauf ging das, auf der Holzplatte des Fotos nicht: Die
   Maserung lief mitten durch die Schrift, und der Knopf sah aus wie ein Rahmen
-  um nichts. Jetzt volle Flaeche in Sand100 - Weiss, wie die Karten der App.
+  um nichts. Jetzt volle Flaeche in Sand100 - derselbe Ton wie die Karten der
+  App.
+
+  **Hiess bis zum 10.10.2026 `.knopf-weiss`.** Sand100 war Weiss, der Name war
+  also richtig; mit dem Sandgrund waere er eine Luege geworden. Umbenannt und
+  nicht nur umkommentiert, weil ein Klassenname, der die falsche Farbe nennt,
+  beim naechsten Palettenwechsel genau die Stelle ist, die man uebersieht.
 */
-.knopf-weiss {
+.knopf-sand {
   background: var(--sand-100);
   color: var(--ink-900);
   border-color: var(--sand-200);
 }
 
-.knopf-weiss:hover { background: var(--sand-50); color: var(--ink-900); transform: translate3d(0, -2px, 0); }
+.knopf-sand:hover { background: var(--sand-50); color: var(--ink-900); transform: translate3d(0, -2px, 0); }
 
 .band-clay .knopf-voll {
   background: var(--sand-50);
@@ -323,7 +350,7 @@
 
 /*
   `cover` fuellt die Bahn immer ganz und schneidet den Ueberschuss symmetrisch
-  ab - weisse Balken kann es damit auf keinem Seitenverhaeltnis geben. Der Preis
+  ab - leere Balken kann es damit auf keinem Seitenverhaeltnis geben. Der Preis
   dafuer: Beschnitten wird auf BEIDEN Achsen, je nachdem welche knapper ist. Auf
   einem Telefon hochkant bleiben von der Breite rund 40 Prozent uebrig. Alles,
   was man erkennen koennen muss, gehoert deshalb in die Bildmitte.
@@ -555,7 +582,7 @@
 */
 .roh-text .hash { color: #9C8C7E; }
 
-/* Rechts: das fertige Rezept, in der Flaeche der App - seit 15.09.2026 Weiss. */
+/* Rechts: das fertige Rezept, in der Flaeche der App (Sand100). */
 .blatt-rezept {
   background: var(--sand-100);
   color: var(--ink-700);
@@ -565,8 +592,8 @@
 .blatt-rezept .blatt-marke { color: var(--ink-500); }
 
 .rezept-titel {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: 1.35rem;
   line-height: 1.15;
   color: var(--ink-900);
@@ -607,7 +634,7 @@
 */
 .rezept-spalten h3 {
   margin: 0 0 var(--sp-sm);
-  font-family: "Domine", Georgia, serif;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
   font-size: 0.95rem;
   line-height: 1.25;
   font-weight: 600;
@@ -637,7 +664,7 @@
 .zutaten .gruppe {
   border-bottom: 0;
   padding-top: var(--sp-md);
-  font-family: "Domine", Georgia, serif;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -657,7 +684,7 @@
 
 .schritte .nr {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--clay-600);
   background: var(--clay-100);
   border-radius: 50%;
@@ -682,8 +709,8 @@
   height: 52px;
   border-radius: 50%;
   color: var(--clay-warm);
-  background: rgba(192, 90, 49, 0.18);
-  border: 1px solid rgba(233, 160, 106, 0.35);
+  background: rgba(167, 72, 46, 0.18);
+  border: 1px solid rgba(233, 170, 152, 0.35);
 }
 
 .pfeil::before,
@@ -693,7 +720,7 @@
   top: 50%;
   width: var(--sp-xl);
   height: 1px;
-  background: rgba(233, 160, 106, 0.3);
+  background: rgba(233, 170, 152, 0.3);
 }
 
 .pfeil::before { right: 100%; }
@@ -934,12 +961,12 @@
 
 .store-status {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 3px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(252, 250, 247, 0.35);
+  border: 1px solid rgba(249, 242, 233, 0.35);
   color: var(--auf-clay-leise);
   white-space: nowrap;
 }
@@ -959,8 +986,8 @@
   gap: var(--sp-md);
   padding: var(--sp-xl);
   border-radius: var(--r-xxl);
-  background: rgba(31, 26, 22, 0.18);
-  border: 1px solid rgba(252, 250, 247, 0.16);
+  background: rgba(42, 26, 19, 0.18);
+  border: 1px solid rgba(249, 242, 233, 0.16);
 }
 
 /*
@@ -969,8 +996,8 @@
   ausserdem als einzige einen vollen Rand und einen Schatten.
 */
 .plan-voll {
-  background: rgba(252, 250, 247, 0.12);
-  border-color: rgba(252, 250, 247, 0.42);
+  background: rgba(249, 242, 233, 0.12);
+  border-color: rgba(249, 242, 233, 0.42);
 }
 
 .plan h3 {
@@ -992,9 +1019,9 @@
 }
 
 .plan-preis b {
-  font-family: "Domine", Georgia, serif;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
   font-size: 2.6rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--sand-50);
@@ -1020,7 +1047,7 @@
   color: var(--sand-50);
 }
 
-.plan-liste b { font-weight: 700; }
+.plan-liste b { font-weight: 600; }
 
 .plan-liste svg { margin-top: 3px; color: var(--auf-clay-leise); }
 
@@ -1040,8 +1067,8 @@
   align-self: start;
   padding: 3px;
   border-radius: 999px;
-  background: rgba(31, 26, 22, 0.28);
-  border: 1px solid rgba(252, 250, 247, 0.2);
+  background: rgba(42, 26, 19, 0.28);
+  border: 1px solid rgba(249, 242, 233, 0.2);
   margin-bottom: var(--sp-xs);
 }
 
@@ -1080,11 +1107,11 @@
 
 .takt-sparen {
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.03em;
   padding: 2px 6px;
   border-radius: 999px;
-  background: rgba(252, 250, 247, 0.22);
+  background: rgba(249, 242, 233, 0.22);
 }
 
 .takt-eingabe:checked + label .takt-sparen {

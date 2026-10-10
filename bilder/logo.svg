@@ -30,11 +30,17 @@
 
     Weiss und nicht Sand50 wie sonst im Theme: Auf dem Terracotta traegt reines
     Weiss den Kontrast, den ein Zeichen in Faviconsgroesse braucht.
+
+    Der Verlauf ist am 10.10.2026 mit der Palette nachgezogen worden
+    (#B54A2E -> #A7482E und #8F3A20 -> #6E2D1B, also Clay500 -> Clay600 aus
+    ui/theme/Color.kt). Wer ihn wieder anfasst, zieht ic_launcher_background.xml,
+    die iOS-PNGs und logo-180.png/logo-mail.png mit - sonst traegt das Icon auf
+    dem Homescreen eine andere Hausfarbe als die App, die es oeffnet.
   -->
   <defs>
     <linearGradient id="logo-verlauf" x1="6" y1="6" x2="102" y2="102" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#B54A2E"/>
-      <stop offset="1" stop-color="#8F3A20"/>
+      <stop offset="0" stop-color="#A7482E"/>
+      <stop offset="1" stop-color="#6E2D1B"/>
     </linearGradient>
   </defs>
   <rect x="6" y="6" width="96" height="96" rx="21.5" fill="url(#logo-verlauf)"/>

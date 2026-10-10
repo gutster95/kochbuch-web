@@ -54,12 +54,31 @@ sähe aus wie ein Rechtstext mit Bildern. Deshalb tragen zwei Bahnen die volle S
 
 | Bahn | Fläche | Text darauf |
 |---|---|---|
-| Held, Funktionen, Schluss | `--sand-50`, im Held zwei sehr weiche Farbkreise aus `--clay-100` und `--sage-100` | `--ink-900` / `--ink-700` |
+| Held, Funktionen, Schluss | `--sand-100`, im Held zwei sehr weiche Farbkreise aus `--clay-100` und `--sage-100` | `--ink-900` / `--ink-700` |
 | Die Verwandlung | `--ink-900`, ganzflächig | `#F3EBE2`, sekundär `#C4B2A4` |
-| Der Preis | Verlauf `--clay-600` → `#7A2F1A` → `#6F2712` | `--sand-50`, sekundär `#FADFCF` |
+| Der Preis | Verlauf `--clay-500` → `--clay-600` → `--clay-tief` | `--sand-50`, sekundär `#FADFCF` |
 | Fuß | `--ink-900` | wie die Verwandlungsbahn |
 
 **Sekundärtext auf farbigem Grund ist nie grau**, sondern aus dem Ton der Fläche gezogen.
+
+**Der Grund ist seit dem 10.10.2026 getönt** (`--sand-100` = `#E8E2D6`), vorher Weiß. Die
+App ist es, und eine weiße Website daneben ist der Bruch, den man zuerst sieht. Zwei
+Nebenwirkungen auf dieser Seite, beide nachgerechnet:
+
+- **`--sand-50` ist jetzt HELLER als der Grund**, nicht dunkler. In der App ist das die enge
+  Stelle der Palette (eine Rezeptkarte ohne Bild liegt als heller Fleck im Raster); hier
+  trägt es nur die Stimmen-Bahn (`.band-sand`) und den Hover des zweiten Knopfs. Die Bahn
+  war immer ein Flüstern und ist jetzt ein etwas lauteres: gegen Weiß kam sie auf 1,11 : 1,
+  gegen den Sandgrund auf **1,16 : 1**.
+- **Die Preisbahn fängt eine Stufe heller an.** Sie lief vorher von `--clay-600` abwärts und
+  endete auf einem gerundeten Literal, weil das damalige Clay500 die Fließtextzeilen nicht
+  sicher trug. Jetzt sind es drei echte Tokens — und alle drei halten `--sand-50` mit
+  mindestens 5,24 : 1.
+
+Die Tokens standen von Mitte September bis zum 10.10.2026 **auseinander**: `stil.css` trug
+noch die weiße Fassung, während die App schon auf Sand lief. Das war eine bewusste
+Vertagung („die Website ist live, ihr Umbau ist eine eigene Entscheidung") und ist mit
+diesem Stand erledigt.
 
 **Der Auftritt wirft keine Schatten.** Es lagen sieben `box-shadow`-Regeln auf den Seiten —
 unter beiden Knopfarten, zweifach unter dem Telefonrahmen, unter der Rezeptkarte, unter der
@@ -72,19 +91,42 @@ Lichtkante **innen** an der Oberkante des Telefonrahmens (`inset`); ohne sie ist
 ein schwarzes Rechteck. `--shadow` (aus `ShadowTint` in `Color.kt`) trug danach nichts mehr
 und ist mitgegangen.
 
-**Knöpfe stehen in `--clay-600`, nicht in `--clay-500`.** Weiß auf Clay500 kommt auf
-4,4 : 1 und liegt damit unter der Schwelle für Text dieser Größe; Clay600 hält 6,3 : 1.
-Aus demselben Grund läuft der Preisverlauf ins Dunkle statt ins Warme: Auf dem hellen Ende
-wären die Fließtextzeilen darunter nicht mehr sicher lesbar.
+**Knöpfe stehen seit dem 10.10.2026 in `--clay-500`, dem Markenton.** Vorher mussten sie
+in `--clay-600` stehen: Die helle Schrift auf dem damaligen Clay500 (`#B54A2E`) kam auf
+4,4 : 1 und lag damit unter der Schwelle für Text dieser Größe — der wichtigste Knopf der
+Startseite trug deshalb nicht die Farbe des Produkts, sondern eine Notlösung. Das tiefere
+`#A7482E` hält 5,24 : 1, genau wie der Kochen-Knopf in der App.
+
+**Links in den Rechtstexten bleiben dagegen auf `--clay-600`** (`stil.css`). Clay500 wäre
+dort jetzt mit 4,51 : 1 zulässig — mit einem Hundertstel Luft. Ein Datenschutztext ist die
+falsche Stelle für eine Farbe, die bei der nächsten Verschiebung des Grundes umkippt.
+
+Der Preisverlauf läuft weiterhin ins Dunkle, fängt aber jetzt bei Clay500 an statt bei
+Clay600 — dieselbe Achse wie die Verlaufskarte des Abo-Screens in der App. Alle drei Stopps
+tragen `--sand-50` mit mindestens 5,24 : 1.
 
 ## Schrift
 
-Domine trägt **ausschließlich** Überschriften, Rezepttitel, Marke und Preise — genau wie
-in der App (`ui/theme/Type.kt`). Bis zum 15.08.2026 stand hier Fraunces; gewechselt wurde
-in der App, und die Website zieht mit, weil sonst Store-Eintrag, Website und App nach drei
-Produkten aussehen. Domine deckt die wght-Achse nur von 400 bis 700 ab — die Serife steht
-überall auf 600, das reicht. Fließtext, Label und Zahlen stehen im System-Sans. Vier
-Größen reichen auch hier: `h1` bis 5,25rem (`clamp`), `h2` bis 2,5rem, `h3` 1,2rem,
+**Nunito** trägt ausschließlich Überschriften, Rezepttitel, Marke und Preise, **Inter**
+den Fließtext, die Labels und die Zahlen — genau wie in der App (`ui/theme/Type.kt`).
+
+Vorher stand hier Domine über den Überschriften und darunter schlicht die System-Sans des
+Geräts; davor Fraunces. Gewechselt wird immer in der App, und die Website zieht mit, weil
+sonst Store-Eintrag, Website und App nach drei Produkten aussehen. **Dass der Fließtext
+jetzt eine eigene Schrift hat, ist der größere der beiden Schritte:** Die System-Sans war
+nie eine Entscheidung, sondern eine Lücke — dieselbe Seite sah auf zwei Geräten verschieden
+aus, und die Abstimmung mit der Überschriftenschrift konnte man gar nicht prüfen.
+
+**Die Überschriften sind von 600 auf 700 gegangen.** Eine Serife trägt als Variable Font
+bei 700 deutlich mehr Strichkontrast und wirkte eine Stufe zu fett; eine gerundete Sans
+baut leichter, und was bei Domine als SemiBold satt stand, wirkt mit Nunito noch
+zurückhaltend. Dieselbe Verschiebung hat die App beim Schriftwechsel gemacht.
+
+**Im Fließtext geht kein Gewicht über 600** — Inters Achse endet im Subset dort, wie die
+beiden Gewichte der App (`bodyFamily()`). Vier kleine Labels standen auf 700 und hätten den
+Browser synthetisch fälschen lassen.
+
+Vier Größen reichen auch hier: `h1` bis 5,25rem (`clamp`), `h2` bis 2,5rem, `h3` 1,2rem,
 Fließtext 1rem mit einem größeren Vorspann bei 1,2rem.
 
 **Der Abstand zwischen den Ebenen war zu klein.** Bis zum 17.08.2026 standen sie auf
@@ -187,9 +229,11 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   Funktionen — sechs Sprachen, Kategorien und Favoriten, Suche über alles. Das sind
   Selbstverständlichkeiten, die jede Rezept-App hat, und die Bildschirmfotos darüber zeigen
   sie ohnehin.
-- **`.knopf-weiss`** — der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem
+- **`.knopf-sand`** — der zweite Knopf im ersten Bild. Er war ein Umriss auf durchsichtigem
   Grund; auf dem alten Sandverlauf ging das, auf der Holzplatte des Fotos nicht: Die
   Maserung lief mitten durch die Schrift, und der Knopf sah aus wie ein Rahmen um nichts.
+  **Hieß bis zum 10.10.2026 `.knopf-weiss`** — der Name war richtig, solange `--sand-100`
+  Weiß war, und wäre mit dem Sandgrund eine Lüge geworden.
 - Der **Vormerken-Knopf** (`mailto:`) unter den Store-Zeilen ist ebenfalls raus. Er sammelte
   Adressen für einen Verteiler, den es nicht gibt und nicht geben soll — und eine
   E-Mail-Adresse einzusammeln, ohne zu wissen, was man damit tut, ist der Anfang jedes
@@ -494,7 +538,8 @@ Drei Dinge waren dabei mehr als Kosmetik:
 
 - **Jeder Link in den Rechtstexten stand auf `--clay-500`** und damit auf 4,25 : 1, in
   einer Karte sogar auf 3,94 : 1. Das betraf ausgerechnet die Seiten, die im
-  Play-Eintrag verlinkt sind. Sie stehen jetzt auf `--clay-600` (6,05 : 1).
+  Play-Eintrag verlinkt sind. Sie stehen jetzt auf `--clay-600` — mit dem Sandgrund vom
+  10.10.2026 sind das 7,93 : 1, und dort bleiben sie (siehe „Schrift" oben).
 - **Einen Fokusring hatten sie gar nicht.** Er war nur in `start.css` definiert; die
   Rechtsseiten erbten den des Browsers, der auf hellem Sand kaum zu sehen ist.
 - **Der Kopf klebt jetzt.** Die Datenschutzerklärung ist knapp 400 Zeilen lang, und der Weg
@@ -514,7 +559,7 @@ Regel verschwindet.
 
 - **`.tarif span` gegen `.tarif-sparen`.** Der Sparen-Chip ist ein `span` in `.tarif`, und
   `.tarif span { color: … }` ist spezifischer als eine Klasse allein — der Chip stand
-  einmal in der Fließtextfarbe auf seiner weißen Fläche. Deshalb `.tarif .tarif-sparen`.
+  einmal in der Fließtextfarbe auf seiner hellen Fläche. Deshalb `.tarif .tarif-sparen`.
 - **Die Höhe der Geräte.** Das Seitenverhältnis bringt seit dem Umstieg auf Screenshots
   das Bild selbst mit (`width`/`height` am `<img>`, dazu `aspect-ratio: 1080 / 2424`); der
   Rahmen richtet sich danach. Ein `aspect-ratio` am `.telefon` wäre falsch: Das Polster von

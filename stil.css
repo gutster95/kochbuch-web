@@ -19,52 +19,107 @@
   seitdem massenhaft abgemahnt wird. Auf einer DATENSCHUTZERKLAERUNG waere das
   besonders schlecht.
 
-  Die Datei ist die variable Fassung aus der App
-  (shared/src/commonMain/composeResources/font/domine_variable.ttf), damit
-  Website und App buchstaeblich dieselbe Schrift tragen. `font-weight: 400 700`
-  gibt die wght-Achse an den Browser weiter - Domine hat, anders als Fraunces
-  vorher, weder unter 400 noch ueber 700 etwas anzubieten; eine zu weit
-  angegebene Achse laesst den Browser Gewichte versprechen, die die Datei nicht
-  hat. `font-display: swap` zeigt sofort die Ersatzschrift statt einer leeren
-  Flaeche.
+  **Zwei Schriften, dieselbe Aufteilung wie in der App** (ui/theme/Type.kt):
+  Nunito traegt ausschliesslich Ueberschriften und Titel, Inter den Fliesstext,
+  die Labels und die Zahlen. Bis zum 10.10.2026 stand hier Domine ueber den
+  Ueberschriften und darunter schlicht die System-Sans - also weder dieselbe
+  Ueberschriftenschrift wie die App noch ueberhaupt eine entschiedene fuer den
+  Text. Der Kontrast Display/Sans ist die Hierarchie dieses Produkts; eine Seite,
+  die ihn nicht traegt, sieht neben der App nach einem anderen Absender aus.
+
+  Die Dateien sind woff2-SUBSETS der Variable Fonts aus der App
+  (shared/src/commonMain/composeResources/font/) - erzeugt von
+  tools/web_schrift_subset.py, Ergebnis eingecheckt. Domine lag hier als nackte
+  360-KB-TTF; die beiden Subsets wiegen zusammen 120 KB und tragen trotzdem zwei
+  Schriften statt einer. Die Begruendung von damals ("ein woff2-Subset waere
+  kleiner, ist aber eine Optimierung, keine Voraussetzung") gilt nicht mehr:
+  Zwei volle Variable-TTFs waeren 1,1 MB gewesen.
+
+  **Die `font-weight`-Spanne muss zum Achsenbeschnitt des Subsets passen.** Das
+  Skript schneidet Nunito auf 500-700 und Inter auf 400-600 - genau die
+  Gewichte, die der Auftritt abruft. Eine weiter angegebene Achse laesst den
+  Browser Gewichte versprechen, die die Datei nicht mehr hat; eine enger
+  angegebene laesst ihn selbst faelschen (synthetisches Fett).
+
+  `font-display: swap` zeigt sofort die Ersatzschrift statt einer leeren Flaeche.
 */
 @font-face {
-  font-family: "Domine";
-  src: url("schrift/domine.ttf") format("truetype-variations");
-  font-weight: 400 700;
+  font-family: "Nunito";
+  src: url("schrift/nunito.woff2") format("woff2");
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("schrift/inter.woff2") format("woff2");
+  font-weight: 400 600;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
   /*
-    60 % neutrale Basis - die Werte und ihre ROLLEN aus Color.kt (Stand 15.09.2026):
-    --sand-100 ist der Grund und die Karte (Weiss), --sand-50 die Schrift auf
-    Terracotta und die ruhige Zwischenstufe (Creme). Bis dahin war es umgekehrt,
-    Sand50 der Grund - die App ist am 15.09. auf Weiss gegangen, weil ein getoenter
-    Grund auf dem Geraet nicht warm wirkte, sondern schmutzig. --sand-400 ist der
-    Umriss mit Bedeutung (3,1:1 auf Weiss), --sand-200 die leise Trennlinie.
+    60 % neutrale Basis - die Werte und ihre ROLLEN aus Color.kt (Stand 10.10.2026):
+    --sand-100 ist der Grund UND die Karte, --sand-50 die Schrift auf Terracotta
+    und die ruhige Zwischenstufe.
+
+    **Der Grund ist seit dem 10.10.2026 wieder getoent** (Sand statt Weiss) - die
+    App ist es, und eine weisse Website daneben ist der Bruch, den man zuerst
+    sieht. Vom 15.09. bis 10.10. stand hier Weiss, davor ein Pfirsich.
+
+    Dass Grund und Karte DERSELBE Ton sind, ist Absicht und kein Sparzwang: Was
+    sich abheben soll, tut das ueber die Toenung (--clay-100) oder ueber seinen
+    Rand - nicht ueber eine zweite Sandstufe, die es in Color.kt nicht gibt.
+
+    --sand-50 ist damit HELLER als der Grund (1,16:1). Das ist auf der Website
+    harmlos, weil sie die kritische Rolle der App nicht hat (dort ist es die
+    Rezeptkarte ohne Bild): Hier traegt sie nur ruhige Flaechen MIT Rand.
+
+    --sand-400 ist der Umriss mit Bedeutung (3,01:1 gegen den Sandgrund, Schwelle
+    WCAG 1.4.11), --sand-200 die leise Trennlinie (1,31:1 - die muss nur zu sehen
+    sein, nicht lesbar). Beide sind am 10.10. mit dem Grund nachgezogen worden;
+    die alten Werte lagen bei 2,43:1 bzw. 1,06:1 und damit unter der Schwelle
+    bzw. unsichtbar.
   */
   --sand-50:  #F9F2E9;
-  --sand-100: #FFFFFF;
-  --sand-200: #E9DDD0;
-  --sand-400: #A88C78;
+  --sand-100: #E8E2D6;
+  --sand-200: #D9C4AE;
+  --sand-400: #9B7B65;
 
   /* 30 % Text und Struktur - dunkles Rotbraun, kein neutrales Grau */
   --ink-900:  #2A1A13;
   --ink-700:  #4A3227;
-  --ink-500:  #7A6154;
+  --ink-500:  #796054;
 
   /*
-    10 % Akzent. Clay500 ist eine Stufe tiefer als das fruehere #C05A31: Das hielt
-    gegen die helle Schrift nur 3,98:1, dieser Ton 4,75:1 gegen Creme und 5,3:1
-    gegen Weiss. Wer ihn verschiebt, rechnet das Paar nach.
+    10 % Akzent. Nur ZWEI Werte dieser Palette sind gesetzt - --sand-100 und
+    --clay-500; jeder andere ist das Ergebnis einer Schwelle. Wer einen Ton
+    verschiebt, rechnet sein Paar nach (tools/farbprobe/ in der App).
+
+    --clay-500 ist am 10.10.2026 eine Stufe tiefer gegangen (#B54A2E -> #A7482E),
+    und nicht dem Knopf zuliebe: Auf dem getoenten Grund traegt der Akzent als
+    TEXT nur noch 4,51:1 - mit dem alten Wert waeren es 4,09:1 gewesen. Gegen
+    --sand-50 als Schrift auf dem Knopf haelt er 5,24:1.
+
+    --clay-100 musste mit dem Sandgrund TIEFER, nicht heller (#FBEADF ->
+    #E4C5B5), und das ist der unerwartetste Teil der Umrechnung: --sand-100 liegt
+    mit einer Leuchtdichte von 0,764 MITTEN im Bereich der alten Toenung, jeder
+    hellere Kandidat landet bei 1,01 bis 1,17:1 und verschwindet im Grund.
   */
-  --clay-500: #B54A2E;
-  --clay-600: #8F3A20;
-  --clay-100: #FBEADF;
-  --sage-500: #4E7343;
-  --sage-100: #E6EFE2;
+  --clay-500: #A7482E;
+  --clay-600: #6E2D1B;
+  --clay-100: #E4C5B5;
+
+  /*
+    Sage traegt auf der Website genau zwei Dinge: den Haken der
+    Bestaetigungsseite und den Punkt der Statuszeile. Beide am 10.10. mit dem
+    Grund nachgezogen. --sage-500 auf --sage-100 kommt dabei auf 3,61:1 - das
+    genuegt, weil es dort GRAFIK ist (ein Strichpfad, Schwelle 3:1) und kein Text.
+  */
+  --sage-500: #4B6E40;
+  --sage-100: #BAD3AF;
   /*
     ShadowTint aus Color.kt hat hier KEINE Entsprechung mehr: Der Auftritt wirft
     keine Schatten. Karten trennt ihr Rand, Bahnen trennt ihre Flaeche. Der
@@ -107,7 +162,7 @@ body {
   min-height: 100svh;
   background: var(--sand-100);
   color: var(--ink-700);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -152,7 +207,7 @@ body {
   font-weight: 600;
 }
 
-.sprung:focus-visible { left: 0; outline-color: var(--clay-warm, #E8A176); }
+.sprung:focus-visible { left: 0; outline-color: var(--clay-warm, #E9AA98); }
 
 /*
   Der Fokusring steht HIER und nicht in start.css: Er gehoert zu jeder Seite,
@@ -237,12 +292,15 @@ body {
 /*
   Gemischt und in Ink900, nicht mehr gesperrt in Terracotta-Versalien. Die alte
   Fassung stammt aus der Zeit, als es nur die Bestaetigungsseite gab; seit der
-  Startseite steht dieselbe Marke zweimal verschieden da - und Clay500 auf Sand
-  haelt nur 4,25:1.
+  Startseite steht dieselbe Marke zweimal verschieden da.
+
+  In Ink900 bleibt sie ausserdem unabhaengig von der Palette: Der Markenton hielt
+  als Schrift auf dem Grund damals 4,25:1 und heute 4,51:1 - beides zu knapp fuer
+  etwas, das auf jeder Seite oben links steht.
 */
 .marke {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: 0.02em;
   color: var(--ink-900);
@@ -329,9 +387,9 @@ body {
 }
 
 .fuss-marke {
-  font-family: "Domine", Georgia, serif;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #F3EBE2;
   display: inline-flex;
   align-items: center;
@@ -360,7 +418,7 @@ body {
   text-decoration: none;
 }
 
-.fuss-spalte a:hover { color: #E8A176; }
+.fuss-spalte a:hover { color: #E9AA98; }
 
 /*
   Die Seite, auf der man gerade steht, ist im Fuss hervorgehoben. `aria-current`
@@ -380,11 +438,11 @@ body {
 }
 
 /* Clay600 haelt auf Ink900 nur 2,7:1 - dort braucht der Ring den warmen Ton. */
-.seitenfuss :focus-visible { outline-color: #E8A176; }
+.seitenfuss :focus-visible { outline-color: #E9AA98; }
 
 .seitenfuss .sprachen,
 .seitenfuss .sprachen a { color: #C4B2A4; }
-.seitenfuss .sprachen a:hover { color: #E8A176; }
+.seitenfuss .sprachen a:hover { color: #E9AA98; }
 .seitenfuss .sprachen [aria-current="true"] { color: #F3EBE2; }
 
 @media (max-width: 62rem) {
@@ -406,8 +464,8 @@ main { padding: var(--sp-2xl) 0 var(--sp-3xl); }
   verschieden aus.
 */
 h1 {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: clamp(1.85rem, 1.35rem + 2.1vw, 2.6rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -417,8 +475,8 @@ h1 {
 }
 
 h2 {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -434,8 +492,8 @@ h2 {
 }
 
 h3 {
-  font-family: "Domine", Georgia, serif;
-  font-weight: 600;
+  font-family: "Nunito", system-ui, "Segoe UI", sans-serif;
+  font-weight: 700;
   font-size: 1.08rem;
   line-height: 1.3;
   color: var(--ink-900);
@@ -449,14 +507,22 @@ ul, ol { padding-left: var(--sp-xl); }
 li { margin-bottom: var(--sp-xs); }
 
 /*
-  Clay600 statt Clay500: Auf Sand50 kommt Clay500 auf 4,25:1 und in einer Karte
-  (Sand100) auf 3,94:1 - beides unter den 4,5:1 fuer Text dieser Groesse. Das
-  betraf JEDEN Link in den Rechtstexten, also ausgerechnet die Seiten, die im
-  Play-Eintrag verlinkt sind.
+  Clay600 statt Clay500, und das bleibt so.
+
+  Als die Regel entstand, war sie eine Notwendigkeit: Clay500 (#B54A2E) kam auf
+  Sand50 auf 4,25:1 und in einer Karte auf 3,94:1 - beides unter den 4,5:1 fuer
+  Text dieser Groesse, und das betraf JEDEN Link in den Rechtstexten, also
+  ausgerechnet die Seiten, die im Play-Eintrag verlinkt sind.
+
+  Mit dem tieferen #A7482E traegt Clay500 jetzt 4,51:1 auf dem Grund und waere
+  damit zulaessig - aber mit einem Hundertstel Luft. Ein Datenschutztext ist
+  die falsche Stelle fuer eine Farbe, die bei der naechsten Verschiebung des
+  Grundes umkippt; Clay600 haelt 7,93:1. Dass Links hier ruhiger stehen als der
+  Markenton, ist auf einer Seite mit 380 Zeilen Fliesstext ohnehin richtig.
 */
 a { color: var(--clay-600); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-/* Im Hover bleibt die Farbe und der Strich wird dicker - Clay500 laege auch
-   hier unter der Schwelle, und ein Zustand ist von der Regel nicht ausgenommen. */
+/* Im Hover bleibt die Farbe und der Strich wird dicker - ein Zustand ist von
+   der Kontrastregel nicht ausgenommen. */
 a:hover { text-decoration-thickness: 2px; }
 
 strong { color: var(--ink-900); font-weight: 600; }
@@ -503,10 +569,17 @@ strong { color: var(--ink-900); font-weight: 600; }
   Rot markierte Platzhalter, die vor der Veroeffentlichung gefuellt werden
   MUESSEN. Absichtlich haesslich: Ein dezenter Platzhalter im Impressum
   ueberlebt jede Durchsicht.
+
+  **Am 10.10.2026 umgedreht**, und zwar nicht aus Geschmack: Der Chip war ein
+  blasses Rosa (#FCE9E7) mit rotem Text - auf Weiss eine Flaeche, auf dem
+  Sandgrund mit 1,10:1 keine mehr. Ein Platzhalter, der mit dem Grund
+  verschwimmt, ist genau der Fehler, gegen den diese Regel geschrieben wurde.
+  Jetzt volle Flaeche in Alert500: 5,07:1 gegen den Grund, 5,88:1 fuer die
+  Schrift darauf. Die Werte stehen woertlich in Color.kt.
 */
 .todo {
-  background: #FCE9E7;
-  color: #B3261E;
+  background: #B3261E;
+  color: var(--sand-50);
   border-radius: var(--r-sm);
   padding: 2px 6px;
   font-weight: 600;
