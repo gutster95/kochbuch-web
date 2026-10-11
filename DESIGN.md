@@ -149,10 +149,30 @@ als nächste Ebene, sondern als zweite Hauptzeile — die Seite hatte damit sech
   die Buckets privat gemacht hat. Die Fotos der Demo-Rezepte kommen von Pexels (kostenlos,
   kommerziell nutzbar, ohne Namensnennung).
 
-  Zwei Stellen im vierten Bild sind **nachträglich ersetzt**: der Einladungscode (der echte
-  war sieben Tage gültig — ein gültiger Code auf einer öffentlichen Seite ist ein Zugang zum
-  eigenen Kochbuch) und Bild wie Name des verknüpften Kontos (eine reale Person, die dem
-  nicht zugestimmt hat). Wer die Bilder neu erzeugt, muss beides wieder ersetzen.
+  **Die vier Bilder entstehen über `tools/screenshots/`**, nicht von Hand (Stand 11.10.2026,
+  Sandfassung mit Nunito/Inter und Phosphor-Icons). Dort liegt auch, was am Rohbild noch
+  geschieht und warum — kurz:
+
+  - **Die Statusleiste wird übermalt.** Das Pixel ist ein Privatgerät; in der Leiste stehen
+    die Zeichen laufender Benachrichtigungen (Messenger, Mail). Die auf einer Werbeseite zu
+    zeigen wäre eine Nebenbei-Veröffentlichung fremder Nachrichten — und der SysUI-Demo-Modus
+    blendet sie auf diesem Android nicht mehr aus. Die echten Benachrichtigungen des Nutzers
+    dafür zu löschen wäre der falsche Eingriff.
+  - **Der Einladungscode im vierten Bild ist unmöglich, nicht nur erfunden.** `K7F2QL`
+    enthält ein `L`, und das Alphabet von `create_cookbook_invite` ist
+    `ABCDEFGHJKMNPQRSTUVWXYZ23456789` — ohne I, L, O, 0 und 1, damit beim Vorlesen nichts zu
+    verwechseln ist. Ein Code mit `L` kann also nie entstehen. **Ein echter reicht nicht aus:**
+    `create_cookbook_invite` entwertet den vorherigen nicht, „Neuen Code erzeugen" nach der
+    Aufnahme hilft also nicht — der fotografierte bliebe sieben Tage lang ein Zugang zum
+    Kochbuch.
+  - **Die Zeile „Anna" im vierten Bild ist gezeichnet, nicht fotografiert.** Das Demo-Konto
+    hat kein verknüpftes Kochbuch, und eine echte Verknüpfung bräuchte ein zweites Konto, das
+    sich auf demselben Gerät anmeldet. Der Abschnitt der Startseite heißt aber „Ein Code, und
+    ihr kocht aus einem Buch" — ein Bild mit „Kein Kochbuch verknüpft" widerlegt ihn. Gezeichnet
+    wird mit den Dateien der App (dieselben Variable Fonts, dieselben Farbwerte aus
+    `Color.kt`, der Phosphor-Pfad aus `ic_chevron_down.xml`), nicht mit Ähnlichem. In der
+    vorigen Fassung stand an derselben Stelle eine **reale Person**, deren Name und Foto
+    nachträglich ersetzt werden mussten; seitdem entsteht die Zeile ganz.
 - **`.blatt-roh` / `.blatt-rezept`** — die zwei Seiten der Verwandlung, gleich hoch
   (`align-items: stretch`) und mit derselben Kopfzeile aus Marke und Haarstrich
   (`.blatt-kopf`). Vorher war links ein grauer Textblock und rechts eine gebaute Karte: zwei
@@ -386,17 +406,40 @@ Bild danach legt die Seite 14 % des Restwegs zurück, und mehrere Schritte addie
 dasselbe Ziel, statt sich zu überholen. Ohne Bibliothek — eine Scroll-Bibliothek wäre die
 erste Abhängigkeit des Auftritts überhaupt.
 
-Vier Riegel, und jeder steht für einen Fall, in dem Übernehmen falsch wäre:
+**Die eine Regel: Es darf nie zugleich nativ und per Skript gescrollt werden** (seit
+11.10.2026). Genau daran ist die erste Fassung gestorben, sichtbar auf dem Mac — die Seite
+sprang beim Auslaufen hoch und runter, bevor sie stand. Der Grund saß in der
+Trackpad-Erkennung: Sie entschied **je Ereignis** am Betrag. Ein Wisch auf dem Mac liefert
+aber innerhalb **einer** Geste Beträge auf beiden Seiten der Schwelle — erst anschwellend,
+dann als auslaufende Trägheit. Die großen wurden abgefangen und auf ein Ziel gelegt, die
+kleinen liefen ungebremst durch und scrollten die Seite nativ weiter; die noch laufende
+Animation sah die Seite daraufhin **hinter** ihrem Ziel und zog sie zurück. Zwei Scroller,
+ein Dokument.
+
+Fünf Riegel, und jeder steht für einen Fall, in dem Übernehmen falsch wäre:
 
 - **`prefers-reduced-motion`** — das Rad ist die Eingabe, mit der am häufigsten navigiert
   wird; sie umzubauen ist genau die Art Bewegung, gegen die die Einstellung steht.
-- **Trackpads bleiben unberührt.** Sie liefern viele kleine Schritte und bringen ihre eigene
-  Trägheit mit; beides übereinander fühlt sich schwammig an. Erkannt am Betrag (ab 40 px je
-  Rastung ist es ein Rad).
+- **Auf macOS bleibt alles nativ.** Dort legt schon das System jeder Eingabe — Trackpad,
+  Magic Mouse und auch dem schlichten Rad — seine eigene Trägheit bei; diese hier käme
+  obendrauf. Derselbe Gedanke wie beim Trackpad, nur gilt er dort für jedes Zeigegerät.
+  Geprüft wird die **Plattform**, nicht der Browsername: Die Trägheit kommt vom System,
+  nicht von der Maschine.
+- **Trackpads bleiben unberührt** — sie bringen ihre eigene Trägheit mit. Erkannt am Betrag
+  (ab 40 px je Rastung ist es ein Rad), aber **einmal je Geste** am ersten Ereignis, und die
+  Entscheidung hält bis zur nächsten Pause von 150 ms. Je Ereignis zu entscheiden war der
+  Fehler oben.
 - **Eigene Scrollbereiche behalten ihr Rad.** Ein `preventDefault` am Fenster nimmt es sonst
   jedem Kasten mit `overflow: auto` weg.
 - **Tastatur, Sprungmarke, Scrollbalken übernehmen sofort** — sonst zöge das laufende Ziel die
-  Seite gegen die Tastatur zurück.
+  Seite gegen die Tastatur zurück. Dazu die **Gegenprobe in jedem Bild**: Steht die Seite
+  nicht da, wo die Animation sie zuletzt hingesetzt hat, hat jemand anders sie bewegt — und
+  dann gehört sie ihm. Das fängt auch, was keine dieser Eingaben ist: das Gummiband am Rand,
+  eine Sprungmarke, ein nachgeladenes Bild.
+
+**Der Auslauf hängt an der verstrichenen Zeit, nicht an der Zahl der Bilder.** Fest 14 % je
+Bild wären auf einem 120-Hz-Schirm der doppelte Weg je Sekunde — derselbe Code liefe dort
+doppelt so schnell aus, und die halbe Sekunde oben wäre nur auf der Hälfte der Geräte wahr.
 
 Für die Dauer der Fahrt steht `scroll-behavior` am Wurzelelement auf `auto` und danach wieder
 auf seinem alten Wert: Das `smooth` aus `stil.css` legte sonst seine eigene weiche Fahrt über

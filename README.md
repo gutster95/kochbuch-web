@@ -196,7 +196,9 @@ laesst das Mausrad weich auslaufen; ohne sie scrollt die Seite wie jede andere. 
 ist sie auf den zehn Inhaltsseiten, **nicht** auf den beiden Bestaetigungsseiten: Die sind
 zwei Saetze lang, es gibt dort nichts zu scrollen — und sie sind die Landung nach dem
 Aktivierungslink, die so wenig wie moeglich laden soll. Was sie im Einzelnen tut und welche
-vier Faelle sie ausnimmt, steht in ihrem Kopf und in `DESIGN.md`.
+fuenf Faelle sie ausnimmt, steht in ihrem Kopf und in `DESIGN.md`. **Auf macOS haelt sie sich
+ganz heraus** — dort smootht schon das System jede Eingabe, und beides uebereinander liess die
+Seite beim Auslaufen hoch und runter springen.
 
 **Das Logo ist eine Datei fuer alles** (`bilder/logo.svg`): Marke im Kopf und Fuss jeder
 Seite und zugleich `rel="icon"`. Seine Geometrie ist woertlich aus
