@@ -187,7 +187,7 @@ schrift/inter.woff2     Fliesstext, Labels und Zahlen, Subset aus der App
 schrift/OFL.txt         ihre Lizenz (SIL Open Font License 1.1, fuer beide)
 bilder/logo.svg         das App-Logo, zugleich Favicon
 bilder/logo-180.png     dasselbe fuer den iOS-Homescreen
-bilder/app-*.webp       die vier Screenshots der Startseite
+bilder/app-*.webp       die fuenf Screenshots der Startseite
 bilder/badge-*.png/svg  die offiziellen Store-Abzeichen (Marken von Google und Apple)
 ```
 

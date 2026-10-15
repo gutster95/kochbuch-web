@@ -458,7 +458,40 @@ everything else in the video 👆 don't forget to save
           <div class="telefon">
             <img class="schirm-bild" src="../bilder/app-kochmodus.webp"
                  width="640" height="1436" loading="lazy" decoding="async"
-                 alt="Cooking mode: step 3 of 5 shown large, with back and next buttons below.">
+                 alt="Cooking mode: step 1 of 5 shown large, with that step's ingredients below it, one of them ticked off.">
+          </div>
+        </div>
+      </div>
+
+      <!--
+        Nutrition comes LAST and stays understated: it is an estimate, and a
+        calorie figure looks the same estimated as measured. Heading, body text
+        AND the first bullet all say so - whoever shortens this block removes
+        exactly the part that makes it true. No nutrition-label look, no wording
+        that suggests a mandatory declaration (EU FIC).
+      -->
+      <div class="zug zug-gedreht" data-auftritt-gruppe>
+        <div class="zug-text" data-auftritt>
+          <h2>Roughly what is in it</h2>
+          <p class="gross">
+            For every recipe the app estimates the nutrition: energy, protein, fat and
+            carbohydrates per 100&nbsp;g of ingredients. It is an estimate, not a nutrition
+            label &mdash; the oil in the pan appears in no ingredient line.
+          </p>
+          <ul class="zug-punkte">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>It says &ldquo;estimated&rdquo; right there, every time.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Broken down per ingredient, so you can see where the number comes from.</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-haken"/></svg>
+              <span>Change an ingredient and the app estimates again when you save.</span></li>
+          </ul>
+        </div>
+        <div class="zug-bild" data-auftritt style="--i:1">
+          <div class="telefon">
+            <img class="schirm-bild" src="../bilder/app-naehrwerte.webp"
+                 width="640" height="1436" loading="lazy" decoding="async"
+                 alt="A recipe's nutrition tab: estimated values per 100 g and the per-ingredient breakdown below.">
           </div>
         </div>
       </div>
